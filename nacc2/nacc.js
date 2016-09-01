@@ -48,6 +48,30 @@ NACC.prototype.m_month_popup = null;
 NACC.prototype.m_day_popup = null;
 /// This is the year popup.
 NACC.prototype.m_year_popup = null;
+/// This is the calculate button.
+NACC.prototype.m_calculate_button = null;
+
+/***********************************************************************/
+/**
+    \brief  This is the initialization function for an NACC instance.
+    
+    \param  inContainerElement A reference to a DOM element that will
+            contain the NACC instance. It should be an empty div element.
+*/
+NACC.prototype.init = function(inContainerElement) {
+    inContainerElement.nacc_instance = this;    // Link this NACC instance with the container element.
+    // Make sure the container is tagged with the NACC-Instance class.
+    if ( inContainerElement.className ) {
+        inContainerElement.className += ' NACC-Instance';   // Appending to an existing class.
+    } else {
+        inContainerElement.className = 'NACC-Instance';     // From scratch.
+    };
+    
+    this.m_my_container = inContainerElement;
+    
+    this.createHeader();
+    this.createForm();
+};
 
 /***********************************************************************/
 /**
@@ -111,6 +135,35 @@ NACC.prototype.createDOMObject = function(inObjectName, inClass, inContainer) {
 
 /***********************************************************************/
 /**
+    \brief  This creates the a single select option, and appends it into the given select.
+    
+    \param  inSelectObject This is the select element that will contain the option.
+    \param  inDisplayString This is the string to be displayed.
+    \param  inValue This is the value for the option.
+    \param  inDisabled if true, then the option is disabled.
+    
+    \returns the option object (which is automatically added to the select).
+*/
+NACC.prototype.createOptionObject = function(inSelectObject, inDisplayString, inValue, inDisabled) {
+    var newObject = null;
+    
+    if ( inSelectObject && inDisplayString ) {  // We can do without a value, but need a select and a display string.
+        newObject = this.createDOMObject('option', 'NACC-Option', inSelectObject);
+        
+        if ( newObject ) {
+            newObject.value = inValue;
+            newObject.innerHTML = inDisplayString;
+            if ( inDisabled ) {
+                newObject.enabled = false;
+            };
+        };
+    };
+    
+    return newObject;
+};
+
+/***********************************************************************/
+/**
     \brief  This creates the header at the top of the form.
 */
 NACC.prototype.createHeader = function() {
@@ -128,7 +181,9 @@ NACC.prototype.createHeader = function() {
 NACC.prototype.createForm = function() {
     this.m_my_form = this.createDOMObject('form', 'NACC-Form', this.m_my_container);
     
-    if ( null != this.m_my_form ) {  
+    if ( null != this.m_my_form ) {
+        this.m_my_form.action = '#';
+        this.m_my_form.method = 'GET';
         this.createFieldset();
     };
 };
@@ -180,6 +235,7 @@ NACC.prototype.createPopupContainer = function() {
         this.createMonthPopup();
         this.createDayPopup();
         this.createYearPopup();
+        this.createCalculateButton();
     };
 };
 
@@ -191,7 +247,13 @@ NACC.prototype.createMonthPopup = function() {
     this.m_month_popup = this.createDOMObject('select', 'NACC-Month', this.m_popup_container);
     
     if ( null != this.m_month_popup ) {  
+        var nowMonth = new Date().getMonth();
         this.m_my_prompt.setAttribute('for', this.m_month_popup.id);
+        for ( var i = 1; i < 13; i++ ) {
+            var selectedMonth = this.lang_months[i];
+            selectedOption = this.createOptionObject(this.m_month_popup, selectedMonth, i.toString(), false);
+        };
+        this.m_month_popup.selectedIndex = nowMonth;
     };
 };
 
@@ -203,6 +265,11 @@ NACC.prototype.createDayPopup = function() {
     this.m_day_popup = this.createDOMObject('select', 'NACC-Day', this.m_popup_container);
     
     if ( null != this.m_day_popup ) {  
+        var nowDay = new Date().getDate();
+        for ( var day = 1; day < 32; day++ ) {
+            selectedOption = this.createOptionObject(this.m_day_popup, day.toString(), day.toString(), false);
+        };
+        this.m_day_popup.selectedIndex = nowDay - 1;
     };
 };
 
@@ -224,51 +291,13 @@ NACC.prototype.createYearPopup = function() {
 
 /***********************************************************************/
 /**
-    \brief  This creates the a single select option, and appends it into the given select.
-    
-    \param  inSelectObject This is the select element that will contain the option.
-    \param  inDisplayString This is the string to be displayed.
-    \param  inValue This is the value for the option.
-    \param  inDisabled if true, then the option is disabled.
-    
-    \returns the option object (which is automatically added to the select).
+    \brief  This creates the calculate button.
 */
-NACC.prototype.createOptionObject = function(inSelectObject, inDisplayString, inValue, inDisabled) {
-    var newObject = null;
+NACC.prototype.createCalculateButton = function() {
+    this.m_calculate_button = this.createDOMObject('input', 'NACC-Calculate-Button', this.m_popup_container);
     
-    if ( inSelectObject && inDisplayString ) {  // We can do without a value, but need a select and a display string.
-        newObject = this.createDOMObject('option', 'NACC-Option', inSelectObject);
-        
-        if ( newObject ) {
-            newObject.value = inValue;
-            newObject.innerHTML = inDisplayString;
-            if ( inDisabled ) {
-                newObject.enabled = false;
-            };
-        };
+    if ( null != this.m_calculate_button ) {
+        this.m_calculate_button.setAttribute('type', 'submit');
+        this.m_calculate_button.value = this.lang_calculate_button_text;
     };
-    
-    return newObject;
-};
-
-/***********************************************************************/
-/**
-    \brief  This is the initialization function for an NACC instance.
-    
-    \param  inContainerElement A reference to a DOM element that will
-            contain the NACC instance. It should be an empty div element.
-*/
-NACC.prototype.init = function(inContainerElement) {
-    inContainerElement.nacc_instance = this;    // Link this NACC instance with the container element.
-    // Make sure the container is tagged with the NACC-Instance class.
-    if ( inContainerElement.className ) {
-        inContainerElement.className += ' NACC-Instance';   // Appending to an existing class.
-    } else {
-        inContainerElement.className = 'NACC-Instance';     // From scratch.
-    };
-    
-    this.m_my_container = inContainerElement;
-    
-    this.createHeader();
-    this.createForm();
 };

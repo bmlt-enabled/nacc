@@ -20,3 +20,20 @@
 NACC.prototype.lang_section_title           = 'NA Cleantime Calculator';
 /** This is the prompt over the popup menus. */
 NACC.prototype.lang_prompt                  = 'Please enter your Clean Date';
+/** This is the text for the calculate button. */
+NACC.prototype.lang_calculate_button_text   = 'Calculate';
+/** These are the months, spelled out. */
+NACC.prototype.lang_months                  = Array(    "ERROR",
+                                                        "January",
+                                                        "February",
+                                                        "March",
+                                                        "April",
+                                                        "May",
+                                                        "June",
+                                                        "July",
+                                                        "August",
+                                                        "September",
+                                                        "October",
+                                                        "November",
+                                                        "December"
+                                                    );

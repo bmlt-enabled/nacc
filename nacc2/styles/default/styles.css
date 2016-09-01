@@ -34,6 +34,19 @@
     font-weight: bold;
 }
 
+.NACC-Instance .NACC-Fieldset {
+    border-radius: 0.3em;
+    border: solid 1px gray;
+    padding: 0.25em;
+}
+
+.NACC-Instance .NACC-Legend {
+    border-radius: 0.25em;
+    border: solid 1px gray;
+    padding: 0.25em;
+    background: linear-gradient(to top, gray, white);
+}
+
 .NACC-Instance .NACC-Prompt-Label {
     display: block;
 }
