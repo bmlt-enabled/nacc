@@ -63,6 +63,65 @@ NACC.prototype.m_calculation_results_keytags_div = null;
 
 /***********************************************************************/
 /**
+    \brief  This allows us to compare today to a given date.
+            
+            Cribbed from here: https://gist.github.com/clecuona/2945438
+    
+    \param  inFromDate The date that will be the one we compare against.
+            This date should always be earlier than the current date.
+    
+    \returns an object, with the total number of days, and the span, in years, months and days.
+*/
+NACC.prototype.dateSpan = function(inFromDate) {
+    var difference = new Object;
+    
+    difference.totalDays = 0;
+    difference.years = 0;
+    difference.months = 0;
+    difference.days = 0;
+    
+    var dt2 = new Date();
+    var dt1 = inFromDate;
+    
+    if ( dt2 > dt1 ) {
+        difference.totalDays = parseInt((dt2.getTime() - dt1.getTime()) / 86400000);
+        
+        var year1 = dt1.getFullYear();
+        var year2 = dt2.getFullYear();
+
+        var month1 = dt1.getMonth();
+        var month2 = dt2.getMonth();
+
+        var day1 = dt1.getDate();
+        var day2 = dt2.getDate();
+        
+        difference.years = year2 - year1;
+        difference.months = month2 - month1;
+        difference.days = day2 - day1;
+
+        if ( difference.days < 0 ) {
+            /*
+             * Use temporary dates to get the number of days remaining in the month
+             */
+            var dtmp1 = new Date(year1, month1 + 1, 1, 0, 0, -1);
+
+            var numDays = dtmp1.getDate();
+
+            difference.months -= 1;
+            difference.days += numDays;
+        };
+        
+        if ( difference.months < 0 ) {
+            difference.months += 12;
+            difference.years -= 1;
+        };
+    };
+    
+    return difference;
+};
+
+/***********************************************************************/
+/**
     \brief  This is the initialization function for an NACC instance.
     
     \param  inContainerElement A reference to a DOM element that will
@@ -243,6 +302,7 @@ NACC.prototype.createPopupContainer = function() {
         this.createMonthPopup();
         this.createDayPopup();
         this.createYearPopup();
+        this.evaluateMonthDays();
         this.createCalculateButton();
         this.createDOMObject('div', 'breaker', this.m_popup_container);
     };
@@ -263,6 +323,8 @@ NACC.prototype.createMonthPopup = function() {
             selectedOption = this.createOptionObject(this.m_month_popup, selectedMonth, i.toString(), false);
         };
         this.m_month_popup.selectedIndex = nowMonth;
+        this.m_month_popup.owner = this;
+        this.m_month_popup.onchange = function(){NACC.prototype.monthOrYearPopupChanged(this)};
     };
 };
 
@@ -295,6 +357,8 @@ NACC.prototype.createYearPopup = function() {
             selectedOption = this.createOptionObject(this.m_year_popup, year, year, false);
         };
         this.m_year_popup.selectedIndex = this.m_year_popup.options.length - 1;
+        this.m_year_popup.owner = this;
+        this.m_year_popup.onchange = function(){NACC.prototype.monthOrYearPopupChanged(this)};
     };
 };
 
@@ -315,7 +379,35 @@ NACC.prototype.createCalculateButton = function() {
 
 /***********************************************************************/
 /**
+    \brief  This is called when the month popup is changed.
+*/
+NACC.prototype.evaluateMonthDays = function() {
+    var dtmp1 = new Date(this.m_year_popup.value, this.m_month_popup.value, 1, 0, 0, -1);
+
+    var numDays = parseInt(dtmp1.getDate());
+    this.m_day_popup.selectedIndex = Math.min(this.m_day_popup.selectedIndex + 1, numDays) - 1;
+    
+    for ( var i = 0; i < this.m_day_popup.options.length; i++ ) {
+        this.m_day_popup.options[i].disabled = (i >= numDays);
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This is called when the month or year popup is changed.
+            The day popup is adjusted to reflect the available days.
+    
+    \param  inObject This is the popup object. We use it to get our main instance.
+*/
+NACC.prototype.monthOrYearPopupChanged = function(inObject) {
+    inObject.owner.evaluateMonthDays();
+};
+
+/***********************************************************************/
+/**
     \brief  This actually performs the calculation.
+    
+    \param  inObject This is the button object. We use it to get our main instance.
 */
 NACC.prototype.calculateCleantime = function(inObject) {
     var owner = inObject.owner;
@@ -323,11 +415,13 @@ NACC.prototype.calculateCleantime = function(inObject) {
     var month = parseInt(owner.m_month_popup.value) - 1;
     var day = parseInt(owner.m_day_popup.value);
     
+    // First, we get the date from the popup menus...
     var fromDate = new Date(year, month, day, 0, 0, 0, 0);
-    var toDate = new Date();
     
-    if ( toDate > fromDate ) {
-    };
+    // And compare it to today.
+    var difference = this.dateSpan(fromDate);
+    
+    alert ( "years: " + difference.years.toString() + "\nmonths: " + difference.months.toString() +  "\ndays: " + difference.days.toString() + "\ntotal days: " + difference.totalDays.toString() );
 };
 
 /***********************************************************************/
