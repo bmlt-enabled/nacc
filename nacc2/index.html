@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--
+            **********************************************************
+            *           The NA Cleatime Calculator (NACC)            *
+            **********************************************************
+    
+            NACC is free software: you can redistribute it and/or modify
+            it under the terms of the GNU General Public License as published by
+            the Free Software Foundation, either version 3 of the License, or
+            (at your option) any later version.
+
+            BMLT is distributed in the hope that it will be useful,
+            but WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+            GNU General Public License for more details.
+
+            You should have received a copy of the GNU General Public License
+            along with this code.  If not, see <http://www.gnu.org/licenses/>.
+
+            **********************************************************
+            *                   HTML HEADER STUFF                    *
+            **********************************************************
+
+            **********************************************************
+            *              USED ONLY FOR THIS EXAMPLE                *
+            **********************************************************
+            * These are header elements that are only relevant to    *
+            * this sample file, and are not necessary for other      *
+            * implementations of the NACC.                           *
+            **********************************************************
+        -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <meta http-equiv="Content-Style-Type" content="text/css" />
+        <meta http-equiv="Content-Script-Type" content="text/javascript" />
+        <title>NACC 2</title>
+        
+        <!--
+            **********************************************************
+            *                     DO NOT CHANGE                      *
+            **********************************************************
+            * These are the default (global) scripts and styles.     *
+            * Do not change these.                                   *
+            **********************************************************
+        -->
+        <script type="text/javascript" src="nacc.js"></script>
+        <link rel="stylesheet" type="text/css" href="nacc.css" />
+        
+        <!--
+            **********************************************************
+            *          CHANGE THE HEADER ELEMENTS BELOW              *
+            **********************************************************
+            * You need to select the proper header elements by       *
+            * deleting or commenting out lines that you don't want,  *
+            * and uncommenting lines that you do want.               *
+            **********************************************************
+
+            **********************************************************
+            *                    SELECT A STYLE                      *
+            **********************************************************
+            * Choose a style by uncommenting the desired stylesheet. *
+            * Be sure to comment out (or delete) the lines pointing  *
+            * to other stylesheets.                                  *
+            **********************************************************
+        -->
+        <link rel="stylesheet" type="text/css" href="styles/default/styles.css" /> <!-- Default (Gray) -->
+        <!-- <link rel="stylesheet" type="text/css" href="styles/bt/styles.css" /> <!-- Basic Text (Blue and White) -->
+        
+        <!--
+            **********************************************************
+            *                   SELECT A LANGUAGE                    *
+            **********************************************************
+            * Choose a language by uncommenting the desired script.  *
+            * Be sure to comment out (or delete) the lines pointing  *
+            * to other scripts.                                      *
+            **********************************************************
+        -->
+        <script type="text/javascript" src="lang/en.js"></script> <!-- English -->
+        <!-- <script type="text/javascript" src="lang/en.js"></script> <!-- English -->
+    </head>
+    <body>
+        <div id="nacc-container"></div>
+        <script type="text/javascript">new NACC('nacc-container');</script>
+    </body>
+</html>
