@@ -21,8 +21,27 @@
     width: 100%;
 }
 
+/** This is a generic "breaker" element that is designed to break floats. */
+.NACC-Instance .breaker {
+    float: none;
+    clear: both;
+}
+
 /** This is the header, at the top. */
 .NACC-Instance .NACC-Header {
     padding: 0.25em;
     text-align: center;
+}
+
+/** This is the label for the popups. */
+.NACC-Instance .NACC-Prompt-Label {
+    display: block;
+}
+
+/* These rules apply to all the selects and the calculate button. */
+.NACC-Instance .NACC-Legend select,
+.NACC-Instance .NACC-Legend input {
+    display: block;
+    float:left;
+    margin-left: 0.125em;
 }

@@ -50,6 +50,16 @@ NACC.prototype.m_day_popup = null;
 NACC.prototype.m_year_popup = null;
 /// This is the calculate button.
 NACC.prototype.m_calculate_button = null;
+/// This is the calculate results div.
+NACC.prototype.m_calculation_results_div = null;
+/// This is the calculate results display toggle button div.
+NACC.prototype.m_calculation_results_display_toggle_div = null;
+/// This is the calculate results display toggle button.
+NACC.prototype.m_calculation_results_display_toggle_button = null;
+/// This is the calculate results text div.
+NACC.prototype.m_calculation_results_text_div = null;
+/// This is the calculate results keytags div.
+NACC.prototype.m_calculation_results_keytags_div = null;
 
 /***********************************************************************/
 /**
@@ -182,8 +192,6 @@ NACC.prototype.createForm = function() {
     this.m_my_form = this.createDOMObject('form', 'NACC-Form', this.m_my_container);
     
     if ( null != this.m_my_form ) {
-        this.m_my_form.action = '#';
-        this.m_my_form.method = 'GET';
         this.createFieldset();
     };
 };
@@ -236,6 +244,7 @@ NACC.prototype.createPopupContainer = function() {
         this.createDayPopup();
         this.createYearPopup();
         this.createCalculateButton();
+        this.createDOMObject('div', 'breaker', this.m_popup_container);
     };
 };
 
@@ -246,7 +255,7 @@ NACC.prototype.createPopupContainer = function() {
 NACC.prototype.createMonthPopup = function() {
     this.m_month_popup = this.createDOMObject('select', 'NACC-Month', this.m_popup_container);
     
-    if ( null != this.m_month_popup ) {  
+    if ( null != this.m_month_popup ) {
         var nowMonth = new Date().getMonth();
         this.m_my_prompt.setAttribute('for', this.m_month_popup.id);
         for ( var i = 1; i < 13; i++ ) {
@@ -297,7 +306,34 @@ NACC.prototype.createCalculateButton = function() {
     this.m_calculate_button = this.createDOMObject('input', 'NACC-Calculate-Button', this.m_popup_container);
     
     if ( null != this.m_calculate_button ) {
-        this.m_calculate_button.setAttribute('type', 'submit');
+        this.m_calculate_button.setAttribute('type', 'button');
         this.m_calculate_button.value = this.lang_calculate_button_text;
+        this.m_calculate_button.owner = this;
+        this.m_calculate_button.onclick = function(){NACC.prototype.calculateCleantime(this)};
     };
 };
+
+/***********************************************************************/
+/**
+    \brief  This actually performs the calculation.
+*/
+NACC.prototype.calculateCleantime = function(inObject) {
+    var owner = inObject.owner;
+    var year = parseInt(owner.m_year_popup.value);
+    var month = parseInt(owner.m_month_popup.value) - 1;
+    var day = parseInt(owner.m_day_popup.value);
+    
+    var fromDate = new Date(year, month, day, 0, 0, 0, 0);
+    var toDate = new Date();
+    
+    if ( toDate > fromDate ) {
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This displays the results of the calculation.
+*/
+NACC.prototype.displayCalculationResults = function() {
+};
+
