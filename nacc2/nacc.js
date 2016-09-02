@@ -25,11 +25,63 @@
     
     \param  inContainerElementID A DOM ID to the DOM element that will
             contain this instance. It should be an empty div element.
+    \param  inLang A string, with the language selector.
 */
-function NACC(inContainerElementID) {
-    this.init(document.getElementById(inContainerElementID));
+function NACC(inContainerElementID, inLang) {
+    if ( inLang ) {
+        this.lang_selector = inLang;
+    } else {
+        this.lang_selector = 'en';
+    };
+    
+    this.lang = Array();
+    this.lang['en'] = new Object();
+    
+    /************************************/
+    /*           LOCALIZATION           */
+    /************************************/
+    /** This is the header, at the top. */
+    this.lang['en'].section_title           = 'NA Cleantime Calculator';
+    /** This is the prompt over the popup menus. */
+    this.lang['en'].prompt                  = 'Please enter your Clean Date';
+    /** This is the text for the calculate button. */
+    this.lang['en'].calculate_button_text   = 'Calculate';
+    /** These are the months, spelled out. */
+    this.lang['en'].months                  = Array("ERROR",
+                                                    "January",
+                                                    "February",
+                                                    "March",
+                                                    "April",
+                                                    "May",
+                                                    "June",
+                                                    "July",
+                                                    "August",
+                                                    "September",
+                                                    "October",
+                                                    "November",
+                                                    "December"
+                                                    );
+    
+    /************************************/
+    /*            MAIN CODE             */
+    /************************************/
+    this.m_my_container = document.getElementById(inContainerElementID);
+    this.m_my_container.nacc_instance = this;    // Link this NACC instance with the container element.
+    // Make sure the container is tagged with the NACC-Instance class.
+    if ( this.m_my_container.className ) {
+        this.m_my_container.className += ' NACC-Instance';   // Appending to an existing class.
+    } else {
+        this.m_my_container.className = 'NACC-Instance';     // From scratch.
+    };
+    
+    this.createHeader();
+    this.createForm();
 };
 
+/** This is the language selector. */
+NACC.prototype.lang_selector = null;
+/** This is an array, with all the language-specific strings. */
+NACC.prototype.lang = null;
 /// This is the object that "owns" this instance.
 NACC.prototype.m_my_container = null;
 /// This is the form that contains the popups.
@@ -118,28 +170,6 @@ NACC.prototype.dateSpan = function(inFromDate) {
     };
     
     return difference;
-};
-
-/***********************************************************************/
-/**
-    \brief  This is the initialization function for an NACC instance.
-    
-    \param  inContainerElement A reference to a DOM element that will
-            contain the NACC instance. It should be an empty div element.
-*/
-NACC.prototype.init = function(inContainerElement) {
-    inContainerElement.nacc_instance = this;    // Link this NACC instance with the container element.
-    // Make sure the container is tagged with the NACC-Instance class.
-    if ( inContainerElement.className ) {
-        inContainerElement.className += ' NACC-Instance';   // Appending to an existing class.
-    } else {
-        inContainerElement.className = 'NACC-Instance';     // From scratch.
-    };
-    
-    this.m_my_container = inContainerElement;
-    
-    this.createHeader();
-    this.createForm();
 };
 
 /***********************************************************************/
@@ -239,7 +269,7 @@ NACC.prototype.createHeader = function() {
     var newObject = this.createDOMObject('div', 'NACC-Header', this.m_my_container);
     
     if ( null != newObject ) {  
-        newObject.innerHTML = this.lang_section_title;
+        newObject.innerHTML = this.lang[this.lang_selector].section_title;
     };
 };
 
@@ -287,7 +317,7 @@ NACC.prototype.createPrompt = function() {
     this.m_my_prompt = this.createDOMObject('label', 'NACC-Prompt-Label', this.m_my_legend);
     
     if ( null != this.m_my_prompt ) {  
-        this.m_my_prompt.innerHTML = this.lang_prompt;
+        this.m_my_prompt.innerHTML = this.lang[this.lang_selector].prompt;
     };
 };
 
@@ -319,7 +349,7 @@ NACC.prototype.createMonthPopup = function() {
         var nowMonth = new Date().getMonth();
         this.m_my_prompt.setAttribute('for', this.m_month_popup.id);
         for ( var i = 1; i < 13; i++ ) {
-            var selectedMonth = this.lang_months[i];
+            var selectedMonth = this.lang[this.lang_selector].months[i];
             selectedOption = this.createOptionObject(this.m_month_popup, selectedMonth, i.toString(), false);
         };
         this.m_month_popup.selectedIndex = nowMonth;
@@ -371,7 +401,7 @@ NACC.prototype.createCalculateButton = function() {
     
     if ( null != this.m_calculate_button ) {
         this.m_calculate_button.setAttribute('type', 'button');
-        this.m_calculate_button.value = this.lang_calculate_button_text;
+        this.m_calculate_button.value = this.lang[this.lang_selector].calculate_button_text;
         this.m_calculate_button.owner = this;
         this.m_calculate_button.onclick = function(){NACC.prototype.calculateCleantime(this)};
     };
