@@ -64,21 +64,30 @@ function NACC(inContainerElementID, inStyle, inLang) {
                                                     "November",
                                                     "December"
                                                     );
+    /** These are for the top (days) blurb. */
     this.lang['en'].result_1_day                            = 'You have been clean for 1 day!';
-    this.lang['en'].result_1_month                          = 'You have been clean for 1 month!';
-    this.lang['en'].result_1_year                           = 'You have been clean for 1 year!';
-    this.lang['en'].result_1_month_and_1_day                = 'You have been clean for 1 month and 1 day!';
-    this.lang['en'].result_1_year_and_1_day                 = 'You have been clean for 1 year and 1 day!';
-    this.lang['en'].result_1_year_and_1_month               = 'You have been clean for 1 year and 1 month!';
-    this.lang['en'].result_1_year_1_month_and_1_day         = 'You have been clean for 1 year, 1 month and 1 day!';
     this.lang['en'].result_days_format                      = 'You have been clean for %d days!';
-    this.lang['en'].result_months_format                    = 'You have been clean for %d months!';
-    this.lang['en'].result_years_format                     = 'You have been clean for %d years!';
-    this.lang['en'].result_months_and_1_day_format          = 'You have been clean for %d months and 1 day!';
-    this.lang['en'].result_years_1_month_and_1_day_format   = 'You have been clean for %d years, 1 month and 1 day!';
-    this.lang['en'].result_years_months_and_1_day_format    = 'You have been clean for %d years, %d months and 1 day!';
-    this.lang['en'].result_years_1_month_and_days_format    = 'You have been clean for %d years, 1 month and %d days!';
-    this.lang['en'].result_years_months_and_days_format     = 'You have been clean for %d years, %d months and %d days!';
+
+    /** These are for the second (months, years and days) blurb. */
+    this.lang['en'].result_1_year                           = 'This is 1 year.';
+    this.lang['en'].result_1_year_and_1_day                 = 'This is 1 year and 1 day.';
+    this.lang['en'].result_1_year_and_1_month               = 'This is 1 year and 1 month.';
+    this.lang['en'].result_1_year_1_month_and_1_day         = 'This is 1 year, 1 month and 1 day.';
+    this.lang['en'].result_1_year_months_and_1_day_format   = 'This is 1 year, %d months and 1 day.';
+    this.lang['en'].result_1_year_days_format               = 'This is 1 year and %d days.';
+    // There is no 1 month, as everything is for more than 90 days.
+    this.lang['en'].result_months_format                    = 'This is %d months.';
+    this.lang['en'].result_years_format                     = 'This is %d years.';
+    this.lang['en'].result_years_months_format              = 'This is %d years and %d months.';
+    this.lang['en'].result_months_and_1_day_format          = 'This is %d months and 1 day.';
+    this.lang['en'].result_months_and_days_format           = 'This is %d months and %d days.';
+    this.lang['en'].result_years_1_month_and_1_day_format   = 'This is %d years, 1 month and 1 day.';
+    this.lang['en'].result_years_months_and_1_day_format    = 'This is %d years, %d months and 1 day.';
+    this.lang['en'].result_years_and_1_month_format         = 'This is %d years and 1 month.';
+    this.lang['en'].result_years_and_1_day_format           = 'This is %d years and 1 day.';
+    this.lang['en'].result_years_and_days_format            = 'This is %d years and %d days.';
+    this.lang['en'].result_years_1_month_and_days_format    = 'This is %d years, 1 month and %d days.';
+    this.lang['en'].result_years_months_and_days_format     = 'This is %d years, %d months and %d days.';
     
     /************************************/
     /*            MAIN CODE             */
@@ -318,7 +327,53 @@ NACC.prototype.displayCalculationResults = function(inCalculationResults) {
         days_blurb = this.sprintf(this.lang[this.lang_selector].result_days_format, inCalculationResults.totalDays);
     };
     
-alert ( days_blurb + "\nyears: " + inCalculationResults.years.toString() + "\nmonths: " + inCalculationResults.months.toString() +  "\ndays: " + inCalculationResults.days.toString() + "\ntotal days: " + inCalculationResults.totalDays.toString() );
+    var main_blurb = '';
+    
+    if ( 90 < inCalculationResults.totalDays ) {
+        if ( 0 < inCalculationResults.years ) {
+            if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                main_blurb = this.lang[this.lang_selector].result_1_year;
+            } else if ( (1 == inCalculationResults.years) && (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                main_blurb = this.lang[this.lang_selector].result_1_year_and_1_month;
+            } else if ( (1 == inCalculationResults.years) && (1 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                main_blurb = this.lang[this.lang_selector].result_1_year_1_month_and_1_day;
+            } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                main_blurb = this.lang[this.lang_selector].result_1_year_and_1_day;
+            } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_1_year_days_format, inCalculationResults.days);
+            } else if ( (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_format, inCalculationResults.years);
+            } else if ( (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_1_month_format, inCalculationResults.years);
+            } else if ( (0 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_1_day_format, inCalculationResults.years);
+            } else if ( 1 == inCalculationResults.months ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_1_month_and_days_format, inCalculationResults.years, inCalculationResults.days);
+            } else if ( 1 == inCalculationResults.days ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_and_1_day_format, inCalculationResults.years, inCalculationResults.months);
+            } else if ( (0 == inCalculationResults.days) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_format, inCalculationResults.years, inCalculationResults.months);
+            } else if ( (0 == inCalculationResults.months) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_days_format, inCalculationResults.years, inCalculationResults.days);
+            } else {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_and_days_format, inCalculationResults.years, inCalculationResults.months, inCalculationResults.days);
+            };
+        } else {
+            if ( (1 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                main_blurb = this.lang[this.lang_selector].result_1_month_and_1_day;
+            } else if ( (1 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_1_month_days_format, inCalculationResults.days);
+            } else if ( (1 < inCalculationResults.months) && (1 < inCalculationResults.days) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_and_days_format, inCalculationResults.months, inCalculationResults.days);
+            } else if ( (1 < inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_and_1_day_format, inCalculationResults.months);
+            } else if ( (1 < inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_format, inCalculationResults.months);
+            };
+        };
+    };
+    
+    this.createResultsDiv(inCalculationResults.totalDays, days_blurb, main_blurb);
 };
 
 /***********************************************************************/
@@ -501,6 +556,76 @@ NACC.prototype.createCalculateButton = function() {
         this.m_calculate_button.value = this.lang[this.lang_selector].calculate_button_text;
         this.m_calculate_button.owner = this;
         this.m_calculate_button.onclick = function(){NACC.prototype.calculateCleantime(this)};
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates the results div.
+    
+    \brief  inNumDays The total number of days (used to determine keytags).
+    \brief  inDays The string to display the number of days.
+    \brief  inMain The string to display the main blurb.
+*/
+NACC.prototype.createResultsDiv = function(inNumDays, inDays, inMain) {
+    if ( this.m_calculation_results_div ) {
+        this.m_calculation_results_div.innerHTML = '';
+    } else {
+        this.m_calculation_results_div = this.createDOMObject('div', 'NACC-Results', this.m_my_fieldset);
+    };
+    
+    if ( this.m_calculation_results_div ) {
+        this.createResultsTextDiv(inDays, inMain);
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates the results text div.
+    
+    \brief  inDays The string to display the number of days.
+    \brief  inMain The string to display the main blurb.
+*/
+NACC.prototype.createResultsTextDiv = function(inDays, inMain) {
+    if ( inDays ) {
+        this.m_calculation_results_text_div = this.createDOMObject('div', 'NACC-Results-Text', this.m_calculation_results_div);
+        
+        if ( this.m_calculation_results_text_div ) {
+            this.createResultsDays(inDays);
+            this.createResultsMain(inMain);
+        };
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates the first line of the results (days).
+    
+    \brief  inBlurb The string to display.
+*/
+NACC.prototype.createResultsDays = function(inBlurb) {
+    if ( inBlurb ) {
+        var newObject = this.createDOMObject('div', 'NACC-Days', this.m_calculation_results_text_div);
+    
+        if ( null != newObject ) {  
+            newObject.innerHTML = inBlurb;
+        };
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates the second line of the results (main blurb).
+    
+    \brief  inBlurb The string to display.
+*/
+NACC.prototype.createResultsMain = function(inBlurb) {
+    if ( inBlurb ) {
+        var newObject = this.createDOMObject('div', 'NACC-MainBlurb', this.m_calculation_results_text_div);
+    
+        if ( null != newObject ) {  
+            newObject.innerHTML = inBlurb;
+        };
     };
 };
 

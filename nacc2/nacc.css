@@ -46,6 +46,18 @@
     margin-left: 0.125em;
 }
 
+.NACC-Instance .NACC-Results {
+}
+
+.NACC-Instance .NACC-Results-Text {
+}
+
+.NACC-Instance .NACC-Days {
+}
+
+.NACC-Instance .NACC-MainBlurb {
+}
+
 /****************************************************/
 /*              DEFAULT (GRAY) STYLE                */
 /****************************************************/
@@ -58,6 +70,7 @@
 }
 
 .NACC-Instance .NACC-Header,
+.NACC-Instance .NACC-Results-Text,
 .NACC-Instance .NACC-Prompt-Label {
     font-family: Arial,Sans-Serif;
     color: black;
@@ -80,6 +93,10 @@
     border: solid 1px gray;
     padding: 0.25em;
     background: linear-gradient(to top, gray, white);
+}
+
+.NACC-Instance .NACC-Results-Text {
+    text-align: center;
 }
 
 /****************************************************/
