@@ -31,8 +31,9 @@
     \param  inLang A string, with the language selector.
     \param  inTagLayout The tag layout (either 'linear' or 'tabular' -default is 'linear')
     \param  inShowSpecialTags If true, then the "specialty" (over 2 years) tags are displayed. Default is false.
+    \param  inDirectoryRoot This is a path (relative to the execution path) to the main directory.
 */
-function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialTags) {
+function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialTags, inDirectoryRoot) {
     this.m_lang = Array();
     
     /************************************/
@@ -96,6 +97,16 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     /************************************/
     // First, see if we have any GET parameters supplied.
     this.m_getParameters = this.getParameters();
+    
+    if ( this.m_getParameters["NACC-dir-root"] ) {
+        this.m_relative_directory_root = this.m_getParameters["NACC-dir-root"] + '/';
+    } else {
+        if ( inDirectoryRoot ) {
+            this.m_relative_directory_root = inDirectoryRoot + '/';
+        } else {
+            this.m_relative_directory_root = '';
+        };
+    };
     
     if ( this.m_getParameters["NACC-style"] ) {
         this.m_style_selector = this.m_getParameters["NACC-style"];
@@ -185,6 +196,8 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
 ********************************************************************************************/
 /// This contains any GET parameters.
 NACC.prototype.m_getParameters = null;
+/// This contains any directory offset (used when in plugin situations).
+NACC.prototype.m_relative_directory_root = null;
 /// This is the style selector.
 NACC.prototype.m_style_selector = null;
 /// This is the language selector.
@@ -502,6 +515,28 @@ NACC.prototype.createOptionObject = function(inSelectObject, inDisplayString, in
 
 /***********************************************************************/
 /**
+    \brief  This creates and returns one keytag object, as a div.
+*/
+NACC.prototype.createKeytag = function(inSrc, inContainer, isClosed) {
+    var newObject = this.createDOMObject('div', 'NACC-Keytag', this.m_my_container);
+    
+    if ( null != newObject ) {
+        var imgObject = this.createDOMObject('img', 'NACC-Keytag-Body', newObject);
+    
+        if ( null != imgObject ) {
+            imgObject.src = inSrc;
+            
+            if ( isClosed ) {
+                newObject.className += ' NACC-Keytag-Ringtop';
+            };
+        };
+    };
+    
+    return newObject;
+};
+
+/***********************************************************************/
+/**
     \brief  This creates the header at the top of the div.
 */
 NACC.prototype.createHeader = function() {
@@ -729,7 +764,8 @@ NACC.prototype.createTagsDiv = function(inNumDays) {
         this.m_calculation_results_keytags_div = this.createDOMObject('div', 'NACC-Keytags', this.m_calculation_results_div);
     };
     
-    if ( null != this.m_calculation_results_keytags_div ) {  
+    if ( null != this.m_calculation_results_keytags_div ) {
+        var tagDiv = this.createKeytag(this.m_relative_directory_root + 'images/' + this.m_lang_selector + '/01_Front.png', this.m_calculation_results_keytags_div, true);
     };
 };
 

@@ -69,6 +69,27 @@
 
 /** This is the container for the keytag display. */
 .NACC-Instance .NACC-Keytags {
+    text-align: center;
+}
+
+/** This is a wrapper of one keytag */
+.NACC-Instance .NACC-Keytag,
+/** This is a wrapper of one keytag's body image */
+.NACC-Instance .NACC-Keytag-Body {
+    background-color: rgba ( 0, 0, 0, 0 ); /* Transparent background */
+}
+
+/** We want the wrapper to "wrap" the contained images. */
+.NACC-Instance .NACC-Keytag {
+    display: table;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.NACC-Instance .NACC-Keytag.NACC-Keytag-Ringtop {
+    background-image: url('images/00_RingTop.png');
+    background-position: top center;
+    background-repeat: no-repeat;
 }
 
 /****************************************************/
