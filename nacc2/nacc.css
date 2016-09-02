@@ -2,6 +2,10 @@
 /**
     The NA Cleatime Calculator (NACC)
     
+    This file is the stylesheet for the NACC. It has been deliberately
+    set up to apply low-specificity styling, so it can be fairly easily
+    overridden.
+    
     NACC is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -39,7 +43,7 @@
     display: block;
 }
 
-/* These rules apply to all the selects and the calculate button. */
+/** These apply to the selects and the Calculate button. */
 .NACC-Instance .NACC-Legend select,
 .NACC-Instance .NACC-Legend input {
     display: block;
@@ -47,18 +51,23 @@
     margin-left: 0.125em;
 }
 
+/** This is the main result container div. */
 .NACC-Instance .NACC-Results {
 }
 
+/** This is the text display for the results. */
 .NACC-Instance .NACC-Results-Text {
 }
 
+/** This is the first line of the text display (total days). */
 .NACC-Instance .NACC-Days {
 }
 
+/** This is the second line of the text (if provided). */
 .NACC-Instance .NACC-MainBlurb {
 }
 
+/** This is the container for the keytag display. */
 .NACC-Instance .NACC-Keytags {
 }
 
@@ -73,6 +82,7 @@
     background: linear-gradient(to bottom, gray, white);
 }
 
+/** These are the various textual items. */
 .NACC-Instance .NACC-Header,
 .NACC-Instance .NACC-Results-Text,
 .NACC-Instance .NACC-Prompt-Label {
@@ -86,12 +96,14 @@
     font-weight: bold;
 }
 
+/** This is the main form fieldset. */
 .NACC-Instance .NACC-Fieldset {
     border-radius: 0.3em;
     border: solid 1px gray;
     padding: 0.25em;
 }
 
+/** This is the legend for the fieldset, which contains the selects and calculate button. */
 .NACC-Instance .NACC-Legend {
     border-radius: 0.25em;
     border: solid 1px gray;
@@ -100,7 +112,7 @@
 }
 
 /****************************************************/
-/*             BT (BLUE AND WHITE)) STYLE           */
+/*             BT (BLUE AND WHITE) STYLE            */
 /****************************************************/
 
 /** This is the overall container */
@@ -109,18 +121,22 @@
     background: linear-gradient(to bottom, #009, white);
 }
 
+/** This is the prompt above the selects. */
 .NACC-Instance.NACC-BT .NACC-Prompt-Label {
     color: #009;
 }
 
+/** This is the header, at the top. */
 .NACC-Instance.NACC-BT .NACC-Header {
     color: white;
 }
 
+/** This is the main form fieldset. */
 .NACC-Instance.NACC-BT .NACC-Fieldset {
     border-color: white;
 }
 
+/** This is the legend for the fieldset, which contains the selects and calculate button. */
 .NACC-Instance.NACC-BT .NACC-Legend {
     border-color: white;
     background: linear-gradient(to top, #009, white);

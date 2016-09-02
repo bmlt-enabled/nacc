@@ -20,7 +20,7 @@
 */
 
 /********************************************************************************************
-*######################################## MAIN CONTEXT #####################################*
+######################################### MAIN CONTEXT ######################################
 ********************************************************************************************/
 /**
     \brief  This is the main class function for the NACC.
@@ -29,71 +29,110 @@
             contain this instance. It should be an empty div element.
     \param  inStyle This is the style (leave blank/null for default gray).
     \param  inLang A string, with the language selector.
+    \param  inTagLayout The tag layout (either 'linear' or 'tabular' -default is 'linear')
+    \param  inShowSpecialTags If true, then the "specialty" (over 2 years) tags are displayed. Default is false.
 */
-function NACC(inContainerElementID, inStyle, inLang) {
-    if ( inLang ) {
-        this.lang_selector = inLang;
-    } else {
-        this.lang_selector = 'en';
-    };
-    
-    this.lang = Array();
-    this.lang['en'] = new Object();
+function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialTags) {
+    this.m_lang = Array();
     
     /************************************/
     /*           LOCALIZATION           */
     /************************************/
-    /** This is the header, at the top. */
-    this.lang['en'].section_title           = 'NA Cleantime Calculator';
-    /** This is the prompt over the popup menus. */
-    this.lang['en'].prompt                  = 'Please enter your Clean Date';
-    /** This is the text for the calculate button. */
-    this.lang['en'].calculate_button_text   = 'Calculate';
-    /** These are the months, spelled out. */
-    this.lang['en'].months                  = Array("ERROR",
-                                                    "January",
-                                                    "February",
-                                                    "March",
-                                                    "April",
-                                                    "May",
-                                                    "June",
-                                                    "July",
-                                                    "August",
-                                                    "September",
-                                                    "October",
-                                                    "November",
-                                                    "December"
-                                                    );
-    /** These are for the top (days) blurb. */
-    this.lang['en'].result_invalid                          = 'Please select a valid cleandate!';
+    /** We need to instantiate an object for each language. The key needs to be the language selector. */
+    this.m_lang['en'] = new Object();
     
-    this.lang['en'].result_1_day                            = 'You have been clean for 1 day!';
-    this.lang['en'].result_days_format                      = 'You have been clean for %d days!';
+    /* The following are strings to be assigned to each language. */
+    
+    /** This is the header, at the top. */
+    this.m_lang['en'].section_title                         = 'NA Cleantime Calculator';
+    /** This is the prompt over the popup menus. */
+    this.m_lang['en'].prompt                                = 'Please enter your Clean Date';
+    /** This is the text for the calculate button. */
+    this.m_lang['en'].calculate_button_text                 = 'Calculate';
+    /** These are the months, spelled out. */
+    this.m_lang['en'].months                                = Array(
+                                                                    "ERROR",
+                                                                    "January",
+                                                                    "February",
+                                                                    "March",
+                                                                    "April",
+                                                                    "May",
+                                                                    "June",
+                                                                    "July",
+                                                                    "August",
+                                                                    "September",
+                                                                    "October",
+                                                                    "November",
+                                                                    "December"
+                                                                    );
+    /** These are for the top (days) blurb. */
+    this.m_lang['en'].result_invalid                        = 'Please select a valid cleandate!';
+    
+    this.m_lang['en'].result_1_day                          = 'You have been clean for 1 day!';
+    this.m_lang['en'].result_days_format                    = 'You have been clean for %d days!';
 
     /** These are for the second (months, years and days) blurb. */
-    this.lang['en'].result_1_year                           = 'This is 1 year.';
-    this.lang['en'].result_1_year_and_1_day                 = 'This is 1 year and 1 day.';
-    this.lang['en'].result_1_year_and_1_month               = 'This is 1 year and 1 month.';
-    this.lang['en'].result_1_year_1_month_and_1_day         = 'This is 1 year, 1 month and 1 day.';
-    this.lang['en'].result_1_year_months_and_1_day_format   = 'This is 1 year, %d months and 1 day.';
-    this.lang['en'].result_1_year_days_format               = 'This is 1 year and %d days.';
-    // There is no 1 month, as everything is for more than 90 days.
-    this.lang['en'].result_months_format                    = 'This is %d months.';
-    this.lang['en'].result_years_format                     = 'This is %d years.';
-    this.lang['en'].result_years_months_format              = 'This is %d years and %d months.';
-    this.lang['en'].result_months_and_1_day_format          = 'This is %d months and 1 day.';
-    this.lang['en'].result_months_and_days_format           = 'This is %d months and %d days.';
-    this.lang['en'].result_years_1_month_and_1_day_format   = 'This is %d years, 1 month and 1 day.';
-    this.lang['en'].result_years_months_and_1_day_format    = 'This is %d years, %d months and 1 day.';
-    this.lang['en'].result_years_and_1_month_format         = 'This is %d years and 1 month.';
-    this.lang['en'].result_years_and_1_day_format           = 'This is %d years and 1 day.';
-    this.lang['en'].result_years_and_days_format            = 'This is %d years and %d days.';
-    this.lang['en'].result_years_1_month_and_days_format    = 'This is %d years, 1 month and %d days.';
-    this.lang['en'].result_years_months_and_days_format     = 'This is %d years, %d months and %d days.';
+    this.m_lang['en'].result_months_format                  = 'This is %d months.';
+    this.m_lang['en'].result_months_and_1_day_format        = 'This is %d months and 1 day.';
+    this.m_lang['en'].result_months_and_days_format         = 'This is %d months and %d days.';
+    this.m_lang['en'].result_1_year                         = 'This is 1 year.';
+    this.m_lang['en'].result_1_year_and_1_day               = 'This is 1 year and 1 day.';
+    this.m_lang['en'].result_1_year_and_1_month             = 'This is 1 year and 1 month.';
+    this.m_lang['en'].result_1_year_1_month_and_1_day       = 'This is 1 year, 1 month and 1 day.';
+    this.m_lang['en'].result_1_year_months_and_1_day_format = 'This is 1 year, %d months and 1 day.';
+    this.m_lang['en'].result_1_year_days_format             = 'This is 1 year and %d days.';
+    this.m_lang['en'].result_years_format                   = 'This is %d years.';
+    this.m_lang['en'].result_years_months_format            = 'This is %d years and %d months.';
+    this.m_lang['en'].result_years_1_month_and_1_day_format = 'This is %d years, 1 month and 1 day.';
+    this.m_lang['en'].result_years_months_and_1_day_format  = 'This is %d years, %d months and 1 day.';
+    this.m_lang['en'].result_years_and_1_month_format       = 'This is %d years and 1 month.';
+    this.m_lang['en'].result_years_and_1_day_format         = 'This is %d years and 1 day.';
+    this.m_lang['en'].result_years_and_days_format          = 'This is %d years and %d days.';
+    this.m_lang['en'].result_years_1_month_and_days_format  = 'This is %d years, 1 month and %d days.';
+    this.m_lang['en'].result_years_months_and_days_format   = 'This is %d years, %d months and %d days.';
     
     /************************************/
     /*            MAIN CODE             */
     /************************************/
+    // First, see if we have any GET parameters supplied.
+    this.m_getParameters = this.getParameters();
+    
+    if ( this.m_getParameters["NACC-style"] ) {
+        this.m_style_selector = this.m_getParameters["NACC-style"];
+    } else {
+        if ( inStyle ) {
+            this.m_style_selector = inStyle;
+        } else {
+            this.m_style_selector = null;
+        };
+    };
+
+    if ( this.m_getParameters["NACC-lang"] ) {
+        this.m_lang_selector = this.m_getParameters["NACC-lang"];
+    } else {
+        if ( inLang ) {
+            this.m_lang_selector = inLang;
+        } else {
+            this.m_lang_selector = 'en';
+        };
+    };
+    
+    if ( this.m_getParameters["NACC-tag-layout"] ) {
+        this.m_keytag_layout = this.m_getParameters["NACC-tag-layout"];
+    } else {
+        if ( inTagLayout ) {
+            this.m_keytag_layout = inTagLayout;
+        } else {
+            this.m_keytag_layout = 'linear';
+        };
+    };
+    
+    if ( this.m_getParameters["NACC-special-tags"] ) {
+        this.m_keytag_special = this.m_getParameters["NACC-special-tags"] ? true : false;
+    } else {
+        this.m_keytag_special = inShowSpecialTags ? true : false;
+    };
+    
     this.m_my_container = document.getElementById(inContainerElementID);
     this.m_my_container.nacc_instance = this;    // Link this NACC instance with the container element.
     // Make sure the container is tagged with the NACC-Instance class.
@@ -103,23 +142,59 @@ function NACC(inContainerElementID, inStyle, inLang) {
         this.m_my_container.className = 'NACC-Instance';     // From scratch.
     };
     
-    if ( inStyle ) {
-        this.m_my_container.className += ' ' + inStyle;   // Append any style selection.
+    if ( this.m_style_selector ) {
+        this.m_my_container.className += ' ' + this.m_style_selector;   // Append any style selection.
     };
+        
+    this.m_keytag_special = false;
     
     this.m_my_container.innerHTML = '';
     
     this.createHeader();
     this.createForm();
+    
+    this.evaluateMonthDays();   // Update the day popup menu for the current month.
+    
+    // See if a date was supplied. If so, we immediately calculate.
+    if ( this.m_getParameters["NACC-year"] && this.m_getParameters["NACC-month"] && this.m_getParameters["NACC-day"] ) {
+        var year = parseInt(this.m_getParameters["NACC-year"]);
+        var month = parseInt(this.m_getParameters["NACC-month"]);
+        var day = parseInt(this.m_getParameters["NACC-day"]);
+        
+        if ( year && month && day ) {            
+            this.m_month_popup.selectedIndex = month - 1;
+    
+            for ( var i = 0; i < this.m_year_popup.options.length; i++ ) {
+                if ( parseInt(this.m_year_popup.options[i].value) == parseInt(year) ) {
+                    this.m_year_popup.selectedIndex = i;
+                    break;
+                };
+            };
+    
+            this.m_day_popup.selectedIndex = day - 1;
+    
+            this.evaluateMonthDays();
+
+            this.calculateCleantime(this.m_calculate_button);
+        };
+    };
 };
 
 /********************************************************************************************
-*######################################### PROPERTIES ######################################*
+########################################## PROPERTIES #######################################
 ********************************************************************************************/
+/// This contains any GET parameters.
+NACC.prototype.m_getParameters = null;
+/// This is the style selector.
+NACC.prototype.m_style_selector = null;
 /// This is the language selector.
-NACC.prototype.lang_selector = null;
+NACC.prototype.m_lang_selector = null;
 /// This is an array, with all the language-specific strings.
-NACC.prototype.lang = null;
+NACC.prototype.m_lang = null;
+/// This specifies the keytag layout.
+NACC.prototype.m_keytag_layout = null;
+/// This specifies whether the specialty keytags are displayed.
+NACC.prototype.m_keytag_special = null;
 /// This is the object that "owns" this instance.
 NACC.prototype.m_my_container = null;
 /// This is the form that contains the popups.
@@ -152,7 +227,7 @@ NACC.prototype.m_calculation_results_text_div = null;
 NACC.prototype.m_calculation_results_keytags_div = null;
 
 /********************************************************************************************
-*################################## INTERNAL UTILITY METHODS ###############################*
+################################### INTERNAL UTILITY METHODS ################################
 ********************************************************************************************/
 /**
     \brief  This allows us to compare today to a given date.
@@ -249,66 +324,68 @@ NACC.prototype.displayCalculationResults = function(inCalculationResults) {
 
     var days_blurb = '';
     if ( 1 == inCalculationResults.totalDays ) {
-        days_blurb = this.lang[this.lang_selector].result_1_day;
+        days_blurb = this.m_lang[this.m_lang_selector].result_1_day;
     } else {
-        days_blurb = this.sprintf(this.lang[this.lang_selector].result_days_format, inCalculationResults.totalDays);
+        days_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_days_format, inCalculationResults.totalDays);
     };
     
     var main_blurb = '';
     
+    // We select the appropriate format to display the result, based on how many day, months and years are in the result.
+    // We count days until 90, then months and years.
     if ( 0 < inCalculationResults.totalDays ) {
-        if ( 90 < inCalculationResults.totalDays ) {
+        if ( 90 < inCalculationResults.totalDays ) {    // Have to have more than 90 days to start counting months, years and days.
             if ( 0 < inCalculationResults.years ) {
                 if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                    main_blurb = this.lang[this.lang_selector].result_1_year;
+                    main_blurb = this.m_lang[this.m_lang_selector].result_1_year;
                 } else if ( (1 == inCalculationResults.years) && (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                    main_blurb = this.lang[this.lang_selector].result_1_year_and_1_month;
+                    main_blurb = this.m_lang[this.m_lang_selector].result_1_year_and_1_month;
                 } else if ( (1 == inCalculationResults.years) && (1 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                    main_blurb = this.lang[this.lang_selector].result_1_year_1_month_and_1_day;
+                    main_blurb = this.m_lang[this.m_lang_selector].result_1_year_1_month_and_1_day;
                 } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                    main_blurb = this.lang[this.lang_selector].result_1_year_and_1_day;
+                    main_blurb = this.m_lang[this.m_lang_selector].result_1_year_and_1_day;
                 } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_1_year_days_format, inCalculationResults.days);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_1_year_days_format, inCalculationResults.days);
                 } else if ( (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_format, inCalculationResults.years);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_format, inCalculationResults.years);
                 } else if ( (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_1_month_format, inCalculationResults.years);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_and_1_month_format, inCalculationResults.years);
                 } else if ( (0 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_1_day_format, inCalculationResults.years);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_and_1_day_format, inCalculationResults.years);
                 } else if ( 1 == inCalculationResults.months ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_1_month_and_days_format, inCalculationResults.years, inCalculationResults.days);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_1_month_and_days_format, inCalculationResults.years, inCalculationResults.days);
                 } else if ( 1 == inCalculationResults.days ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_and_1_day_format, inCalculationResults.years, inCalculationResults.months);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_months_and_1_day_format, inCalculationResults.years, inCalculationResults.months);
                 } else if ( (0 == inCalculationResults.days) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_format, inCalculationResults.years, inCalculationResults.months);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_months_format, inCalculationResults.years, inCalculationResults.months);
                 } else if ( (0 == inCalculationResults.months) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_days_format, inCalculationResults.years, inCalculationResults.days);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_and_days_format, inCalculationResults.years, inCalculationResults.days);
                 } else {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_and_days_format, inCalculationResults.years, inCalculationResults.months, inCalculationResults.days);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_months_and_days_format, inCalculationResults.years, inCalculationResults.months, inCalculationResults.days);
                 };
-            } else {
+            } else {    // If we have less than a year, we have fewer choices.
                 if ( (1 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                    main_blurb = this.lang[this.lang_selector].result_1_month_and_1_day;
+                    main_blurb = this.m_lang[this.m_lang_selector].result_1_month_and_1_day;
                 } else if ( (1 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_1_month_days_format, inCalculationResults.days);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_1_month_days_format, inCalculationResults.days);
                 } else if ( (1 < inCalculationResults.months) && (1 < inCalculationResults.days) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_and_days_format, inCalculationResults.months, inCalculationResults.days);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_months_and_days_format, inCalculationResults.months, inCalculationResults.days);
                 } else if ( (1 < inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_and_1_day_format, inCalculationResults.months);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_months_and_1_day_format, inCalculationResults.months);
                 } else if ( (1 < inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_format, inCalculationResults.months);
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_months_format, inCalculationResults.months);
                 };
             };
         };
     } else {
-        days_blurb = this.lang[this.lang_selector].result_invalid;
+        days_blurb = this.m_lang[this.m_lang_selector].result_invalid;
     };
     
     this.createResultsDiv(inCalculationResults.totalDays, days_blurb, main_blurb);
 };
 
 /********************************************************************************************
-*###################################### CALLBACK METHODS ###################################*
+####################################### CALLBACK METHODS ####################################
 ********************************************************************************************/
 /**
     \brief  This is called when the month or year popup is changed.
@@ -322,8 +399,7 @@ NACC.prototype.monthOrYearPopupChanged = function(inObject) {
 
 /***********************************************************************/
 /**
-    \brief  This actually performs the calculation. Called when the
-            Calculate button is hit.
+    \brief  This is called when the Calculate button is hit.
     
     \param  inObject This is the button object. We use it to get our main instance.
 */
@@ -333,17 +409,24 @@ NACC.prototype.calculateCleantime = function(inObject) {
     var month = parseInt(owner.m_month_popup.value) - 1;
     var day = parseInt(owner.m_day_popup.value);
     
-    // First, we get the date from the popup menus...
-    var fromDate = new Date(year, month, day, 0, 0, 0, 0);
+    owner.calculate(year, month, day);
+};
+
+/***********************************************************************/
+/**
+    \brief  This actually performs the calculation. Called when the
+            Calculate button is hit.
     
-    // And compare it to today.
-    var difference = this.dateSpan(fromDate);
-    
-    owner.displayCalculationResults(difference);
+    \param  inYear This is the year for the date.
+    \param  inMonth This is the year for the date (0-based).
+    \param  inDay This is the year for the date.
+*/
+NACC.prototype.calculate = function(inYear, inMonth, inDay) {
+    this.displayCalculationResults(this.dateSpan(new Date(inYear, inMonth, inDay, 0, 0, 0, 0)));
 };
 
 /********************************************************************************************
-*################################## DOM OBJECT INSTANTIATION ###############################*
+################################### DOM OBJECT INSTANTIATION ################################
 ********************************************************************************************/
 /**
     \brief  This creates a DOM object, and returns it. If a DOM object
@@ -425,7 +508,7 @@ NACC.prototype.createHeader = function() {
     var newObject = this.createDOMObject('div', 'NACC-Header', this.m_my_container);
     
     if ( null != newObject ) {  
-        newObject.innerHTML = this.lang[this.lang_selector].section_title;
+        newObject.innerHTML = this.m_lang[this.m_lang_selector].section_title;
     };
 };
 
@@ -473,7 +556,7 @@ NACC.prototype.createPrompt = function() {
     this.m_my_prompt = this.createDOMObject('label', 'NACC-Prompt-Label', this.m_my_legend);
     
     if ( null != this.m_my_prompt ) {  
-        this.m_my_prompt.innerHTML = this.lang[this.lang_selector].prompt;
+        this.m_my_prompt.innerHTML = this.m_lang[this.m_lang_selector].prompt;
     };
 };
 
@@ -488,7 +571,6 @@ NACC.prototype.createPopupContainer = function() {
         this.createMonthPopup();
         this.createDayPopup();
         this.createYearPopup();
-        this.evaluateMonthDays();
         this.createCalculateButton();
         this.createDOMObject('div', 'breaker', this.m_popup_container);
     };
@@ -505,7 +587,7 @@ NACC.prototype.createMonthPopup = function() {
         var nowMonth = new Date().getMonth();
         this.m_my_prompt.setAttribute('for', this.m_month_popup.id);
         for ( var i = 1; i < 13; i++ ) {
-            var selectedMonth = this.lang[this.lang_selector].months[i];
+            var selectedMonth = this.m_lang[this.m_lang_selector].months[i];
             selectedOption = this.createOptionObject(this.m_month_popup, selectedMonth, i.toString(), false);
         };
         this.m_month_popup.selectedIndex = nowMonth;
@@ -557,7 +639,7 @@ NACC.prototype.createCalculateButton = function() {
     
     if ( null != this.m_calculate_button ) {
         this.m_calculate_button.setAttribute('type', 'button');
-        this.m_calculate_button.value = this.lang[this.lang_selector].calculate_button_text;
+        this.m_calculate_button.value = this.m_lang[this.m_lang_selector].calculate_button_text;
         this.m_calculate_button.owner = this;
         this.m_calculate_button.onclick = function(){NACC.prototype.calculateCleantime(this)};
     };
@@ -652,8 +734,34 @@ NACC.prototype.createTagsDiv = function(inNumDays) {
 };
 
 /********************************************************************************************
-*###################################### THIRD-PARTY CODE ###################################*
+####################################### THIRD-PARTY CODE ####################################
 ********************************************************************************************/
+/**
+    \brief  This returns the GET parameters as an associative array.
+            From here: http://stackoverflow.com/a/5448635/879365
+    
+    \returns    An associative array, with any GET parameters.
+*/
+NACC.prototype.getParameters = function() {
+    function transformToAssocArray( prmstr ) {
+        function urldecode(str) {
+            return decodeURIComponent((str+'').replace(/\+/g, '%20'));
+        };
+
+        var params = {};
+        var prmarr = prmstr.split("&");
+        for ( var i = 0; i < prmarr.length; i++) {
+            var tmparr = prmarr[i].split("=");
+            params[urldecode(tmparr[0])] = urldecode(tmparr[1]);
+        };
+        return params;
+    };
+    
+    var prmstr = window.location.search.substr(1);
+    return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+}
+
+/***********************************************************************/
 /**
 sprintf() for JavaScript 0.6
 
@@ -740,7 +848,7 @@ NACC.prototype.sprintf = function () {
             a = (/[def]/.test(m[7]) && m[2] && a >= 0 ? '+'+ a : a);
             c = m[3] ? m[3] == '0' ? '0' : m[3].charAt(1) : ' ';
             x = m[5] - String(a).length - s.length;
-            p = m[5] ? this.str_repeat(c, x) : '';
+            p = m[5] ? str_repeat(c, x) : '';
             o.push(s + (m[4] ? a + p : p + a));
         }
         else {
