@@ -20,6 +20,8 @@
 */
 
 /***********************************************************************/
+/*                              MAIN FUNCTION                          */
+/***********************************************************************/
 /**
     \brief  This is the main class function for the NACC.
     
@@ -62,6 +64,21 @@ function NACC(inContainerElementID, inStyle, inLang) {
                                                     "November",
                                                     "December"
                                                     );
+    this.lang['en'].result_1_day                            = 'You have been clean for 1 day!';
+    this.lang['en'].result_1_month                          = 'You have been clean for 1 month!';
+    this.lang['en'].result_1_year                           = 'You have been clean for 1 year!';
+    this.lang['en'].result_1_month_and_1_day                = 'You have been clean for 1 month and 1 day!';
+    this.lang['en'].result_1_year_and_1_day                 = 'You have been clean for 1 year and 1 day!';
+    this.lang['en'].result_1_year_and_1_month               = 'You have been clean for 1 year and 1 month!';
+    this.lang['en'].result_1_year_1_month_and_1_day         = 'You have been clean for 1 year, 1 month and 1 day!';
+    this.lang['en'].result_days_format                      = 'You have been clean for %d days!';
+    this.lang['en'].result_months_format                    = 'You have been clean for %d months!';
+    this.lang['en'].result_years_format                     = 'You have been clean for %d years!';
+    this.lang['en'].result_months_and_1_day_format          = 'You have been clean for %d months and 1 day!';
+    this.lang['en'].result_years_1_month_and_1_day_format   = 'You have been clean for %d years, 1 month and 1 day!';
+    this.lang['en'].result_years_months_and_1_day_format    = 'You have been clean for %d years, %d months and 1 day!';
+    this.lang['en'].result_years_1_month_and_days_format    = 'You have been clean for %d years, 1 month and %d days!';
+    this.lang['en'].result_years_months_and_days_format     = 'You have been clean for %d years, %d months and %d days!';
     
     /************************************/
     /*            MAIN CODE             */
@@ -79,10 +96,15 @@ function NACC(inContainerElementID, inStyle, inLang) {
         this.m_my_container.className += ' ' + inStyle;   // Append any style selection.
     };
     
+    this.m_my_container.innerHTML = '';
+    
     this.createHeader();
     this.createForm();
 };
 
+/***********************************************************************/
+/*                           OBJECT PROPERTIES                         */
+/***********************************************************************/
 /** This is the language selector. */
 NACC.prototype.lang_selector = null;
 /** This is an array, with all the language-specific strings. */
@@ -118,6 +140,10 @@ NACC.prototype.m_calculation_results_text_div = null;
 /// This is the calculate results keytags div.
 NACC.prototype.m_calculation_results_keytags_div = null;
 
+/***********************************************************************/
+/*                            OBJECT METHODS                           */
+/***********************************************************************/
+/*                           INTERNAL UTILITY                          */
 /***********************************************************************/
 /**
     \brief  This allows us to compare today to a given date.
@@ -264,6 +290,76 @@ NACC.prototype.createOptionObject = function(inSelectObject, inDisplayString, in
 
 /***********************************************************************/
 /**
+    \brief  This checks the month and year, and disables any month days
+            that are not available for the given month. It will also
+            move the selection, if a selected day is too far down.
+*/
+NACC.prototype.evaluateMonthDays = function() {
+    var dtmp1 = new Date(this.m_year_popup.value, this.m_month_popup.value, 1, 0, 0, -1);
+
+    var numDays = parseInt(dtmp1.getDate());
+    this.m_day_popup.selectedIndex = Math.min(this.m_day_popup.selectedIndex + 1, numDays) - 1;
+    
+    for ( var i = 0; i < this.m_day_popup.options.length; i++ ) {
+        this.m_day_popup.options[i].disabled = (i >= numDays);
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This displays the results of the calculation.
+*/
+NACC.prototype.displayCalculationResults = function(inCalculationResults) {
+
+    var days_blurb = '';
+    if ( 1 == inCalculationResults.totalDays ) {
+        days_blurb = this.lang[this.lang_selector].result_1_day;
+    } else {
+        days_blurb = this.sprintf(this.lang[this.lang_selector].result_days_format, inCalculationResults.totalDays);
+    };
+    
+alert ( days_blurb + "\nyears: " + inCalculationResults.years.toString() + "\nmonths: " + inCalculationResults.months.toString() +  "\ndays: " + inCalculationResults.days.toString() + "\ntotal days: " + inCalculationResults.totalDays.toString() );
+};
+
+/***********************************************************************/
+/*                              CALLBACKS                              */
+/***********************************************************************/
+/**
+    \brief  This is called when the month or year popup is changed.
+            The day popup is adjusted to reflect the available days.
+    
+    \param  inObject This is the popup object. We use it to get our main instance.
+*/
+NACC.prototype.monthOrYearPopupChanged = function(inObject) {
+    inObject.owner.evaluateMonthDays();
+};
+
+/***********************************************************************/
+/**
+    \brief  This actually performs the calculation. Called when the
+            Calculate button is hit.
+    
+    \param  inObject This is the button object. We use it to get our main instance.
+*/
+NACC.prototype.calculateCleantime = function(inObject) {
+    var owner = inObject.owner;
+    var year = parseInt(owner.m_year_popup.value);
+    var month = parseInt(owner.m_month_popup.value) - 1;
+    var day = parseInt(owner.m_day_popup.value);
+    
+    // First, we get the date from the popup menus...
+    var fromDate = new Date(year, month, day, 0, 0, 0, 0);
+    
+    // And compare it to today.
+    var difference = this.dateSpan(fromDate);
+    
+    owner.displayCalculationResults(difference);
+};
+
+/***********************************************************************/
+/*                         DOM OBJECT CREATION                         */
+/***********************************************************************/
+/**
     \brief  This creates the header at the top of the form.
 */
 NACC.prototype.createHeader = function() {
@@ -408,57 +504,104 @@ NACC.prototype.createCalculateButton = function() {
     };
 };
 
-/***********************************************************************/
+/********************************************************************************************
+*###################################### THIRD-PARTY CODE ###################################*
+********************************************************************************************/
 /**
-    \brief  This is called when the month popup is changed.
-*/
-NACC.prototype.evaluateMonthDays = function() {
-    var dtmp1 = new Date(this.m_year_popup.value, this.m_month_popup.value, 1, 0, 0, -1);
+sprintf() for JavaScript 0.6
 
-    var numDays = parseInt(dtmp1.getDate());
-    this.m_day_popup.selectedIndex = Math.min(this.m_day_popup.selectedIndex + 1, numDays) - 1;
-    
-    for ( var i = 0; i < this.m_day_popup.options.length; i++ ) {
-        this.m_day_popup.options[i].disabled = (i >= numDays);
+Copyright (c) Alexandru Marasteanu <alexaholic [at) gmail (dot] com>
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of sprintf() for JavaScript nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL Alexandru Marasteanu BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Changelog:
+2007.04.03 - 0.1:
+ - initial release
+2007.09.11 - 0.2:
+ - feature: added argument swapping
+2007.09.17 - 0.3:
+ - bug fix: no longer throws exception on empty paramenters (Hans Pufal)
+2007.10.21 - 0.4:
+ - unit test and patch (David Baird)
+2010.05.09 - 0.5:
+ - bug fix: 0 is now preceeded with a + sign
+ - bug fix: the sign was not at the right position on padded results (Kamal Abdali)
+ - switched from GPL to BSD license
+2010.05.22 - 0.6:
+ - reverted to 0.4 and fixed the bug regarding the sign of the number 0
+ Note:
+ Thanks to Raphael Pigulla <raph (at] n3rd [dot) org> (http://www.n3rd.org/)
+ who warned me about a bug in 0.5, I discovered that the last update was
+ a regress. I appologize for that.
+**/
+
+NACC.prototype.sprintf = function () {
+    function str_repeat(i, m) {
+        for (var o = []; m > 0; o[--m] = i);
+        return o.join('');
     };
+
+    var i = 0, a, f = arguments[i++], o = [], m, p, c, x, s = '';
+    while (f) {
+        if (m = /^[^\x25]+/.exec(f)) {
+            o.push(m[0]);
+        }
+        else if (m = /^\x25{2}/.exec(f)) {
+            o.push('%');
+        }
+        else if (m = /^\x25(?:(\d+)\$)?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?([b-fosuxX])/.exec(f)) {
+            if (((a = arguments[m[1] || i++]) == null) || (a == undefined)) {
+                throw('Too few arguments.');
+            };
+            if (/[^s]/.test(m[7]) && (typeof(a) != 'number')) {
+                throw('Expecting number but found ' + typeof(a));
+            };
+            switch (m[7]) {
+                case 'b': a = a.toString(2); break;
+                case 'c': a = String.fromCharCode(a); break;
+                case 'd': a = parseInt(a,10); break;
+                case 'e': a = m[6] ? a.toExponential(m[6]) : a.toExponential(); break;
+                case 'f': a = m[6] ? parseFloat(a).toFixed(m[6]) : parseFloat(a); break;
+                case 'o': a = a.toString(8); break;
+                case 's': a = ((a = String(a)) && m[6] ? a.substring(0, m[6]) : a); break;
+                case 'u': a = Math.abs(a); break;
+                case 'x': a = a.toString(16); break;
+                case 'X': a = a.toString(16).toUpperCase(); break;
+            };
+            a = (/[def]/.test(m[7]) && m[2] && a >= 0 ? '+'+ a : a);
+            c = m[3] ? m[3] == '0' ? '0' : m[3].charAt(1) : ' ';
+            x = m[5] - String(a).length - s.length;
+            p = m[5] ? this.str_repeat(c, x) : '';
+            o.push(s + (m[4] ? a + p : p + a));
+        }
+        else {
+            throw('Huh ?!');
+        };
+        f = f.substring(m[0].length);
+    };
+    return o.join('');
 };
 
-/***********************************************************************/
-/**
-    \brief  This is called when the month or year popup is changed.
-            The day popup is adjusted to reflect the available days.
-    
-    \param  inObject This is the popup object. We use it to get our main instance.
-*/
-NACC.prototype.monthOrYearPopupChanged = function(inObject) {
-    inObject.owner.evaluateMonthDays();
-};
-
-/***********************************************************************/
-/**
-    \brief  This actually performs the calculation.
-    
-    \param  inObject This is the button object. We use it to get our main instance.
-*/
-NACC.prototype.calculateCleantime = function(inObject) {
-    var owner = inObject.owner;
-    var year = parseInt(owner.m_year_popup.value);
-    var month = parseInt(owner.m_month_popup.value) - 1;
-    var day = parseInt(owner.m_day_popup.value);
-    
-    // First, we get the date from the popup menus...
-    var fromDate = new Date(year, month, day, 0, 0, 0, 0);
-    
-    // And compare it to today.
-    var difference = this.dateSpan(fromDate);
-    
-    alert ( "years: " + difference.years.toString() + "\nmonths: " + difference.months.toString() +  "\ndays: " + difference.days.toString() + "\ntotal days: " + difference.totalDays.toString() );
-};
-
-/***********************************************************************/
-/**
-    \brief  This displays the results of the calculation.
-*/
-NACC.prototype.displayCalculationResults = function() {
-};
 
