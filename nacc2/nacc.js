@@ -25,9 +25,10 @@
     
     \param  inContainerElementID A DOM ID to the DOM element that will
             contain this instance. It should be an empty div element.
+    \param  inStyle This is the style (leave blank/null for default gray).
     \param  inLang A string, with the language selector.
 */
-function NACC(inContainerElementID, inLang) {
+function NACC(inContainerElementID, inStyle, inLang) {
     if ( inLang ) {
         this.lang_selector = inLang;
     } else {
@@ -72,6 +73,10 @@ function NACC(inContainerElementID, inLang) {
         this.m_my_container.className += ' NACC-Instance';   // Appending to an existing class.
     } else {
         this.m_my_container.className = 'NACC-Instance';     // From scratch.
+    };
+    
+    if ( inStyle ) {
+        this.m_my_container.className += ' ' + inStyle;   // Append any style selection.
     };
     
     this.createHeader();
@@ -152,12 +157,8 @@ NACC.prototype.dateSpan = function(inFromDate) {
         difference.days = day2 - day1;
 
         if ( difference.days < 0 ) {
-            /*
-             * Use temporary dates to get the number of days remaining in the month
-             */
-            var dtmp1 = new Date(year1, month1 + 1, 1, 0, 0, -1);
-
-            var numDays = dtmp1.getDate();
+            // Use temporary date to get the number of days remaining in the month
+            var numDays = new Date(year1, month1 + 1, 1, 0, 0, -1).getDate();
 
             difference.months -= 1;
             difference.days += numDays;

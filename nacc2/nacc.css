@@ -45,3 +45,67 @@
     float:left;
     margin-left: 0.125em;
 }
+
+/****************************************************/
+/*              DEFAULT (GRAY) STYLE                */
+/****************************************************/
+
+/** This is the overall container */
+.NACC-Instance {
+    border-radius: 0.4em;
+    border: solid 1px gray;
+    background: linear-gradient(to bottom, gray, white);
+}
+
+.NACC-Instance .NACC-Header,
+.NACC-Instance .NACC-Prompt-Label {
+    font-family: Arial,Sans-Serif;
+    color: black;
+}
+
+/** This is the header, at the top. */
+.NACC-Instance .NACC-Header {
+    font-size: large;
+    font-weight: bold;
+}
+
+.NACC-Instance .NACC-Fieldset {
+    border-radius: 0.3em;
+    border: solid 1px gray;
+    padding: 0.25em;
+}
+
+.NACC-Instance .NACC-Legend {
+    border-radius: 0.25em;
+    border: solid 1px gray;
+    padding: 0.25em;
+    background: linear-gradient(to top, gray, white);
+}
+
+/****************************************************/
+/*             BT (BLUE AND WHITE)) STYLE           */
+/****************************************************/
+
+/** This is the overall container */
+.NACC-Instance.NACC-BT {
+    border-color: #009;
+    background: linear-gradient(to bottom, #009, white);
+}
+
+.NACC-Instance.NACC-BT .NACC-Prompt-Label {
+    color: #009;
+}
+
+.NACC-Instance.NACC-BT .NACC-Header {
+    color: white;
+}
+
+.NACC-Instance.NACC-BT .NACC-Fieldset {
+    border-color: white;
+}
+
+.NACC-Instance.NACC-BT .NACC-Legend {
+    border-color: white;
+    background: linear-gradient(to top, #009, white);
+}
+
