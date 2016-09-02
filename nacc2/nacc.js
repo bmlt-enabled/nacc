@@ -19,9 +19,9 @@
     along with this code.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/***********************************************************************/
-/*                              MAIN FUNCTION                          */
-/***********************************************************************/
+/********************************************************************************************
+*######################################## MAIN CONTEXT #####################################*
+********************************************************************************************/
 /**
     \brief  This is the main class function for the NACC.
     
@@ -65,6 +65,8 @@ function NACC(inContainerElementID, inStyle, inLang) {
                                                     "December"
                                                     );
     /** These are for the top (days) blurb. */
+    this.lang['en'].result_invalid                          = 'Please select a valid cleandate!';
+    
     this.lang['en'].result_1_day                            = 'You have been clean for 1 day!';
     this.lang['en'].result_days_format                      = 'You have been clean for %d days!';
 
@@ -111,12 +113,12 @@ function NACC(inContainerElementID, inStyle, inLang) {
     this.createForm();
 };
 
-/***********************************************************************/
-/*                           OBJECT PROPERTIES                         */
-/***********************************************************************/
-/** This is the language selector. */
+/********************************************************************************************
+*######################################### PROPERTIES ######################################*
+********************************************************************************************/
+/// This is the language selector.
 NACC.prototype.lang_selector = null;
-/** This is an array, with all the language-specific strings. */
+/// This is an array, with all the language-specific strings.
 NACC.prototype.lang = null;
 /// This is the object that "owns" this instance.
 NACC.prototype.m_my_container = null;
@@ -149,11 +151,9 @@ NACC.prototype.m_calculation_results_text_div = null;
 /// This is the calculate results keytags div.
 NACC.prototype.m_calculation_results_keytags_div = null;
 
-/***********************************************************************/
-/*                            OBJECT METHODS                           */
-/***********************************************************************/
-/*                           INTERNAL UTILITY                          */
-/***********************************************************************/
+/********************************************************************************************
+*################################## INTERNAL UTILITY METHODS ###############################*
+********************************************************************************************/
 /**
     \brief  This allows us to compare today to a given date.
             
@@ -225,6 +225,126 @@ NACC.prototype.generateID = function(inPrefix) {
 };
 
 /***********************************************************************/
+/**
+    \brief  This checks the month and year, and disables any month days
+            that are not available for the given month. It will also
+            move the selection, if a selected day is too far down.
+*/
+NACC.prototype.evaluateMonthDays = function() {
+    var dtmp1 = new Date(this.m_year_popup.value, this.m_month_popup.value, 1, 0, 0, -1);
+
+    var numDays = parseInt(dtmp1.getDate());
+    this.m_day_popup.selectedIndex = Math.min(this.m_day_popup.selectedIndex + 1, numDays) - 1;
+    
+    for ( var i = 0; i < this.m_day_popup.options.length; i++ ) {
+        this.m_day_popup.options[i].disabled = (i >= numDays);
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This displays the results of the calculation.
+*/
+NACC.prototype.displayCalculationResults = function(inCalculationResults) {
+
+    var days_blurb = '';
+    if ( 1 == inCalculationResults.totalDays ) {
+        days_blurb = this.lang[this.lang_selector].result_1_day;
+    } else {
+        days_blurb = this.sprintf(this.lang[this.lang_selector].result_days_format, inCalculationResults.totalDays);
+    };
+    
+    var main_blurb = '';
+    
+    if ( 0 < inCalculationResults.totalDays ) {
+        if ( 90 < inCalculationResults.totalDays ) {
+            if ( 0 < inCalculationResults.years ) {
+                if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                    main_blurb = this.lang[this.lang_selector].result_1_year;
+                } else if ( (1 == inCalculationResults.years) && (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                    main_blurb = this.lang[this.lang_selector].result_1_year_and_1_month;
+                } else if ( (1 == inCalculationResults.years) && (1 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                    main_blurb = this.lang[this.lang_selector].result_1_year_1_month_and_1_day;
+                } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                    main_blurb = this.lang[this.lang_selector].result_1_year_and_1_day;
+                } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_1_year_days_format, inCalculationResults.days);
+                } else if ( (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_format, inCalculationResults.years);
+                } else if ( (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_1_month_format, inCalculationResults.years);
+                } else if ( (0 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_1_day_format, inCalculationResults.years);
+                } else if ( 1 == inCalculationResults.months ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_1_month_and_days_format, inCalculationResults.years, inCalculationResults.days);
+                } else if ( 1 == inCalculationResults.days ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_and_1_day_format, inCalculationResults.years, inCalculationResults.months);
+                } else if ( (0 == inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_format, inCalculationResults.years, inCalculationResults.months);
+                } else if ( (0 == inCalculationResults.months) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_days_format, inCalculationResults.years, inCalculationResults.days);
+                } else {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_and_days_format, inCalculationResults.years, inCalculationResults.months, inCalculationResults.days);
+                };
+            } else {
+                if ( (1 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                    main_blurb = this.lang[this.lang_selector].result_1_month_and_1_day;
+                } else if ( (1 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_1_month_days_format, inCalculationResults.days);
+                } else if ( (1 < inCalculationResults.months) && (1 < inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_and_days_format, inCalculationResults.months, inCalculationResults.days);
+                } else if ( (1 < inCalculationResults.months) && (1 == inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_and_1_day_format, inCalculationResults.months);
+                } else if ( (1 < inCalculationResults.months) && (0 == inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_format, inCalculationResults.months);
+                };
+            };
+        };
+    } else {
+        days_blurb = this.lang[this.lang_selector].result_invalid;
+    };
+    
+    this.createResultsDiv(inCalculationResults.totalDays, days_blurb, main_blurb);
+};
+
+/********************************************************************************************
+*###################################### CALLBACK METHODS ###################################*
+********************************************************************************************/
+/**
+    \brief  This is called when the month or year popup is changed.
+            The day popup is adjusted to reflect the available days.
+    
+    \param  inObject This is the popup object. We use it to get our main instance.
+*/
+NACC.prototype.monthOrYearPopupChanged = function(inObject) {
+    inObject.owner.evaluateMonthDays();
+};
+
+/***********************************************************************/
+/**
+    \brief  This actually performs the calculation. Called when the
+            Calculate button is hit.
+    
+    \param  inObject This is the button object. We use it to get our main instance.
+*/
+NACC.prototype.calculateCleantime = function(inObject) {
+    var owner = inObject.owner;
+    var year = parseInt(owner.m_year_popup.value);
+    var month = parseInt(owner.m_month_popup.value) - 1;
+    var day = parseInt(owner.m_day_popup.value);
+    
+    // First, we get the date from the popup menus...
+    var fromDate = new Date(year, month, day, 0, 0, 0, 0);
+    
+    // And compare it to today.
+    var difference = this.dateSpan(fromDate);
+    
+    owner.displayCalculationResults(difference);
+};
+
+/********************************************************************************************
+*################################## DOM OBJECT INSTANTIATION ###############################*
+********************************************************************************************/
 /**
     \brief  This creates a DOM object, and returns it. If a DOM object
             is passed in as a container, then the created object is added
@@ -299,123 +419,7 @@ NACC.prototype.createOptionObject = function(inSelectObject, inDisplayString, in
 
 /***********************************************************************/
 /**
-    \brief  This checks the month and year, and disables any month days
-            that are not available for the given month. It will also
-            move the selection, if a selected day is too far down.
-*/
-NACC.prototype.evaluateMonthDays = function() {
-    var dtmp1 = new Date(this.m_year_popup.value, this.m_month_popup.value, 1, 0, 0, -1);
-
-    var numDays = parseInt(dtmp1.getDate());
-    this.m_day_popup.selectedIndex = Math.min(this.m_day_popup.selectedIndex + 1, numDays) - 1;
-    
-    for ( var i = 0; i < this.m_day_popup.options.length; i++ ) {
-        this.m_day_popup.options[i].disabled = (i >= numDays);
-    };
-};
-
-/***********************************************************************/
-/**
-    \brief  This displays the results of the calculation.
-*/
-NACC.prototype.displayCalculationResults = function(inCalculationResults) {
-
-    var days_blurb = '';
-    if ( 1 == inCalculationResults.totalDays ) {
-        days_blurb = this.lang[this.lang_selector].result_1_day;
-    } else {
-        days_blurb = this.sprintf(this.lang[this.lang_selector].result_days_format, inCalculationResults.totalDays);
-    };
-    
-    var main_blurb = '';
-    
-    if ( 90 < inCalculationResults.totalDays ) {
-        if ( 0 < inCalculationResults.years ) {
-            if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                main_blurb = this.lang[this.lang_selector].result_1_year;
-            } else if ( (1 == inCalculationResults.years) && (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                main_blurb = this.lang[this.lang_selector].result_1_year_and_1_month;
-            } else if ( (1 == inCalculationResults.years) && (1 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                main_blurb = this.lang[this.lang_selector].result_1_year_1_month_and_1_day;
-            } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                main_blurb = this.lang[this.lang_selector].result_1_year_and_1_day;
-            } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_1_year_days_format, inCalculationResults.days);
-            } else if ( (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_format, inCalculationResults.years);
-            } else if ( (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_1_month_format, inCalculationResults.years);
-            } else if ( (0 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_1_day_format, inCalculationResults.years);
-            } else if ( 1 == inCalculationResults.months ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_1_month_and_days_format, inCalculationResults.years, inCalculationResults.days);
-            } else if ( 1 == inCalculationResults.days ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_and_1_day_format, inCalculationResults.years, inCalculationResults.months);
-            } else if ( (0 == inCalculationResults.days) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_format, inCalculationResults.years, inCalculationResults.months);
-            } else if ( (0 == inCalculationResults.months) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_and_days_format, inCalculationResults.years, inCalculationResults.days);
-            } else {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_years_months_and_days_format, inCalculationResults.years, inCalculationResults.months, inCalculationResults.days);
-            };
-        } else {
-            if ( (1 == inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                main_blurb = this.lang[this.lang_selector].result_1_month_and_1_day;
-            } else if ( (1 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_1_month_days_format, inCalculationResults.days);
-            } else if ( (1 < inCalculationResults.months) && (1 < inCalculationResults.days) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_and_days_format, inCalculationResults.months, inCalculationResults.days);
-            } else if ( (1 < inCalculationResults.months) && (1 == inCalculationResults.days) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_and_1_day_format, inCalculationResults.months);
-            } else if ( (1 < inCalculationResults.months) && (0 == inCalculationResults.days) ) {
-                main_blurb = this.sprintf(this.lang[this.lang_selector].result_months_format, inCalculationResults.months);
-            };
-        };
-    };
-    
-    this.createResultsDiv(inCalculationResults.totalDays, days_blurb, main_blurb);
-};
-
-/***********************************************************************/
-/*                              CALLBACKS                              */
-/***********************************************************************/
-/**
-    \brief  This is called when the month or year popup is changed.
-            The day popup is adjusted to reflect the available days.
-    
-    \param  inObject This is the popup object. We use it to get our main instance.
-*/
-NACC.prototype.monthOrYearPopupChanged = function(inObject) {
-    inObject.owner.evaluateMonthDays();
-};
-
-/***********************************************************************/
-/**
-    \brief  This actually performs the calculation. Called when the
-            Calculate button is hit.
-    
-    \param  inObject This is the button object. We use it to get our main instance.
-*/
-NACC.prototype.calculateCleantime = function(inObject) {
-    var owner = inObject.owner;
-    var year = parseInt(owner.m_year_popup.value);
-    var month = parseInt(owner.m_month_popup.value) - 1;
-    var day = parseInt(owner.m_day_popup.value);
-    
-    // First, we get the date from the popup menus...
-    var fromDate = new Date(year, month, day, 0, 0, 0, 0);
-    
-    // And compare it to today.
-    var difference = this.dateSpan(fromDate);
-    
-    owner.displayCalculationResults(difference);
-};
-
-/***********************************************************************/
-/*                         DOM OBJECT CREATION                         */
-/***********************************************************************/
-/**
-    \brief  This creates the header at the top of the form.
+    \brief  This creates the header at the top of the div.
 */
 NACC.prototype.createHeader = function() {
     var newObject = this.createDOMObject('div', 'NACC-Header', this.m_my_container);
@@ -427,7 +431,7 @@ NACC.prototype.createHeader = function() {
 
 /***********************************************************************/
 /**
-    \brief  This creates the form.
+    \brief  This creates the form that wraps the fieldset.
 */
 NACC.prototype.createForm = function() {
     this.m_my_form = this.createDOMObject('form', 'NACC-Form', this.m_my_container);
@@ -576,6 +580,7 @@ NACC.prototype.createResultsDiv = function(inNumDays, inDays, inMain) {
     
     if ( this.m_calculation_results_div ) {
         this.createResultsTextDiv(inDays, inMain);
+        this.createTagsDiv(inNumDays);
     };
 };
 
@@ -626,6 +631,23 @@ NACC.prototype.createResultsMain = function(inBlurb) {
         if ( null != newObject ) {  
             newObject.innerHTML = inBlurb;
         };
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates the tags div.
+    
+    \brief  inNumDays The total number of days (used to determine keytags).
+*/
+NACC.prototype.createTagsDiv = function(inNumDays) {
+    if ( this.m_calculation_results_keytags_div ) {
+        this.m_calculation_results_keytags_div.innerHTML = '';
+    } else {
+        this.m_calculation_results_keytags_div = this.createDOMObject('div', 'NACC-Keytags', this.m_calculation_results_div);
+    };
+    
+    if ( null != this.m_calculation_results_keytags_div ) {  
     };
 };
 
@@ -728,5 +750,4 @@ NACC.prototype.sprintf = function () {
     };
     return o.join('');
 };
-
 

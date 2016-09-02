@@ -28,6 +28,7 @@
 }
 
 /** This is the header, at the top. */
+.NACC-Instance .NACC-Results-Text,
 .NACC-Instance .NACC-Header {
     padding: 0.25em;
     text-align: center;
@@ -56,6 +57,9 @@
 }
 
 .NACC-Instance .NACC-MainBlurb {
+}
+
+.NACC-Instance .NACC-Keytags {
 }
 
 /****************************************************/
@@ -93,10 +97,6 @@
     border: solid 1px gray;
     padding: 0.25em;
     background: linear-gradient(to top, gray, white);
-}
-
-.NACC-Instance .NACC-Results-Text {
-    text-align: center;
 }
 
 /****************************************************/
