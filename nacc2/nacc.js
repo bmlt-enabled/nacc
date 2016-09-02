@@ -394,7 +394,8 @@ NACC.prototype.displayCalculationResults = function(inCalculationResults) {
         days_blurb = this.m_lang[this.m_lang_selector].result_invalid;
     };
     
-    this.createResultsDiv(inCalculationResults.totalDays, days_blurb, main_blurb);
+    var months = (inCalculationResults.years * 12) + inCalculationResults.months;
+    this.createResultsDiv(inCalculationResults.totalDays, months, days_blurb, main_blurb);
 };
 
 /********************************************************************************************
@@ -515,24 +516,210 @@ NACC.prototype.createOptionObject = function(inSelectObject, inDisplayString, in
 
 /***********************************************************************/
 /**
-    \brief  This creates and returns one keytag object, as a div.
+    \brief  This creates and returns one keytag object, as an img.
+    
+    \brief inTag The name of the tag to be created.
+    \param  isClosed if true, then the top of the ring will be closed.
+    
+    \returns an img object.
+*/
+NACC.prototype.createOneKeytag = function(inTag, isClosed) {
+    isClosed = isClosed || this.m_keytag_layout != 'linear';
+    
+    var tagSrc = this.m_relative_directory_root + 'images/' + this.m_lang_selector + '/' + inTag + '.png';
+    var container = this.m_calculation_results_keytags_div;
+    return this.createKeytag(tagSrc, container, isClosed);
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one keytag object, as an img.
+    
+    \param  inSrc The path to the source image.
+    \param  inContainer The object that will contain this keytag.
+    \param  isClosed if true, then the top of the ring will be closed.
+    
+    \returns an img object.
 */
 NACC.prototype.createKeytag = function(inSrc, inContainer, isClosed) {
-    var newObject = this.createDOMObject('div', 'NACC-Keytag', this.m_my_container);
-    
-    if ( null != newObject ) {
-        var imgObject = this.createDOMObject('img', 'NACC-Keytag-Body', newObject);
-    
-        if ( null != imgObject ) {
-            imgObject.src = inSrc;
-            
-            if ( isClosed ) {
-                newObject.className += ' NACC-Keytag-Ringtop';
-            };
-        };
+    // We use CSS to create the closure at the top.
+    var className = 'NACC-Keytag' + (isClosed ? ' NACC-Keytag-Ringtop' : '');
+    var imgObject = this.createDOMObject('img', className, inContainer);
+
+    if ( null != imgObject ) {
+        imgObject.src = inSrc;
     };
     
-    return newObject;
+    return imgObject;
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one white keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createWhiteKeytag = function(inFace) {
+    // White keytag will always be closed.
+    return this.createOneKeytag('01' + (inFace ? '_Front' : ''), true);
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one orange keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createOrangeKeytag = function(inFace) {
+    return this.createOneKeytag('02' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one green keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createGreenKeytag = function(inFace) {
+    return this.createOneKeytag('03' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one red keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createRedKeytag = function(inFace) {
+    return this.createOneKeytag('04' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one blue keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createBlueKeytag = function(inFace) {
+    return this.createOneKeytag('05' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one yellow keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createYellowKeytag = function(inFace) {
+    return this.createOneKeytag('06' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one year keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createYearKeytag = function(inFace) {
+    return this.createOneKeytag('07' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one gray keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createGrayKeytag = function(inFace) {
+    return this.createOneKeytag('08' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one black keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createBlackKeytag = function(inFace) {
+    return this.createOneKeytag('09' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one granite keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createDecadeKeytag = function(inFace) {
+    return this.createOneKeytag('10' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one decades keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.createDecadesKeytag = function(inFace) {
+    return this.createOneKeytag('11' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one 25-year keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.create25YearKeytag = function(inFace) {
+    return this.createOneKeytag('12' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one 10,000 day keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.create10KKeytag = function(inFace) {
+    return this.createOneKeytag('13' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one 30-year keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.create30YearKeytag = function(inFace) {
+    return this.createOneKeytag('14' + (inFace ? '_Front' : ''));
 };
 
 /***********************************************************************/
@@ -685,10 +872,11 @@ NACC.prototype.createCalculateButton = function() {
     \brief  This creates the results div.
     
     \brief  inNumDays The total number of days (used to determine keytags).
+    \brief  inMonths The number of months.
     \brief  inDays The string to display the number of days.
     \brief  inMain The string to display the main blurb.
 */
-NACC.prototype.createResultsDiv = function(inNumDays, inDays, inMain) {
+NACC.prototype.createResultsDiv = function(inNumDays, inMonths, inDays, inMain) {
     if ( this.m_calculation_results_div ) {
         this.m_calculation_results_div.innerHTML = '';
     } else {
@@ -697,7 +885,7 @@ NACC.prototype.createResultsDiv = function(inNumDays, inDays, inMain) {
     
     if ( this.m_calculation_results_div ) {
         this.createResultsTextDiv(inDays, inMain);
-        this.createTagsDiv(inNumDays);
+        this.createTagsDiv(inNumDays, inMonths);
     };
 };
 
@@ -755,17 +943,104 @@ NACC.prototype.createResultsMain = function(inBlurb) {
 /**
     \brief  This creates the tags div.
     
-    \brief  inNumDays The total number of days (used to determine keytags).
+    \param  inNumDays The total number of days (used to determine keytags).
+    \param  inMonths The total number of months (used to determine keytags).
 */
-NACC.prototype.createTagsDiv = function(inNumDays) {
-    if ( this.m_calculation_results_keytags_div ) {
-        this.m_calculation_results_keytags_div.innerHTML = '';
-    } else {
-        this.m_calculation_results_keytags_div = this.createDOMObject('div', 'NACC-Keytags', this.m_calculation_results_div);
+NACC.prototype.createTagsDiv = function(inNumDays, inMonths) {
+    if ( 0 < inNumDays ) {
+        if ( this.m_calculation_results_keytags_div ) {
+            while ( this.m_calculation_results_keytags_div.hasChildNodes() ) {   
+                this.m_calculation_results_keytags_div.removeChild(this.m_calculation_results_keytags_div.firstChild);
+            };
+        } else {
+            this.m_calculation_results_keytags_div = this.createDOMObject('div', 'NACC-Keytags', this.m_calculation_results_div);
+        };
+        
+        if ( this.m_calculation_results_keytags_div ) {
+            this.createTagsArray(inNumDays, inMonths);
+        };
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates the tags images.
+    
+    \param  inNumDays The total number of days (used to determine keytags).
+    \param  inMonths The total number of months (used to determine keytags).
+*/
+NACC.prototype.createTagsArray = function(inNumDays, inMonths) {
+    var isFace = true;
+    
+    if ( 0 < inNumDays ) {
+        this.createWhiteKeytag(isFace);
     };
     
-    if ( null != this.m_calculation_results_keytags_div ) {
-        var tagDiv = this.createKeytag(this.m_relative_directory_root + 'images/' + this.m_lang_selector + '/01_Front.png', this.m_calculation_results_keytags_div, true);
+    if ( 29 < inNumDays ) {
+        this.createOrangeKeytag(isFace);
+    };
+    
+    if ( 59 < inNumDays ) {
+        this.createGreenKeytag(isFace);
+    };
+    
+    if ( 89 < inNumDays ) {
+        this.createRedKeytag(isFace);
+    };
+    
+    if ( 90 < inNumDays ) {
+        if ( 5 < inMonths ) {
+            this.createBlueKeytag(isFace);
+        };
+        
+        if ( 8 < inMonths ) {
+            this.createYellowKeytag(isFace);
+        };
+        
+        if ( 11 < inMonths ) {
+            this.createYearKeytag(isFace);
+        };
+        
+        if ( 17 < inMonths ) {
+            this.createGrayKeytag(isFace);
+        };
+        
+        if ( 23 < inMonths ) {
+            this.createBlackKeytag(isFace);
+        };
+        
+        for ( var i = 24; i < inMonths; i += 12 ) {
+            var specialTag = false;
+            if ( this.m_keytag_special ) {
+                if ( i == 120 ) {
+                    specialTag = true;
+                    this.createDecadeKeytag(isFace);
+                };
+                
+                if ( !specialTag && (i == 300) ) {
+                    specialTag = true;
+                    this.create25YearKeytag(isFace);
+                };
+                
+                if ( !specialTag && (0 == (i % 360)) ) {
+                    specialTag = true;
+                    this.create30YearKeytag(isFace);
+                };
+                
+                if ( !specialTag && (i == 300) ) {
+                    specialTag = true;
+                    this.create25YearKeytag(isFace);
+                };
+            };
+            
+            if ( !specialTag ) {
+                this.createBlackKeytag(isFace);
+            };
+            
+            if ( this.m_keytag_special && (i == 324) && (9999 < inNumDays) ) {
+                this.create10KKeytag(isFace);
+            };
+        };
     };
 };
 

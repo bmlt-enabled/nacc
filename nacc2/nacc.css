@@ -72,23 +72,20 @@
     text-align: center;
 }
 
-/** This is a wrapper of one keytag */
-.NACC-Instance .NACC-Keytag,
-/** This is a wrapper of one keytag's body image */
-.NACC-Instance .NACC-Keytag-Body {
-    background-color: rgba ( 0, 0, 0, 0 ); /* Transparent background */
-}
-
-/** We want the wrapper to "wrap" the contained images. */
+/** This describes a keytag image. */
 .NACC-Instance .NACC-Keytag {
-    display: table;
-    margin-left:auto;
+    background-color: rgba ( 0, 0, 0, 0 ); /* Transparent background */
+    display: block; /* Displays as a block element. */
+    margin-left:auto;   /* For centering */
     margin-right:auto;
+    width: 100px;
 }
 
+/** If we are displaying a closed ring, then we add an image to the background. */
 .NACC-Instance .NACC-Keytag.NACC-Keytag-Ringtop {
-    background-image: url('images/00_RingTop.png');
+    background-image: url ( 'images/00_RingTop.png' );
     background-position: top center;
+    background-size: 100%;
     background-repeat: no-repeat;
 }
 
