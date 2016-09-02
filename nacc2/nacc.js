@@ -523,12 +523,9 @@ NACC.prototype.createOptionObject = function(inSelectObject, inDisplayString, in
     
     \returns an img object.
 */
-NACC.prototype.createOneKeytag = function(inTag, isClosed) {
-    isClosed = isClosed || this.m_keytag_layout != 'linear';
-    
+NACC.prototype.createOneKeytag = function(inTag, isClosed) {    
     var tagSrc = this.m_relative_directory_root + 'images/' + this.m_lang_selector + '/' + inTag + '.png';
-    var container = this.m_calculation_results_keytags_div;
-    return this.createKeytag(tagSrc, container, isClosed);
+    return this.createKeytag(tagSrc, isClosed);
 };
 
 /***********************************************************************/
@@ -536,15 +533,14 @@ NACC.prototype.createOneKeytag = function(inTag, isClosed) {
     \brief  This creates and returns one keytag object, as an img.
     
     \param  inSrc The path to the source image.
-    \param  inContainer The object that will contain this keytag.
     \param  isClosed if true, then the top of the ring will be closed.
     
     \returns an img object.
 */
-NACC.prototype.createKeytag = function(inSrc, inContainer, isClosed) {
+NACC.prototype.createKeytag = function(inSrc, isClosed) {
     // We use CSS to create the closure at the top.
-    var className = 'NACC-Keytag' + (isClosed ? ' NACC-Keytag-Ringtop' : '');
-    var imgObject = this.createDOMObject('img', className, inContainer);
+    var className = 'NACC-Keytag' + ((isClosed || (this.m_keytag_layout != 'linear')) ? ' NACC-Keytag-Ringtop' : '');
+    var imgObject = this.createDOMObject('img', className, this.m_calculation_results_keytags_div);
 
     if ( null != imgObject ) {
         imgObject.src = inSrc;
@@ -879,6 +875,8 @@ NACC.prototype.createCalculateButton = function() {
 NACC.prototype.createResultsDiv = function(inNumDays, inMonths, inDays, inMain) {
     if ( this.m_calculation_results_div ) {
         this.m_calculation_results_div.innerHTML = '';
+        this.m_calculation_results_text_div = null;
+        this.m_calculation_results_keytags_div = null;
     } else {
         this.m_calculation_results_div = this.createDOMObject('div', 'NACC-Results', this.m_my_fieldset);
     };
@@ -953,7 +951,7 @@ NACC.prototype.createTagsDiv = function(inNumDays, inMonths) {
                 this.m_calculation_results_keytags_div.removeChild(this.m_calculation_results_keytags_div.firstChild);
             };
         } else {
-            this.m_calculation_results_keytags_div = this.createDOMObject('div', 'NACC-Keytags', this.m_calculation_results_div);
+            this.m_calculation_results_keytags_div = this.createDOMObject('div', 'NACC-Keytags' + ((this.m_keytag_layout != 'linear') ? ' NACC-Keytag-Tabular' : ''), this.m_calculation_results_div);
         };
         
         if ( this.m_calculation_results_keytags_div ) {
@@ -970,7 +968,7 @@ NACC.prototype.createTagsDiv = function(inNumDays, inMonths) {
     \param  inMonths The total number of months (used to determine keytags).
 */
 NACC.prototype.createTagsArray = function(inNumDays, inMonths) {
-    var isFace = true;
+    var isFace = this.m_keytag_layout != 'linear';
     
     if ( 0 < inNumDays ) {
         this.createWhiteKeytag(isFace);
@@ -1009,7 +1007,9 @@ NACC.prototype.createTagsArray = function(inNumDays, inMonths) {
             this.createBlackKeytag(isFace);
         };
         
-        for ( var i = 24; i < inMonths; i += 12 ) {
+        inMonths -= 12;
+        
+        for ( var i = 24; i <= inMonths; i += 12 ) {
             var specialTag = false;
             if ( this.m_keytag_special ) {
                 if ( i == 120 ) {

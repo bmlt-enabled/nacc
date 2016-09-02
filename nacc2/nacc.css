@@ -32,7 +32,6 @@
 }
 
 /** This is the header, at the top. */
-.NACC-Instance .NACC-Results-Text,
 .NACC-Instance .NACC-Header {
     padding: 0.25em;
     text-align: center;
@@ -53,6 +52,8 @@
 
 /** This is the main result container div. */
 .NACC-Instance .NACC-Results {
+    padding: 0.25em;
+    text-align: center;
 }
 
 /** This is the text display for the results. */
@@ -69,24 +70,46 @@
 
 /** This is the container for the keytag display. */
 .NACC-Instance .NACC-Keytags {
-    text-align: center;
+    margin-top: 122px;
 }
 
 /** This describes a keytag image. */
 .NACC-Instance .NACC-Keytag {
-    background-color: rgba ( 0, 0, 0, 0 ); /* Transparent background */
-    display: block; /* Displays as a block element. */
-    margin-left:auto;   /* For centering */
-    margin-right:auto;
+    background-color: rgba(0, 0, 0, 0); /* Transparent background */
     width: 100px;
 }
 
+.NACC-Instance .NACC-Keytag-Tabular {
+    margin-top: 82px;
+    margin-left: 50px;
+}
+
+.NACC-Instance .NACC-Keytags.NACC-Keytag-Tabular {
+    margin-top: 82px;
+    margin-left: 50px;
+}
+
 /** If we are displaying a closed ring, then we add an image to the background. */
+.NACC-Instance .NACC-Keytag-Tabular .NACC-Keytag,
 .NACC-Instance .NACC-Keytag.NACC-Keytag-Ringtop {
-    background-image: url ( 'images/00_RingTop.png' );
+    background-image: url('images/00_RingTop.png');
     background-position: top center;
     background-size: 100%;
     background-repeat: no-repeat;
+}
+
+.NACC-Instance .NACC-Keytag {
+    margin-top:-122px;
+    display: block;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+.NACC-Instance .NACC-Keytag-Tabular .NACC-Keytag {
+    display: inline;
+    float:left;
+    margin-top:-82px;
+    margin-left:-50px;
 }
 
 /****************************************************/
