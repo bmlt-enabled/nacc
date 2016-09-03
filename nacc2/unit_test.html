@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        <meta http-equiv="Content-Style-Type" content="text/css" />
+        <meta http-equiv="Content-Script-Type" content="text/javascript" />
+        <script type="text/javascript" src="nacc.js"></script>
+        <title>Test NACC</title>
+        <style>
+            div {
+                margin-top: 1em;
+            }
+        </style>
+    </head>
+    <body style="text-align:center">
+        <h1>TEST THE NACC</h1>
+        <form action="index.html" method="GET">
+            <div style="text-align:left; display: table; margin-left:auto;margin-right: auto">
+                <div style="text-align:center">
+                    <div style="text-align:left; display: table; margin-left:auto;margin-right: auto">
+                        <div>
+                            <label for="NACC-lang">Select Language:</label>
+                            <select label="language" name="NACC-lang" id="NACC-lang">
+                                <option value="en" selected="selected">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="zh-Hans">Chinese (Simplified)</option>
+                                <option value="zh-Hans">Chinese (Traditional)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="NACC-style">Select Style:</label>
+                            <select label="language" name="NACC-style" id="NACC-style">
+                                <option value="" selected="selected">Default (Gray)</option>
+                                <option value="NACC-BT">BT (Blue)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="NACC-year">Select Year:</label>
+                    <select label="language" name="NACC-year" id="NACC-year">
+                        <option value="" selected="selected">Do Not Calculate A Date</option>
+                        <script type="text/javascript">
+                            var today = new Date();
+                            
+                            for ( var i = 1953; i <= today.getFullYear(); i++ ) {
+                                document.write('<option value="' + i.toString() + '">' + i.toString() + '</option>');
+                            };
+                        </script>
+                    </select>
+                    <label for="NACC-month">Select Month:</label>
+                    <select label="language" name="NACC-month" id="NACC-month">
+                        <option value="" selected="selected">Do Not Calculate A Date</option>
+                        <script type="text/javascript">
+                            var months = new Array ("Do Not Calculate A Date", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "December");
+                            for ( var i = 1; i < months.length; i++ ) {
+                                document.write('<option value="' + i.toString() + '">' + months[i] + '</option>');
+                            };
+                        </script>
+                    </select>
+                    <label for="NACC-day">Select Day:</label>
+                    <select label="language" name="NACC-day" id="NACC-day">
+                        <option value="" selected="selected">Do Not Calculate A Date</option>
+                        <script type="text/javascript">
+                            for ( var i = 1; i < 32; i++ ) {
+                                document.write('<option value="' + i.toString() + '">' + i.toString() + '</option>');
+                            };
+                        </script>
+                    </select>
+                </div>
+                <div style="text-align:center">
+                    <div style="text-align:left; display: table; margin-left:auto;margin-right: auto">
+                        <div>
+                            <input type="radio" name="NACC-tag-layout" id="NACC-tag-layout-linear" value="linear" checked="checked" />
+                            <label for="NACC-tag-layout-linear">Linear Tag Layout</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="NACC-tag-layout" value="tabular" id="NACC-tag-layout-tabular" />
+                            <label for="NACC-tag-layout-tabular">Tabular Tag Layout</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="NACC-special-tags" value="1" id="NACC-special-tags" />
+                            <label for="NACC-special-tags">Show Special Tags</label>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center">
+                    <input type="Submit" value="Submit" />
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

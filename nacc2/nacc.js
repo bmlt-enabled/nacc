@@ -39,6 +39,9 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     /************************************/
     /*           LOCALIZATION           */
     /************************************/
+    /************************************/
+    /*             ENGLISH              */
+    /************************************/
     /** We need to instantiate an object for each language. The key needs to be the language selector. */
     this.m_lang['en'] = new Object();
     
@@ -52,6 +55,8 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     this.m_lang['en'].calculate_button_text                 = 'Calculate';
     /** This is the text for the change layout button. */
     this.m_lang['en'].change_layout_button_text             = 'Change Tag Layout';
+    /** This is the text for the show special tags checkbox. */
+    this.m_lang['en'].change_use_special_tags_label         = 'Show Special Tags';
     /** These are the months, spelled out. */
     this.m_lang['en'].months                                = Array(
                                                                     "ERROR",
@@ -93,6 +98,180 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     this.m_lang['en'].result_years_and_days_format          = 'This is %d years and %d days.';
     this.m_lang['en'].result_years_1_month_and_days_format  = 'This is %d years, 1 month and %d days.';
     this.m_lang['en'].result_years_months_and_days_format   = 'This is %d years, %d months and %d days.';
+   
+    /************************************/
+    /*             SPANISH              */
+    /************************************/
+    this.m_lang['es'] = new Object();
+    
+    /* The following are strings to be assigned to each language. */
+    
+    /** This is the header, at the top. */
+    this.m_lang['es'].section_title                         = 'NA Cleantime Calculator';
+    /** This is the prompt over the popup menus. */
+    this.m_lang['es'].prompt                                = 'Please enter your Clean Date';
+    /** This is the text for the calculate button. */
+    this.m_lang['es'].calculate_button_text                 = 'Calculate';
+    /** This is the text for the change layout button. */
+    this.m_lang['es'].change_layout_button_text             = 'Change Tag Layout';
+    /** This is the text for the show special tags checkbox. */
+    this.m_lang['es'].change_use_special_tags_label         = 'Show Special Tags';
+    /** These are the months, spelled out. */
+    this.m_lang['es'].months                                = Array(
+                                                                    "ERROR",
+                                                                    "January",
+                                                                    "February",
+                                                                    "March",
+                                                                    "April",
+                                                                    "May",
+                                                                    "June",
+                                                                    "July",
+                                                                    "August",
+                                                                    "September",
+                                                                    "October",
+                                                                    "November",
+                                                                    "December"
+                                                                    );
+    this.m_lang['es'].result_invalid                        = 'Please select a valid cleandate!';
+    
+    this.m_lang['es'].result_1_day                          = 'You have been clean for 1 day!';
+    this.m_lang['es'].result_days_format                    = 'You have been clean for %d days!';
+
+    /** These are for the second (months, years and days) blurb. */
+    this.m_lang['es'].result_months_format                  = 'This is %d months.';
+    this.m_lang['es'].result_months_and_1_day_format        = 'This is %d months and 1 day.';
+    this.m_lang['es'].result_months_and_days_format         = 'This is %d months and %d days.';
+    this.m_lang['es'].result_1_year                         = 'This is 1 year.';
+    this.m_lang['es'].result_1_year_and_1_day               = 'This is 1 year and 1 day.';
+    this.m_lang['es'].result_1_year_and_1_month             = 'This is 1 year and 1 month.';
+    this.m_lang['es'].result_1_year_1_month_and_1_day       = 'This is 1 year, 1 month and 1 day.';
+    this.m_lang['es'].result_1_year_months_and_1_day_format = 'This is 1 year, %d months and 1 day.';
+    this.m_lang['es'].result_1_year_days_format             = 'This is 1 year and %d days.';
+    this.m_lang['es'].result_years_format                   = 'This is %d years.';
+    this.m_lang['es'].result_years_months_format            = 'This is %d years and %d months.';
+    this.m_lang['es'].result_years_1_month_and_1_day_format = 'This is %d years, 1 month and 1 day.';
+    this.m_lang['es'].result_years_months_and_1_day_format  = 'This is %d years, %d months and 1 day.';
+    this.m_lang['es'].result_years_and_1_month_format       = 'This is %d years and 1 month.';
+    this.m_lang['es'].result_years_and_1_day_format         = 'This is %d years and 1 day.';
+    this.m_lang['es'].result_years_and_days_format          = 'This is %d years and %d days.';
+    this.m_lang['es'].result_years_1_month_and_days_format  = 'This is %d years, 1 month and %d days.';
+    this.m_lang['es'].result_years_months_and_days_format   = 'This is %d years, %d months and %d days.';
+   
+    /************************************/
+    /*       SIMPLIFIED CHINESE         */
+    /************************************/
+    this.m_lang['zh-Hans'] = new Object();
+    
+    /* The following are strings to be assigned to each language. */
+    
+    /** This is the header, at the top. */
+    this.m_lang['zh-Hans'].section_title                            = 'NA Cleantime Calculator';
+    /** This is the prompt over the popup menus. */
+    this.m_lang['zh-Hans'].prompt                                   = 'Please enter your Clean Date';
+    /** This is the text for the calculate button. */
+    this.m_lang['zh-Hans'].calculate_button_text                    = 'Calculate';
+    /** This is the text for the change layout button. */
+    this.m_lang['zh-Hans'].change_layout_button_text                = 'Change Tag Layout';
+    /** This is the text for the show special tags checkbox. */
+    this.m_lang['zh-Hans'].change_use_special_tags_label            = 'Show Special Tags';
+    /** These are the months, spelled out. */
+    this.m_lang['zh-Hans'].months                                   = Array(
+                                                                            "ERROR",
+                                                                            "January",
+                                                                            "February",
+                                                                            "March",
+                                                                            "April",
+                                                                            "May",
+                                                                            "June",
+                                                                            "July",
+                                                                            "August",
+                                                                            "September",
+                                                                            "October",
+                                                                            "November",
+                                                                            "December"
+                                                                            );
+    this.m_lang['zh-Hans'].result_invalid                           = 'Please select a valid cleandate!';
+    
+    this.m_lang['zh-Hans'].result_1_day                             = 'You have been clean for 1 day!';
+    this.m_lang['zh-Hans'].result_days_format                       = 'You have been clean for %d days!';
+
+    /** These are for the second (months, years and days) blurb. */
+    this.m_lang['zh-Hans'].result_months_format                     = 'This is %d months.';
+    this.m_lang['zh-Hans'].result_months_and_1_day_format           = 'This is %d months and 1 day.';
+    this.m_lang['zh-Hans'].result_months_and_days_format            = 'This is %d months and %d days.';
+    this.m_lang['zh-Hans'].result_1_year                            = 'This is 1 year.';
+    this.m_lang['zh-Hans'].result_1_year_and_1_day                  = 'This is 1 year and 1 day.';
+    this.m_lang['zh-Hans'].result_1_year_and_1_month                = 'This is 1 year and 1 month.';
+    this.m_lang['zh-Hans'].result_1_year_1_month_and_1_day          = 'This is 1 year, 1 month and 1 day.';
+    this.m_lang['zh-Hans'].result_1_year_months_and_1_day_format    = 'This is 1 year, %d months and 1 day.';
+    this.m_lang['zh-Hans'].result_1_year_days_format                = 'This is 1 year and %d days.';
+    this.m_lang['zh-Hans'].result_years_format                      = 'This is %d years.';
+    this.m_lang['zh-Hans'].result_years_months_format               = 'This is %d years and %d months.';
+    this.m_lang['zh-Hans'].result_years_1_month_and_1_day_format    = 'This is %d years, 1 month and 1 day.';
+    this.m_lang['zh-Hans'].result_years_months_and_1_day_format     = 'This is %d years, %d months and 1 day.';
+    this.m_lang['zh-Hans'].result_years_and_1_month_format          = 'This is %d years and 1 month.';
+    this.m_lang['zh-Hans'].result_years_and_1_day_format            = 'This is %d years and 1 day.';
+    this.m_lang['zh-Hans'].result_years_and_days_format             = 'This is %d years and %d days.';
+    this.m_lang['zh-Hans'].result_years_1_month_and_days_format     = 'This is %d years, 1 month and %d days.';
+    this.m_lang['zh-Hans'].result_years_months_and_days_format      = 'This is %d years, %d months and %d days.';
+   
+    /************************************/
+    /*       TRADITIONAL CHINESE        */
+    /************************************/
+    this.m_lang['zh-Hant'] = new Object();
+    
+    /* The following are strings to be assigned to each language. */
+    
+    /** This is the header, at the top. */
+    this.m_lang['zh-Hant'].section_title                            = 'NA Cleantime Calculator';
+    /** This is the prompt over the popup menus. */
+    this.m_lang['zh-Hant'].prompt                                   = 'Please enter your Clean Date';
+    /** This is the text for the calculate button. */
+    this.m_lang['zh-Hant'].calculate_button_text                    = 'Calculate';
+    /** This is the text for the change layout button. */
+    this.m_lang['zh-Hant'].change_layout_button_text                = 'Change Tag Layout';
+    /** This is the text for the show special tags checkbox. */
+    this.m_lang['zh-Hant'].change_use_special_tags_label            = 'Show Special Tags';
+    /** These are the months, spelled out. */
+    this.m_lang['zh-Hant'].months                                   = Array(
+                                                                            "ERROR",
+                                                                            "January",
+                                                                            "February",
+                                                                            "March",
+                                                                            "April",
+                                                                            "May",
+                                                                            "June",
+                                                                            "July",
+                                                                            "August",
+                                                                            "September",
+                                                                            "October",
+                                                                            "November",
+                                                                            "December"
+                                                                            );
+    this.m_lang['zh-Hant'].result_invalid                           = 'Please select a valid cleandate!';
+    
+    this.m_lang['zh-Hant'].result_1_day                             = 'You have been clean for 1 day!';
+    this.m_lang['zh-Hant'].result_days_format                       = 'You have been clean for %d days!';
+
+    /** These are for the second (months, years and days) blurb. */
+    this.m_lang['zh-Hant'].result_months_format                     = 'This is %d months.';
+    this.m_lang['zh-Hant'].result_months_and_1_day_format           = 'This is %d months and 1 day.';
+    this.m_lang['zh-Hant'].result_months_and_days_format            = 'This is %d months and %d days.';
+    this.m_lang['zh-Hant'].result_1_year                            = 'This is 1 year.';
+    this.m_lang['zh-Hant'].result_1_year_and_1_day                  = 'This is 1 year and 1 day.';
+    this.m_lang['zh-Hant'].result_1_year_and_1_month                = 'This is 1 year and 1 month.';
+    this.m_lang['zh-Hant'].result_1_year_1_month_and_1_day          = 'This is 1 year, 1 month and 1 day.';
+    this.m_lang['zh-Hant'].result_1_year_months_and_1_day_format    = 'This is 1 year, %d months and 1 day.';
+    this.m_lang['zh-Hant'].result_1_year_days_format                = 'This is 1 year and %d days.';
+    this.m_lang['zh-Hant'].result_years_format                      = 'This is %d years.';
+    this.m_lang['zh-Hant'].result_years_months_format               = 'This is %d years and %d months.';
+    this.m_lang['zh-Hant'].result_years_1_month_and_1_day_format    = 'This is %d years, 1 month and 1 day.';
+    this.m_lang['zh-Hant'].result_years_months_and_1_day_format     = 'This is %d years, %d months and 1 day.';
+    this.m_lang['zh-Hant'].result_years_and_1_month_format          = 'This is %d years and 1 month.';
+    this.m_lang['zh-Hant'].result_years_and_1_day_format            = 'This is %d years and 1 day.';
+    this.m_lang['zh-Hant'].result_years_and_days_format             = 'This is %d years and %d days.';
+    this.m_lang['zh-Hant'].result_years_1_month_and_days_format     = 'This is %d years, 1 month and %d days.';
+    this.m_lang['zh-Hant'].result_years_months_and_days_format      = 'This is %d years, %d months and %d days.';
     
     /************************************/
     /*            MAIN CODE             */
@@ -232,6 +411,10 @@ NACC.prototype.m_calculate_button = null;
 NACC.prototype.m_calculation_results_div = null;
 /// This is the calculate results display toggle button.
 NACC.prototype.m_calculation_results_display_toggle_button = null;
+/// This is the calculate results special tags display checkbox.
+NACC.prototype.m_calculation_results_show_special_tags_checkbox = null;
+/// This is the label for the calculate results special tags display checkbox.
+NACC.prototype.m_calculation_results_show_special_tags_checkbox_label = null;
 /// This is the calculate results text div.
 NACC.prototype.m_calculation_results_text_div = null;
 /// This is the calculate results keytags div.
@@ -424,7 +607,12 @@ NACC.prototype.calculateCleantime = function(inObject) {
     // If this was triggered by the rearrange layout button, we toggle the layout.
     if ( inObject == owner.m_calculation_results_display_toggle_button ) {
         owner.m_keytag_layout = (owner.m_keytag_layout == 'linear') ? 'tabular' : 'linear';
-    }
+    };
+    
+    // If it was triggered by the checkbox, then we togle the special tags state.
+    if ( inObject == owner.m_calculation_results_show_special_tags_checkbox ) {
+        owner.m_keytag_special = !owner.m_keytag_special;
+    };
     
     owner.calculate(year, month, day);
 };
@@ -1062,7 +1250,7 @@ NACC.prototype.createTagsArray = function(inNumDays, inMonths) {
 NACC.prototype.createRearrangeButton = function() {
     if ( null != this.m_calculation_results_display_toggle_button ) {
         this.m_calculation_results_display_toggle_button.parentNode.removeChild(this.m_calculation_results_display_toggle_button);
-    }
+    };
     
     this.m_calculation_results_display_toggle_button = this.createDOMObject('input', 'NACC-Change-Layout-Button', this.m_popup_container);
     
@@ -1071,6 +1259,39 @@ NACC.prototype.createRearrangeButton = function() {
         this.m_calculation_results_display_toggle_button.value = this.m_lang[this.m_lang_selector].change_layout_button_text;
         this.m_calculation_results_display_toggle_button.owner = this;
         this.m_calculation_results_display_toggle_button.onclick = function(){NACC.prototype.calculateCleantime(this)};
+        this.createSpecialTagsCheckbox();
+    };
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates the show special tags checkbox.
+*/
+NACC.prototype.createSpecialTagsCheckbox = function() {
+    if ( null != this.m_calculation_results_show_special_tags_checkbox ) {
+        this.m_calculation_results_show_special_tags_checkbox.parentNode.removeChild(this.m_calculation_results_show_special_tags_checkbox);
+    };
+    
+    this.m_calculation_results_show_special_tags_checkbox = this.createDOMObject('input', 'NACC-Show-Special-Tags-Checkbox', this.m_popup_container);
+    
+    if ( null != this.m_calculation_results_show_special_tags_checkbox ) {
+        this.m_calculation_results_show_special_tags_checkbox.setAttribute('type', 'checkbox');
+        this.m_calculation_results_show_special_tags_checkbox.checked = this.m_keytag_special ? true : false;
+        this.m_calculation_results_show_special_tags_checkbox.value = 1;
+        this.m_calculation_results_show_special_tags_checkbox.owner = this;
+        this.m_calculation_results_show_special_tags_checkbox.onclick = function(){NACC.prototype.calculateCleantime(this)};
+        this.createDOMObject('div', 'breaker', this.m_popup_container);
+    };
+    
+    if ( null != this.m_calculation_results_show_special_tags_checkbox_label ) {
+        this.m_calculation_results_show_special_tags_checkbox_label.parentNode.removeChild(this.m_calculation_results_show_special_tags_checkbox_label);
+    };
+    
+    this.m_calculation_results_show_special_tags_checkbox_label = this.createDOMObject('label', 'NACC-Show-Special-Tags-Checkbox-Label', this.m_popup_container);
+
+    if ( null != this.m_calculation_results_show_special_tags_checkbox_label ) {
+        this.m_calculation_results_show_special_tags_checkbox_label.setAttribute('for', this.m_calculation_results_show_special_tags_checkbox.id);
+        this.m_calculation_results_show_special_tags_checkbox_label.innerHTML = this.m_lang[this.m_lang_selector].change_use_special_tags_label;
         this.createDOMObject('div', 'breaker', this.m_popup_container);
     };
 };

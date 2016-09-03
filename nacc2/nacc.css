@@ -155,6 +155,8 @@
 
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
 .NACC-Instance .NACC-Legend {
+    margin: auto;
+    text-align: center;
     border-radius: 0.25em;
     border: solid 1px gray;
     padding: 0.25em;
