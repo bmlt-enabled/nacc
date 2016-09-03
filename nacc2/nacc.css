@@ -56,6 +56,13 @@
     text-align: center;
 }
 
+/** This is the change layout button. */
+.NACC-Instance .NACC-Change-Layout-Button {
+    display: block;
+    clear: both;
+    width: 100%;
+}
+
 /** This is the text display for the results. */
 .NACC-Instance .NACC-Results-Text {
 }
@@ -71,6 +78,9 @@
 /** This is the container for the keytag display. */
 .NACC-Instance .NACC-Keytags {
     margin-top: 122px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /** This describes a keytag image. */
@@ -81,12 +91,7 @@
 
 .NACC-Instance .NACC-Keytag-Tabular {
     margin-top: 82px;
-    margin-left: 50px;
-}
-
-.NACC-Instance .NACC-Keytags.NACC-Keytag-Tabular {
-    margin-top: 82px;
-    margin-left: 50px;
+    padding-right: 50px;
 }
 
 /** If we are displaying a closed ring, then we add an image to the background. */
@@ -109,7 +114,11 @@
     display: inline;
     float:left;
     margin-top:-82px;
-    margin-left:-50px;
+    margin-right:-50px;
+}
+
+.NACC-Instance .NACC-Keytag-Tabular .NACC-White-Tag {
+    margin-left: auto;
 }
 
 /****************************************************/

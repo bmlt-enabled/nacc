@@ -50,6 +50,8 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     this.m_lang['en'].prompt                                = 'Please enter your Clean Date';
     /** This is the text for the calculate button. */
     this.m_lang['en'].calculate_button_text                 = 'Calculate';
+    /** This is the text for the change layout button. */
+    this.m_lang['en'].change_layout_button_text             = 'Change Tag Layout';
     /** These are the months, spelled out. */
     this.m_lang['en'].months                                = Array(
                                                                     "ERROR",
@@ -139,7 +141,7 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     };
     
     if ( this.m_getParameters["NACC-special-tags"] ) {
-        this.m_keytag_special = this.m_getParameters["NACC-special-tags"] ? true : false;
+        this.m_keytag_special = true;
     } else {
         this.m_keytag_special = inShowSpecialTags ? true : false;
     };
@@ -156,8 +158,6 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     if ( this.m_style_selector ) {
         this.m_my_container.className += ' ' + this.m_style_selector;   // Append any style selection.
     };
-        
-    this.m_keytag_special = false;
     
     this.m_my_container.innerHTML = '';
     
@@ -230,8 +230,6 @@ NACC.prototype.m_year_popup = null;
 NACC.prototype.m_calculate_button = null;
 /// This is the calculate results div.
 NACC.prototype.m_calculation_results_div = null;
-/// This is the calculate results display toggle button div.
-NACC.prototype.m_calculation_results_display_toggle_div = null;
 /// This is the calculate results display toggle button.
 NACC.prototype.m_calculation_results_display_toggle_button = null;
 /// This is the calculate results text div.
@@ -423,6 +421,11 @@ NACC.prototype.calculateCleantime = function(inObject) {
     var month = parseInt(owner.m_month_popup.value) - 1;
     var day = parseInt(owner.m_day_popup.value);
     
+    // If this was triggered by the rearrange layout button, we toggle the layout.
+    if ( inObject == owner.m_calculation_results_display_toggle_button ) {
+        owner.m_keytag_layout = (owner.m_keytag_layout == 'linear') ? 'tabular' : 'linear';
+    }
+    
     owner.calculate(year, month, day);
 };
 
@@ -559,7 +562,13 @@ NACC.prototype.createKeytag = function(inSrc, isClosed) {
 */
 NACC.prototype.createWhiteKeytag = function(inFace) {
     // White keytag will always be closed.
-    return this.createOneKeytag('01' + (inFace ? '_Front' : ''), true);
+    var ret = this.createOneKeytag('01' + (inFace ? '_Front' : ''), true);
+    
+    if ( null != ret ) {
+        ret.className += ' NACC-White-Tag';
+    };
+    
+    return ret;
 };
 
 /***********************************************************************/
@@ -968,7 +977,7 @@ NACC.prototype.createTagsDiv = function(inNumDays, inMonths) {
     \param  inMonths The total number of months (used to determine keytags).
 */
 NACC.prototype.createTagsArray = function(inNumDays, inMonths) {
-    var isFace = this.m_keytag_layout != 'linear';
+    var isFace = this.m_keytag_layout == 'linear';
     
     if ( 0 < inNumDays ) {
         this.createWhiteKeytag(isFace);
@@ -1007,29 +1016,29 @@ NACC.prototype.createTagsArray = function(inNumDays, inMonths) {
             this.createBlackKeytag(isFace);
         };
         
-        inMonths -= 12;
-        
-        for ( var i = 24; i <= inMonths; i += 12 ) {
+        for ( var i = 24; i <= (inMonths - 12); i += 12 ) {
+            var comp = i + 12;
             var specialTag = false;
+            
             if ( this.m_keytag_special ) {
-                if ( i == 120 ) {
+                if ( comp == 120 ) {
                     specialTag = true;
                     this.createDecadeKeytag(isFace);
                 };
                 
-                if ( !specialTag && (i == 300) ) {
+                if ( !specialTag && (comp == 300) ) {
                     specialTag = true;
                     this.create25YearKeytag(isFace);
                 };
                 
-                if ( !specialTag && (0 == (i % 360)) ) {
+                if ( !specialTag && (comp == 360) ) {
                     specialTag = true;
                     this.create30YearKeytag(isFace);
                 };
                 
-                if ( !specialTag && (i == 300) ) {
+                if ( !specialTag && (0 == (comp % 120)) ) {
                     specialTag = true;
-                    this.create25YearKeytag(isFace);
+                    this.createDecadesKeytag(isFace);
                 };
             };
             
@@ -1037,10 +1046,32 @@ NACC.prototype.createTagsArray = function(inNumDays, inMonths) {
                 this.createBlackKeytag(isFace);
             };
             
-            if ( this.m_keytag_special && (i == 324) && (9999 < inNumDays) ) {
+            if ( this.m_keytag_special && (comp == 324) && (9999 < inNumDays) ) {
                 this.create10KKeytag(isFace);
             };
         };
+    };
+    
+    this.createRearrangeButton();
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates the change layout button.
+*/
+NACC.prototype.createRearrangeButton = function() {
+    if ( null != this.m_calculation_results_display_toggle_button ) {
+        this.m_calculation_results_display_toggle_button.parentNode.removeChild(this.m_calculation_results_display_toggle_button);
+    }
+    
+    this.m_calculation_results_display_toggle_button = this.createDOMObject('input', 'NACC-Change-Layout-Button', this.m_popup_container);
+    
+    if ( null != this.m_calculation_results_display_toggle_button ) {
+        this.m_calculation_results_display_toggle_button.setAttribute('type', 'button');
+        this.m_calculation_results_display_toggle_button.value = this.m_lang[this.m_lang_selector].change_layout_button_text;
+        this.m_calculation_results_display_toggle_button.owner = this;
+        this.m_calculation_results_display_toggle_button.onclick = function(){NACC.prototype.calculateCleantime(this)};
+        this.createDOMObject('div', 'breaker', this.m_popup_container);
     };
 };
 
