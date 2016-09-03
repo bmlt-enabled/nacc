@@ -61,10 +61,29 @@
     display: block;
     clear: both;
     width: 100%;
+    margin-top: 0.25em;
 }
 
-/** This is the text display for the results. */
-.NACC-Instance .NACC-Results-Text {
+.NACC-Instance .NACC-Change-Layout-Button {
+    display: block;
+    clear: both;
+    width: 100%;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+/** This is the show special tags checkbox. */
+.NACC-Instance .NACC-Show-Special-Tags-Checkbox {
+    display: block;
+    float:left;
+    margin-right: 0.25em;
+}
+
+/** This is the show special tags checkbox label. */
+.NACC-Instance .NACC-Show-Special-Tags-Checkbox-Label {
+    clear: none;
+    display: block;
+    float:left;
 }
 
 /** This is the first line of the text display (total days). */
@@ -192,5 +211,9 @@
 .NACC-Instance.NACC-BT .NACC-Legend {
     border-color: white;
     background: linear-gradient(to top, #009, white);
+}
+/** This is the show special tags checkbox. */
+.NACC-Instance .NACC-Show-Special-Tags-Checkbox {
+    color:white
 }
 

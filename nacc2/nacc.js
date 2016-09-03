@@ -1280,7 +1280,6 @@ NACC.prototype.createSpecialTagsCheckbox = function() {
         this.m_calculation_results_show_special_tags_checkbox.value = 1;
         this.m_calculation_results_show_special_tags_checkbox.owner = this;
         this.m_calculation_results_show_special_tags_checkbox.onclick = function(){NACC.prototype.calculateCleantime(this)};
-        this.createDOMObject('div', 'breaker', this.m_popup_container);
     };
     
     if ( null != this.m_calculation_results_show_special_tags_checkbox_label ) {
