@@ -213,7 +213,7 @@
     background: linear-gradient(to top, #009, white);
 }
 /** This is the show special tags checkbox. */
-.NACC-Instance .NACC-Show-Special-Tags-Checkbox {
+.NACC-Instance .NACC-Show-Special-Tags-Checkbox-Label {
     color:white
 }
 
