@@ -2,25 +2,12 @@
 /***********************************************************************/
 /** 	\file	include_stripper.php
 
-	\brief	This file reads in a JavaScript or CSS file, and optimizes it by stripping
-	out comments and whitespace. It will also try to GZ compress the output
-	using the standard OB functions. It can make a HUGE difference in size.
-	
-	The way it works is that you call it from the <link/> element (don't
-	specify a "type" attribute), and give it a GET parameter of filename,
-	which will equal the file path to the JavaScript/CSS file.
-	
-	For security purposes, the file must always be a ".js" or ".css" file, and you can't
-	go out of the directory in which this file is located.
-
-    This file is part of the NA Cleantime Calulator (BMLT).
-
     NACC is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    BMLT is distributed in the hope that it will be useful,
+    NACC is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.

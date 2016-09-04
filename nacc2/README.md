@@ -43,6 +43,8 @@ In order to use this, you import the "nacc.js" file, and link to the "nacc.css" 
         .
         .
         <script type="text/javascript" src="nacc.js"></script>
+        .
+        .
         <link rel="stylesheet" type="text/css" href="nacc.css" />
         .
         .
@@ -56,6 +58,8 @@ Example:
         .
         .
         <div id="nacc-container" class="NACC-Linear"></div>
+        .
+        .
         <script type="text/javascript">new NACC('nacc-container')</script>
         .
         .
@@ -63,9 +67,9 @@ Example:
 
 Look at the "index.html" file for a more verbose version of this.
 
-You can call it with a number of input parameters:
+You can call it with up to 7 input parameters (which must be called in the following order:
 
-- A string, with the DOM ID of the DOM element that will contain this instance. It will usually be an empty div element, but can be any block-level DOM element. This is the only required parameter.
+1. A string, with the DOM ID of the DOM element that will contain this instance. It will usually be an empty `<div>` element, but can be any block-level DOM element. This is the only **required** parameter.
 - A string, indicating the style. Leave blank/null for default gray. The "BT" style would be 'NA-BT', as that is the CSS name it has been given.                                 
 - A string, with the language selector (Example: 'en' -the default-, 'es' -Spanish-, etc.). Currently, these languages are supported:
     - English ('en'). This is also the default.
@@ -79,8 +83,28 @@ You can call it with a number of input parameters:
     - An initial calculation year (integer -entire year, like '1953').
     - An initial calculation month (integer 1-12).
     - An initial calculation day (integer 1-31).
+    
+You can leave unused _successive_ parameters out, but _interim_ ones need to be specified as empty, 0 or null:
+
+    NACC('some_DOM_ID');
+    NACC('some_DOM_ID', 'NA-BT');
+    NACC('some_DOM_ID', 'NA-BT', 'es');
+    NACC('some_DOM_ID', 'NA-BT', 'es', 'tabular', 1);
+    NACC('some_DOM_ID', '', 'es');
+    NACC('some_DOM_ID', null, 'es');
+    NACC('some_DOM_ID', null, 'es', 'tabular', 1);
+    NACC('some_DOM_ID', null, null, 'tabular', 1);
+    NACC('some_DOM_ID', null, null, null, 1);
+    
+Are all OK.
+    
+But not:
+
+    NACC('some_DOM_ID', 'es');
+    NACC('some_DOM_ID', 'tabular');
+
         
-You can also call the file with GET (not POST) parameters:
+You can also call the file with GET (not POST) parameters (These can be provided in any order):
 
 - "NACC-style" for Style
 - "NACC-lang" for Language
@@ -95,12 +119,14 @@ If these are provided, they will override any parameters passed into the functio
 
 If You Have A PHP Server
 ------------------------
-If you have a PHP server available, you can optimize the page load by using the PHP "file optimizer script," which is invoked from the head elements, like so:
+If you have a PHP server available, you can optimize the page load by using the PHP "file optimizer script," which is invoked from the `<head>` elements, like so:
 
     <head>
         .
         .
         <script type="text/javascript" src="include_stripper.php?filename=nacc.js"></script>
+        .
+        .
         <link rel="stylesheet" type="include_stripper.php?filename=text/css" href="nacc.css" />
         .
         .
@@ -120,7 +146,15 @@ It tests the NACC by sending GET parameters.
 
 LICENSING
 =========
-This is a [GPL V3](http://www.gnu.org/licenses/licenses.html#GPL) license. It is 100% open source, and the repository is available in full on [Bitbucket](https://bitbucket.org/bmlt/nacc2).
+Most of the project is a [GPL V3](http://www.gnu.org/licenses/licenses.html#GPL) license. It is 100% open source, and the repository is available in full on [Bitbucket](https://bitbucket.org/bmlt/nacc2).
+
+Please read the "IMPORTANT NOTE", above, for information about [NA trademarks](http://na.org/?ID=legal-bulletins-fipt). These cannot be reassigned via the GPL.
+
+NACC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by [the Free Software Foundation](http://fsf.org/), either version 3 of the License, or (at your option) any later version.
+
+NACC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See [the GNU General Public License](http://www.gnu.org/licenses/licenses.html#GPL) for more details.
+
+You should have received a copy of the GNU General Public License along with the code. If not, see [the GPL License Page](http://www.gnu.org/licenses/).
 
 CHANGELIST
 ==========
