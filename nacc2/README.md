@@ -72,37 +72,37 @@ You can call it with up to 7 input parameters, which must be called in the follo
 1. A string, with the DOM ID of the DOM element that will contain this instance. It will usually be an empty `<div>` element, but can be any block-level DOM element. This is the only **required** parameter.
 2. A string, indicating the style. Leave blank/null for default gray. The "BT" style would be 'NA-BT', as that is the CSS name it has been given.                                 
 3. A string, with the language selector (Example: 'en' -the default-, 'es' -Spanish-, etc.). Currently, these languages are supported:
-    - English ('en'). This is also the default.
-    - Spanish ('es').
-    - Simplified Chinese ('zh-Hans').
-    - Traditional Chinese ('zh-Hant').      
-4. A string, with the tag layout (either 'linear' or 'tabular' -default is 'linear').     
-5. A Boolean ('1' or '' or '0'). If true, then the "specialty" (over 2 years) tags are displayed. Default is false.     
+    - English ("en"). This is also the default.
+    - Spanish ("es").
+    - Simplified Chinese ("zh-Hans").
+    - Traditional Chinese ("zh-Hant").      
+4. A string, with the tag layout (either "linear" or "tabular" -default is "linear").     
+5. A Boolean ("1", '' or "0"). If true, then the "specialty" (over 2 years) tags are displayed. Default is false.     
 6. A string, containing a path (relative to the execution path) to the main directory. Leave as '' or null for standard implementations.                             
 7. If you want the instance to immediately appear with a calculation, then ALL 3 of these must be specified.
-    - An initial calculation year (integer -entire year, like '1953').
+    - An initial calculation year (integer -entire year, like "1953").
     - An initial calculation month (integer 1-12).
     - An initial calculation day (integer 1-31).
     
-You can leave unused _successive_ parameters out, but _interim_ ones need to be specified as empty, 0 or null:
+You can leave unused _successive_ parameters out, but _interim_ ones need to be specified as empty, 0 or null.
+
+For example, these are all valid:
 
     NACC('some_DOM_ID');
     NACC('some_DOM_ID', 'NA-BT');
     NACC('some_DOM_ID', 'NA-BT', 'es');
     NACC('some_DOM_ID', 'NA-BT', 'es', 'tabular', 1);
-    NACC('some_DOM_ID', '', 'es');
     NACC('some_DOM_ID', null, 'es');
+    NACC('some_DOM_ID', '', 'es');
     NACC('some_DOM_ID', null, 'es', 'tabular', 1);
-    NACC('some_DOM_ID', null, null, 'tabular', 1);
-    NACC('some_DOM_ID', null, null, null, 1);
+    NACC('some_DOM_ID', null, '', 'tabular', 1);
+    NACC('some_DOM_ID', 0, '', null, 1);
     
-Are all OK.
-    
-But not:
+But these are not:
 
     NACC('some_DOM_ID', 'es');
     NACC('some_DOM_ID', 'tabular');
-
+    NACC('some_DOM_ID', 'NA-BT', 'es', 1);
         
 You can also call the file with GET (not POST) parameters (These can be provided in any order):
 
