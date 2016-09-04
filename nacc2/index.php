@@ -40,8 +40,8 @@
         <meta http-equiv="Content-Script-Type" content="text/javascript" />
         <title>NACC 2</title>
         <!-- These two includes are different from the "index.html" file. Note the "include_stripper.php?filename=". -->
-        <script type="text/javascript" src="include_stripper.php?filename=nacc.js"></script>
         <link rel="stylesheet" type="text/css" href="include_stripper.php?filename=nacc.css" />
+        <script type="text/javascript" src="include_stripper.php?filename=nacc.js"></script>
     </head>
     <body>
         <!--

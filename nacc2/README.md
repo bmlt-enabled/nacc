@@ -42,10 +42,10 @@ In order to use this, you import the "nacc.js" file, and link to the "nacc.css" 
     <head>
         .
         .
-        <script type="text/javascript" src="nacc.js"></script>
-        .
-        .
         <link rel="stylesheet" type="text/css" href="nacc.css" />
+        .
+        .
+        <script type="text/javascript" src="nacc.js"></script>
         .
         .
     </head>
@@ -124,10 +124,10 @@ If you have a PHP server available, you can optimize the page load by using the 
     <head>
         .
         .
-        <script type="text/javascript" src="include_stripper.php?filename=nacc.js"></script>
-        .
-        .
         <link rel="stylesheet" type="include_stripper.php?filename=text/css" href="nacc.css" />
+        .
+        .
+        <script type="text/javascript" src="include_stripper.php?filename=nacc.js"></script>
         .
         .
     </head>
