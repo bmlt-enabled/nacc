@@ -25,15 +25,17 @@
 /**
     \brief  This is the main class function for the NACC.
     
-    \param  inContainerElementID A DOM ID to the DOM element that will
-            contain this instance. It should be an empty div element.
-    \param  inStyle This is the style (leave blank/null for default gray).
-    \param  inLang A string, with the language selector.
-    \param  inTagLayout The tag layout (either 'linear' or 'tabular' -default is 'linear')
-    \param  inShowSpecialTags If true, then the "specialty" (over 2 years) tags are displayed. Default is false.
-    \param  inDirectoryRoot This is a path (relative to the execution path) to the main directory.
+    \param  inContainerElementID    A DOM ID to the DOM element that will contain this instance. It will usually be an empty div element, but can be any block-level DOM element.
+    \param  inStyle                 This is the style (leave blank/null for default gray. The "BT" style would be 'NA-BT', as that is the CSS name it has been given).
+    \param  inLang                  A string, with the language selector (Example: 'en' -the default-, 'es' -Spanish-, etc.).
+    \param  inTagLayout             The tag layout (either 'linear' or 'tabular' -default is 'linear')
+    \param  inShowSpecialTags       If true, then the "specialty" (over 2 years) tags are displayed. Default is false.
+    \param  inDirectoryRoot         This is a path (relative to the execution path) to the main directory. Leave as '' or null for standard implementations.
+    \param  inYear                  An initial calculation year (integer -entire year, like '1953'). If you want the instance to immediately appear with a calculation, then ALL 3 of these must be specified.
+    \param  inMonth                 An initial calculation month (integer 1-12). If you want the instance to immediately appear with a calculation, then ALL 3 of these must be specified.
+    \param  inDay                   An initial calculation day (integer 1-31). If you want the instance to immediately appear with a calculation, then ALL 3 of these must be specified.
 */
-function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialTags, inDirectoryRoot) {
+function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialTags, inDirectoryRoot, inYear, inMonth, inDay) {
     this.m_lang = Array();
     
     /************************************/
@@ -59,19 +61,19 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     this.m_lang['en'].change_use_special_tags_label         = 'Show Special Tags';
     /** These are the months, spelled out. */
     this.m_lang['en'].months                                = Array(
-                                                                    "ERROR",
-                                                                    "January",
-                                                                    "February",
-                                                                    "March",
-                                                                    "April",
-                                                                    "May",
-                                                                    "June",
-                                                                    "July",
-                                                                    "August",
-                                                                    "September",
-                                                                    "October",
-                                                                    "November",
-                                                                    "December"
+                                                                    'ERROR',
+                                                                    'January',
+                                                                    'February',
+                                                                    'March',
+                                                                    'April',
+                                                                    'May',
+                                                                    'June',
+                                                                    'July',
+                                                                    'August',
+                                                                    'September',
+                                                                    'October',
+                                                                    'November',
+                                                                    'December'
                                                                     );
     /** These are for the top (days) blurb. */
     this.m_lang['en'].result_invalid                        = 'Please select a valid cleandate!';
@@ -118,19 +120,19 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     this.m_lang['es'].change_use_special_tags_label         = 'Show Special Tags';
     /** These are the months, spelled out. */
     this.m_lang['es'].months                                = Array(
-                                                                    "ERROR",
-                                                                    "January",
-                                                                    "February",
-                                                                    "March",
-                                                                    "April",
-                                                                    "May",
-                                                                    "June",
-                                                                    "July",
-                                                                    "August",
-                                                                    "September",
-                                                                    "October",
-                                                                    "November",
-                                                                    "December"
+                                                                    'ERROR',
+                                                                    'January',
+                                                                    'February',
+                                                                    'March',
+                                                                    'April',
+                                                                    'May',
+                                                                    'June',
+                                                                    'July',
+                                                                    'August',
+                                                                    'September',
+                                                                    'October',
+                                                                    'November',
+                                                                    'December'
                                                                     );
     this.m_lang['es'].result_invalid                        = 'Please select a valid cleandate!';
     
@@ -176,19 +178,19 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     this.m_lang['zh-Hans'].change_use_special_tags_label            = 'Show Special Tags';
     /** These are the months, spelled out. */
     this.m_lang['zh-Hans'].months                                   = Array(
-                                                                            "ERROR",
-                                                                            "January",
-                                                                            "February",
-                                                                            "March",
-                                                                            "April",
-                                                                            "May",
-                                                                            "June",
-                                                                            "July",
-                                                                            "August",
-                                                                            "September",
-                                                                            "October",
-                                                                            "November",
-                                                                            "December"
+                                                                            'ERROR',
+                                                                            'January',
+                                                                            'February',
+                                                                            'March',
+                                                                            'April',
+                                                                            'May',
+                                                                            'June',
+                                                                            'July',
+                                                                            'August',
+                                                                            'September',
+                                                                            'October',
+                                                                            'November',
+                                                                            'December'
                                                                             );
     this.m_lang['zh-Hans'].result_invalid                           = 'Please select a valid cleandate!';
     
@@ -234,19 +236,19 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     this.m_lang['zh-Hant'].change_use_special_tags_label            = 'Show Special Tags';
     /** These are the months, spelled out. */
     this.m_lang['zh-Hant'].months                                   = Array(
-                                                                            "ERROR",
-                                                                            "January",
-                                                                            "February",
-                                                                            "March",
-                                                                            "April",
-                                                                            "May",
-                                                                            "June",
-                                                                            "July",
-                                                                            "August",
-                                                                            "September",
-                                                                            "October",
-                                                                            "November",
-                                                                            "December"
+                                                                            'ERROR',
+                                                                            'January',
+                                                                            'February',
+                                                                            'March',
+                                                                            'April',
+                                                                            'May',
+                                                                            'June',
+                                                                            'July',
+                                                                            'August',
+                                                                            'September',
+                                                                            'October',
+                                                                            'November',
+                                                                            'December'
                                                                             );
     this.m_lang['zh-Hant'].result_invalid                           = 'Please select a valid cleandate!';
     
@@ -276,21 +278,25 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     /************************************/
     /*            MAIN CODE             */
     /************************************/
+    
     // First, see if we have any GET parameters supplied.
+    // GET parameters trump arguments passed in, and arguments trump defaults.
     this.m_getParameters = this.getParameters();
     
-    if ( this.m_getParameters["NACC-dir-root"] ) {
-        this.m_relative_directory_root = this.m_getParameters["NACC-dir-root"] + '/';
+    // See if a root directory was specified.
+    if ( this.m_getParameters['NACC-dir-root'] ) {
+        this.m_relative_directory_root = this.m_getParameters['NACC-dir-root'] + (!this.m_getParameters['NACC-dir-root'].toString().match(/\/$/) ? '/' : '');
     } else {
         if ( inDirectoryRoot ) {
-            this.m_relative_directory_root = inDirectoryRoot + '/';
+            this.m_relative_directory_root = inDirectoryRoot + (!this.m_relative_directory_root.toString().match(/\/$/) ? '/' : '');
         } else {
             this.m_relative_directory_root = '';
         };
     };
-    
-    if ( this.m_getParameters["NACC-style"] ) {
-        this.m_style_selector = this.m_getParameters["NACC-style"];
+
+    // See if a style was specified.
+    if ( this.m_getParameters['NACC-style'] ) {
+        this.m_style_selector = this.m_getParameters['NACC-style'];
     } else {
         if ( inStyle ) {
             this.m_style_selector = inStyle;
@@ -299,8 +305,9 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         };
     };
 
-    if ( this.m_getParameters["NACC-lang"] ) {
-        this.m_lang_selector = this.m_getParameters["NACC-lang"];
+    // See if a language was specified.
+    if ( this.m_getParameters['NACC-lang'] ) {
+        this.m_lang_selector = this.m_getParameters['NACC-lang'];
     } else {
         if ( inLang ) {
             this.m_lang_selector = inLang;
@@ -309,8 +316,9 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         };
     };
     
-    if ( this.m_getParameters["NACC-tag-layout"] ) {
-        this.m_keytag_layout = this.m_getParameters["NACC-tag-layout"];
+    // See if an initial tag layout was specified.
+    if ( this.m_getParameters['NACC-tag-layout'] ) {
+        this.m_keytag_layout = this.m_getParameters['NACC-tag-layout'];
     } else {
         if ( inTagLayout ) {
             this.m_keytag_layout = inTagLayout;
@@ -319,54 +327,78 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         };
     };
     
-    if ( this.m_getParameters["NACC-special-tags"] ) {
+    // See if we want to initially display the "specialty" tags.
+    if ( this.m_getParameters['NACC-special-tags'] ) {
         this.m_keytag_special = true;
     } else {
         this.m_keytag_special = inShowSpecialTags ? true : false;
     };
     
+    // The first thing that we do, is reference the container element.
     this.m_my_container = document.getElementById(inContainerElementID);
-    this.m_my_container.nacc_instance = this;    // Link this NACC instance with the container element.
+    
+    // Link this NACC instance with the container element.
+    this.m_my_container.nacc_instance = this;
+    
     // Make sure the container is tagged with the NACC-Instance class.
     if ( this.m_my_container.className ) {
-        this.m_my_container.className += ' NACC-Instance';   // Appending to an existing class.
+        this.m_my_container.className += ' NACC-Instance';   // Appending to any existing class.
     } else {
         this.m_my_container.className = 'NACC-Instance';     // From scratch.
     };
     
+    // If a style was specified, we add that, as well.
     if ( this.m_style_selector ) {
-        this.m_my_container.className += ' ' + this.m_style_selector;   // Append any style selection.
+        this.m_my_container.className += ' ' + this.m_style_selector;
     };
     
+    // Clear the decks for action, matey!
     this.m_my_container.innerHTML = '';
     
+    // This is where we actually create everything.
     this.createHeader();
     this.createForm();
     
-    this.evaluateMonthDays();   // Update the day popup menu for the current month.
+    // This is a function that makes sure that the days of the month popup menu is valid.
+    this.evaluateMonthDays();
     
     // See if a date was supplied. If so, we immediately calculate.
-    if ( this.m_getParameters["NACC-year"] && this.m_getParameters["NACC-month"] && this.m_getParameters["NACC-day"] ) {
-        var year = parseInt(this.m_getParameters["NACC-year"]);
-        var month = parseInt(this.m_getParameters["NACC-month"]);
-        var day = parseInt(this.m_getParameters["NACC-day"]);
-        
-        if ( year && month && day ) {            
-            this.m_month_popup.selectedIndex = month - 1;
+    var year = parseInt(this.m_getParameters['NACC-year']);
+    var month = parseInt(this.m_getParameters['NACC-month']);
+    var day = parseInt(this.m_getParameters['NACC-day']);
     
-            for ( var i = 0; i < this.m_year_popup.options.length; i++ ) {
-                if ( parseInt(this.m_year_popup.options[i].value) == parseInt(year) ) {
-                    this.m_year_popup.selectedIndex = i;
-                    break;
-                };
-            };
+    // Look for any passed-in parameters.
+    if ( !year ) {
+        year = parseInt(inYear);
+    };
     
-            this.m_day_popup.selectedIndex = day - 1;
+    if ( !month ) {
+        month = parseInt(inMonth);
+    };
     
-            this.evaluateMonthDays();
+    if ( !day ) {
+        year = parseInt(inDay);
+    };
+    
+    // We have to have all 3 to do an immediate calculation.
+    if ( year && month && day ) {
+        // Set up the popups to reflect the given date.
+        this.m_month_popup.selectedIndex = month - 1;
 
-            this.calculateCleantime(this.m_calculate_button);
+        for ( var i = 0; i < this.m_year_popup.options.length; i++ ) {
+            if ( parseInt(this.m_year_popup.options[i].value) == parseInt(year) ) {
+                this.m_year_popup.selectedIndex = i;
+                break;
+            };
         };
+
+        this.m_day_popup.selectedIndex = day - 1;
+        
+        // Make sure we're kosher.
+        this.evaluateMonthDays();
+        
+        // Just run a calculation, as if the button were hit. The form will be evaluated.
+        this.calculateCleantime(this.m_calculate_button);
     };
 };
 
@@ -1311,17 +1343,17 @@ NACC.prototype.getParameters = function() {
         };
 
         var params = {};
-        var prmarr = prmstr.split("&");
+        var prmarr = prmstr.split('&');
         for ( var i = 0; i < prmarr.length; i++) {
-            var tmparr = prmarr[i].split("=");
+            var tmparr = prmarr[i].split('=');
             params[urldecode(tmparr[0])] = urldecode(tmparr[1]);
         };
         return params;
     };
     
     var prmstr = window.location.search.substr(1);
-    return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
-}
+    return prmstr != null && prmstr != '' ? transformToAssocArray(prmstr) : {};
+};
 
 /***********************************************************************/
 /**

@@ -9,7 +9,7 @@ This requires a late-version browser. It doesn't have a lot of frou-frou to supp
 
 INSTALLATION
 ------------
-
+This is a "pure browser" implementation of NACC. It requires absolutely no server-based 
 CHANGELIST
 ----------
 ***Version 2.0.0* ** *-TBD*

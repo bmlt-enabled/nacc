@@ -8,6 +8,14 @@
             This is an example of an entirely browser-based NA Cleantime Calculator (NACC).
             You need to include the "nacc.js" and "nacc.css" files, as well as the "images"
             directory, into the same directory as this file.
+            This PHP file also requires that you also add the "include_stripper.php" file.
+
+            This file is exactly the same as the index.html file, with the
+            exception that it includes the JS and CSS files through a PHP
+            script that optimizes them (reduces the page load).
+            
+            In the case of the JavaScript file, it reduces the file load
+            from over 65K to 1.3K.
             
             NACC is free software: you can redistribute it and/or modify
             it under the terms of the GNU General Public License as published by
@@ -31,8 +39,9 @@
         <meta http-equiv="Content-Style-Type" content="text/css" />
         <meta http-equiv="Content-Script-Type" content="text/javascript" />
         <title>NACC 2</title>
-        <script type="text/javascript" src="nacc.js"></script>
-        <link rel="stylesheet" type="text/css" href="nacc.css" />
+        <!-- These two includes are different from the "index.html" file. Note the "include_stripper.php?filename=". -->
+        <script type="text/javascript" src="include_stripper.php?filename=nacc.js"></script>
+        <link rel="stylesheet" type="text/css" href="include_stripper.php?filename=nacc.css" />
     </head>
     <body>
         <!--
@@ -44,6 +53,8 @@
             for the BT theme (Blue and white), the class will be "NACC-Instance NACC-BT".
             
             If you have already specified a class name, then that will be honored.
+            
+            This example simply 
         -->
         <div id="nacc-container" class="NACC-Linear"><noscript style="font-size: x-large; font-weight:bold; text-align:center">THIS WILL NOT WORK WITHOUT JAVASCRIPT ENABLED!</noscript></div>
         <!--
