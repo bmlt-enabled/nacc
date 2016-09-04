@@ -123,7 +123,7 @@ Here is an example: [http://littlegreenviper.net/nacc/index.html?NACC-style=NACC
 
 If You Have A PHP Server
 ------------------------
-If you have a PHP server available, you can optimize the page load by using the PHP "file optimizer script," which is invoked from the `<head>` elements, like so:
+If you have a PHP server available, you can optimize the page load by using the PHP "file optimizer script," which is invoked from within the `<head>` element, like so:
 
     <head>
         .
@@ -145,7 +145,7 @@ It can substantially reduce the size of the transmitted JavaScript and CSS files
 TESTING
 =======
 
-There is a very simple unit test file available. This is the "unit_test.html" file.
+There is [a very simple unit test](http://littlegreenviper.net/nacc/unit_test.html) available. This is the "unit_test.html" file.
 It tests the NACC by sending GET parameters.
 
 LICENSING
