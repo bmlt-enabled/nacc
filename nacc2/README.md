@@ -22,7 +22,7 @@ IMPORTANT NOTE
 ==============
 The name "Narcotics Anonymous" and the stylized NA symbol (displayed on the front of the tags) are registered trademarks of [Narcotics Anonymous World Services, Inc. (NAWS)](http://na.org), and cannot be used without [permission from NAWS](http://na.org/?ID=legal-bulletins-fipt). If you are using this Web app as part of a registered Service body site, then this permission is implicit. However, be aware that any other use needs permission from NAWS.
 
-Basically, you need to be a Registered NA Service Body to use this Web app as is. If you are not a Registered NA Service Body, then you should replace the "XX_Front.png" files with the equivalent "XX.png" file in order to prevent display of the tag fronts, which contain the trademarked NA Symbol.
+Basically, you need to be a Registered NA Service Body to use this Web app as is. If you are not a Registered NA Service Body, then you should replace the "*XX*_Front.png" files with the equivalent "*XX*.png" file in order to prevent display of the tag fronts, which contain the trademarked NA Symbol.
 
 NACC is not, in itself, an official NA Service, but is designed specifically to be implemented by NA Service bodies.
 
@@ -70,16 +70,16 @@ Look at the "index.html" file for a more verbose version of this.
 You can call it with up to 7 input parameters, which must be called in the following order:
 
 1. A string, with the DOM ID of the DOM element that will contain this instance. It will usually be an empty `<div>` element, but can be any block-level DOM element. This is the only **required** parameter.
-- A string, indicating the style. Leave blank/null for default gray. The "BT" style would be 'NA-BT', as that is the CSS name it has been given.                                 
-- A string, with the language selector (Example: 'en' -the default-, 'es' -Spanish-, etc.). Currently, these languages are supported:
+2. A string, indicating the style. Leave blank/null for default gray. The "BT" style would be 'NA-BT', as that is the CSS name it has been given.                                 
+3. A string, with the language selector (Example: 'en' -the default-, 'es' -Spanish-, etc.). Currently, these languages are supported:
     - English ('en'). This is also the default.
     - Spanish ('es').
     - Simplified Chinese ('zh-Hans').
     - Traditional Chinese ('zh-Hant').      
-- A string, with the tag layout (either 'linear' or 'tabular' -default is 'linear').     
-- A Boolean ('1' or '' or '0'). If true, then the "specialty" (over 2 years) tags are displayed. Default is false.     
-- A string, containing a path (relative to the execution path) to the main directory. Leave as '' or null for standard implementations.                             
-- If you want the instance to immediately appear with a calculation, then ALL 3 of these must be specified.
+4. A string, with the tag layout (either 'linear' or 'tabular' -default is 'linear').     
+5. A Boolean ('1' or '' or '0'). If true, then the "specialty" (over 2 years) tags are displayed. Default is false.     
+6. A string, containing a path (relative to the execution path) to the main directory. Leave as '' or null for standard implementations.                             
+7. If you want the instance to immediately appear with a calculation, then ALL 3 of these must be specified.
     - An initial calculation year (integer -entire year, like '1953').
     - An initial calculation month (integer 1-12).
     - An initial calculation day (integer 1-31).
