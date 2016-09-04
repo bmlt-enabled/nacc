@@ -37,7 +37,7 @@ INSTALLATION
 Standard Installation
 ---------------------
 This is a "pure browser" implementation of NACC. It requires absolutely no server-based components (but will support PHP, if provided).
-In order to use this, you import the "nacc.js" file, and link to the "nacc.css" file:
+In order to use this, you link to the "nacc.css"  and import the "nacc.js" file in the `<head>` element:
 
     <head>
         .
@@ -50,7 +50,7 @@ In order to use this, you import the "nacc.js" file, and link to the "nacc.css" 
         .
     </head>
 
-You then create an empty block-level element (usually a div), with a unique page ID, then reference that ID upon instantiating a new NACC() instance.
+In the `<body>` element, you then create an empty block-level element (usually a div), with a unique page ID, then reference that ID upon instantiating a new NACC() instance.
 
 Example:
 
