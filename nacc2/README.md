@@ -1,7 +1,6 @@
 DESCRIPTION
 ===========
-This version of the NA Cleantime Calculator has been redesigned from the ground up to be entirely browser-based.
-That means that no PHP server is required (good for site builders, like Wix and SquareSpace).
+This version of the NA Cleantime Calculator has been redesigned from the ground up to be entirely browser-based, which means that no PHP server is required (good for site builders, like [Wix](http://wix.com), [Weebly](http://weebly.com), [Sitebuilder](http://sitebuilder.com) or [SquareSpace](http://squarespace.com)).
 
 It is extremely fast and complete.
 
@@ -41,7 +40,7 @@ In order to use this, you import the "nacc.js" file, and link to the "nacc.css" 
         .
     </head>
 
-You then create an empty block-level element (usually a &lt;div&gt;), with a unique page ID, then reference that ID upon instantiating a new NACC() instance.
+You then create an empty block-level element (usually a div), with a unique page ID, then reference that ID upon instantiating a new NACC() instance.
 
 Example:
 
@@ -88,7 +87,7 @@ If these are provided, they will override any parameters passed into the functio
 
 If You Have A PHP Server
 ------------------------
-If you have a PHP server available, you can optimize the page load by using the PHP "file optimizer script," which is invoked from the &lt;head&gt; elements, like so:
+If you have a PHP server available, you can optimize the page load by using the PHP "file optimizer script," which is invoked from the head elements, like so:
 
     <head>
         .
