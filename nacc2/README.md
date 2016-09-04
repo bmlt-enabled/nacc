@@ -18,6 +18,14 @@ The tag images are provided for the given localization.
 
 There are a number of new "specialty" tags, for long-term cleantime (like the purple "Decades" tag). The visitor can choose to display these.
 
+IMPORTANT NOTE
+==============
+The name "Narcotics Anonymous" and the stylized NA symbol (displayed on the front of the tags) are registered trademarks of [Narcotics Anonymous World Services, Inc. (NAWS)](http://na.org), and cannot be used without [permission from NAWS](http://na.org/?ID=legal-bulletins-fipt). If you are using this Web app as part of a registered Service body site, then this permission is implicit. However, be aware that any other use needs permission from NAWS.
+
+Basically, you need to be a Registered NA Service Body to use this Web app as is. If you are not a Registered NA Service Body, then you should replace the "XX_Front.png" files with the equivalent "XX.png" file in order to prevent display of the tag fronts, which contain the trademarked NA Symbol.
+
+NACC is not, in itself, an official NA Service, but is designed specifically to be implemented by NA Service bodies.
+
 REQUIREMENTS
 ============
 This requires a late-version browser. It doesn't have a lot of frou-frou to support older browsers.
