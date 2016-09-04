@@ -67,7 +67,7 @@ Example:
 
 Look at the "index.html" file for a more verbose version of this.
 
-You can call it with up to 7 input parameters (which must be called in the following order:
+You can call it with up to 7 input parameters, which must be called in the following order:
 
 1. A string, with the DOM ID of the DOM element that will contain this instance. It will usually be an empty `<div>` element, but can be any block-level DOM element. This is the only **required** parameter.
 - A string, indicating the style. Leave blank/null for default gray. The "BT" style would be 'NA-BT', as that is the CSS name it has been given.                                 
