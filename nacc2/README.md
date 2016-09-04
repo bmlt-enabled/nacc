@@ -69,7 +69,7 @@ Example:
 
 Look at the "index.html" file for a more verbose version of this.
 
-You can call it with up to 7 input parameters, which must be called in the following order:
+You can call it with up to 9 input parameters, which must be called in the following order:
 
 1. A string, with the DOM ID of the DOM element that will contain this instance. It will usually be an empty `<div>` element, but can be any block-level DOM element. This is the only **required** parameter.
 2. A string, indicating the style. Leave blank/null for default gray. The "BT" style would be 'NA-BT', as that is the CSS name it has been given.                                 
@@ -94,18 +94,30 @@ For example, these are all valid:
     NACC('some_DOM_ID', 'NA-BT');
     NACC('some_DOM_ID', 'NA-BT', 'es');
     NACC('some_DOM_ID', 'NA-BT', 'es', 'tabular', 1);
+    NACC('some_DOM_ID', 'NA-BT', 'es', 'tabular', 1, 'http://littlegreenviper.net/nacc/', 1980, 9, 1);
     NACC('some_DOM_ID', null, 'es');
     NACC('some_DOM_ID', '', 'es');
     NACC('some_DOM_ID', null, 'es', 'tabular', 1);
     NACC('some_DOM_ID', null, '', 'tabular', 1);
     NACC('some_DOM_ID', 0, '', null, 1);
+    NACC('some_DOM_ID', 0, 0, 0, 0, 0, 1980, 9, 1);
     
 But these are not:
 
     NACC('some_DOM_ID', 'es');
     NACC('some_DOM_ID', 'tabular');
     NACC('some_DOM_ID', 'NA-BT', 'es', 1);
-        
+
+This is valid, but won't do anything (because the date is not complete):
+
+    NACC('some_DOM_ID', null, null, null, null, null, 1980, 9);
+    
+However, if you specified the previous, and then called it with the following URI:
+
+    <URI TO MAIN DIRECTORY>/index.html?NACC-day=1
+
+It would show an initial search result (for September 1, 1980).
+
 You can also call the file with GET (not POST) parameters (These can be provided in any order):
 
 - "NACC-style" for Style
