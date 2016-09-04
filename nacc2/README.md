@@ -18,6 +18,8 @@ The tag images are provided for the given localization.
 
 There are a number of new "specialty" tags, for long-term cleantime (like the purple "Decades" tag). The visitor can choose to display these.
 
+[You can see it in action here.](http://littlegreenviper.net/nacc/index.html)
+
 IMPORTANT NOTE
 ==============
 The name "Narcotics Anonymous" and the stylized NA symbol (displayed on the front of the tags) are registered trademarks of [Narcotics Anonymous World Services, Inc. (NAWS)](http://na.org), and cannot be used without [permission from NAWS](http://na.org/?ID=legal-bulletins-fipt). If you are using this Web app as part of a registered Service body site, then this permission is implicit. However, be aware that any other use needs permission from NAWS.
@@ -116,6 +118,8 @@ You can also call the file with GET (not POST) parameters (These can be provided
 - "NACC-day" for Day
 
 If these are provided, they will override any parameters passed into the function when it was created.
+
+Here is an example: [http://littlegreenviper.net/nacc/index.html?NACC-style=NACC-BT&NACC-tag-layout=tabular&NACC-special-tags=1](http://littlegreenviper.net/nacc/index.html?NACC-style=NACC-BT&NACC-tag-layout=tabular&NACC-special-tags=1)
 
 If You Have A PHP Server
 ------------------------
