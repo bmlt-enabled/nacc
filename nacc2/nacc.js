@@ -38,367 +38,373 @@
 function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialTags, inDirectoryRoot, inYear, inMonth, inDay) {
     this.m_lang = Array();
     
-    /************************************/
-    /*           LOCALIZATION           */
-    /************************************/
-    /************************************/
-    /*             ENGLISH              */
-    /************************************/
-    /** We need to instantiate an object for each language. The key needs to be the language selector. */
-    this.m_lang['en'] = new Object();
+    // Make sure that we have a valid container element.
+    if ( inContainerElementID && document.getElementById(inContainerElementID) ) {
+        /************************************/
+        /*           LOCALIZATION           */
+        /************************************/
+        /************************************/
+        /*             ENGLISH              */
+        /************************************/
+        /** We need to instantiate an object for each language. The key needs to be the language selector. */
+        this.m_lang['en'] = new Object();
     
-    /* The following are strings to be assigned to each language. */
+        /* The following are strings to be assigned to each language. */
     
-    /** This is the header, at the top. */
-    this.m_lang['en'].section_title                         = 'NA Cleantime Calculator';
-    /** This is the prompt over the popup menus. */
-    this.m_lang['en'].prompt                                = 'Please enter your Clean Date';
-    /** This is the text for the calculate button. */
-    this.m_lang['en'].calculate_button_text                 = 'Calculate';
-    /** This is the text for the change layout button. */
-    this.m_lang['en'].change_layout_button_text             = 'Change Tag Layout';
-    /** This is the text for the show special tags checkbox. */
-    this.m_lang['en'].change_use_special_tags_label         = 'Show Special Tags';
-    /** These are the months, spelled out. */
-    this.m_lang['en'].months                                = Array(
-                                                                    'ERROR',
-                                                                    'January',
-                                                                    'February',
-                                                                    'March',
-                                                                    'April',
-                                                                    'May',
-                                                                    'June',
-                                                                    'July',
-                                                                    'August',
-                                                                    'September',
-                                                                    'October',
-                                                                    'November',
-                                                                    'December'
-                                                                    );
-    /** These are for the top (days) blurb. */
-    this.m_lang['en'].result_invalid                        = 'Please select a valid cleandate!';
+        /** This is the header, at the top. */
+        this.m_lang['en'].section_title                         = 'NA Cleantime Calculator';
+        /** This is the prompt over the popup menus. */
+        this.m_lang['en'].prompt                                = 'Please enter your Clean Date';
+        /** This is the text for the calculate button. */
+        this.m_lang['en'].calculate_button_text                 = 'Calculate';
+        /** This is the text for the change layout button. */
+        this.m_lang['en'].change_layout_button_text             = 'Change Tag Layout';
+        /** This is the text for the show special tags checkbox. */
+        this.m_lang['en'].change_use_special_tags_label         = 'Show Special Tags';
+        /** These are the months, spelled out. */
+        this.m_lang['en'].months                                = Array(
+                                                                        'ERROR',
+                                                                        'January',
+                                                                        'February',
+                                                                        'March',
+                                                                        'April',
+                                                                        'May',
+                                                                        'June',
+                                                                        'July',
+                                                                        'August',
+                                                                        'September',
+                                                                        'October',
+                                                                        'November',
+                                                                        'December'
+                                                                        );
+        /** These are for the top (days) blurb. */
+        this.m_lang['en'].result_invalid                        = 'Please select a valid cleandate!';
     
-    this.m_lang['en'].result_1_day                          = 'You have been clean for 1 day!';
-    this.m_lang['en'].result_days_format                    = 'You have been clean for %d days!';
+        this.m_lang['en'].result_1_day                          = 'You have been clean for 1 day!';
+        this.m_lang['en'].result_days_format                    = 'You have been clean for %d days!';
 
-    /** These are for the second (months, years and days) blurb. */
-    this.m_lang['en'].result_months_format                  = 'This is %d months.';
-    this.m_lang['en'].result_months_and_1_day_format        = 'This is %d months and 1 day.';
-    this.m_lang['en'].result_months_and_days_format         = 'This is %d months and %d days.';
-    this.m_lang['en'].result_1_year                         = 'This is 1 year.';
-    this.m_lang['en'].result_1_year_and_1_day               = 'This is 1 year and 1 day.';
-    this.m_lang['en'].result_1_year_and_1_month             = 'This is 1 year and 1 month.';
-    this.m_lang['en'].result_1_year_1_month_and_1_day       = 'This is 1 year, 1 month and 1 day.';
-    this.m_lang['en'].result_1_year_months_and_1_day_format = 'This is 1 year, %d months and 1 day.';
-    this.m_lang['en'].result_1_year_days_format             = 'This is 1 year and %d days.';
-    this.m_lang['en'].result_years_format                   = 'This is %d years.';
-    this.m_lang['en'].result_years_months_format            = 'This is %d years and %d months.';
-    this.m_lang['en'].result_years_1_month_and_1_day_format = 'This is %d years, 1 month and 1 day.';
-    this.m_lang['en'].result_years_months_and_1_day_format  = 'This is %d years, %d months and 1 day.';
-    this.m_lang['en'].result_years_and_1_month_format       = 'This is %d years and 1 month.';
-    this.m_lang['en'].result_years_and_1_day_format         = 'This is %d years and 1 day.';
-    this.m_lang['en'].result_years_and_days_format          = 'This is %d years and %d days.';
-    this.m_lang['en'].result_years_1_month_and_days_format  = 'This is %d years, 1 month and %d days.';
-    this.m_lang['en'].result_years_months_and_days_format   = 'This is %d years, %d months and %d days.';
+        /** These are for the second (months, years and days) blurb. */
+        this.m_lang['en'].result_months_format                  = 'This is %d months.';
+        this.m_lang['en'].result_months_and_1_day_format        = 'This is %d months and 1 day.';
+        this.m_lang['en'].result_months_and_days_format         = 'This is %d months and %d days.';
+        this.m_lang['en'].result_1_year                         = 'This is 1 year.';
+        this.m_lang['en'].result_1_year_and_1_day               = 'This is 1 year and 1 day.';
+        this.m_lang['en'].result_1_year_and_1_month             = 'This is 1 year and 1 month.';
+        this.m_lang['en'].result_1_year_1_month_and_1_day       = 'This is 1 year, 1 month and 1 day.';
+        this.m_lang['en'].result_1_year_months_and_1_day_format = 'This is 1 year, %d months and 1 day.';
+        this.m_lang['en'].result_1_year_days_format             = 'This is 1 year and %d days.';
+        this.m_lang['en'].result_years_format                   = 'This is %d years.';
+        this.m_lang['en'].result_years_months_format            = 'This is %d years and %d months.';
+        this.m_lang['en'].result_years_1_month_and_1_day_format = 'This is %d years, 1 month and 1 day.';
+        this.m_lang['en'].result_years_months_and_1_day_format  = 'This is %d years, %d months and 1 day.';
+        this.m_lang['en'].result_years_and_1_month_format       = 'This is %d years and 1 month.';
+        this.m_lang['en'].result_years_and_1_day_format         = 'This is %d years and 1 day.';
+        this.m_lang['en'].result_years_and_days_format          = 'This is %d years and %d days.';
+        this.m_lang['en'].result_years_1_month_and_days_format  = 'This is %d years, 1 month and %d days.';
+        this.m_lang['en'].result_years_months_and_days_format   = 'This is %d years, %d months and %d days.';
    
-    /************************************/
-    /*             SPANISH              */
-    /************************************/
-    this.m_lang['es'] = new Object();
+        /************************************/
+        /*             SPANISH              */
+        /************************************/
+        this.m_lang['es'] = new Object();
     
-    /* The following are strings to be assigned to each language. */
+        /* The following are strings to be assigned to each language. */
     
-    /** This is the header, at the top. */
-    this.m_lang['es'].section_title                         = 'NA Cleantime Calculator';
-    /** This is the prompt over the popup menus. */
-    this.m_lang['es'].prompt                                = 'Please enter your Clean Date';
-    /** This is the text for the calculate button. */
-    this.m_lang['es'].calculate_button_text                 = 'Calculate';
-    /** This is the text for the change layout button. */
-    this.m_lang['es'].change_layout_button_text             = 'Change Tag Layout';
-    /** This is the text for the show special tags checkbox. */
-    this.m_lang['es'].change_use_special_tags_label         = 'Show Special Tags';
-    /** These are the months, spelled out. */
-    this.m_lang['es'].months                                = Array(
-                                                                    'ERROR',
-                                                                    'January',
-                                                                    'February',
-                                                                    'March',
-                                                                    'April',
-                                                                    'May',
-                                                                    'June',
-                                                                    'July',
-                                                                    'August',
-                                                                    'September',
-                                                                    'October',
-                                                                    'November',
-                                                                    'December'
-                                                                    );
-    this.m_lang['es'].result_invalid                        = 'Please select a valid cleandate!';
+        /** This is the header, at the top. */
+        this.m_lang['es'].section_title                         = 'NA Cleantime Calculator';
+        /** This is the prompt over the popup menus. */
+        this.m_lang['es'].prompt                                = 'Please enter your Clean Date';
+        /** This is the text for the calculate button. */
+        this.m_lang['es'].calculate_button_text                 = 'Calculate';
+        /** This is the text for the change layout button. */
+        this.m_lang['es'].change_layout_button_text             = 'Change Tag Layout';
+        /** This is the text for the show special tags checkbox. */
+        this.m_lang['es'].change_use_special_tags_label         = 'Show Special Tags';
+        /** These are the months, spelled out. */
+        this.m_lang['es'].months                                = Array(
+                                                                        'ERROR',
+                                                                        'January',
+                                                                        'February',
+                                                                        'March',
+                                                                        'April',
+                                                                        'May',
+                                                                        'June',
+                                                                        'July',
+                                                                        'August',
+                                                                        'September',
+                                                                        'October',
+                                                                        'November',
+                                                                        'December'
+                                                                        );
+        this.m_lang['es'].result_invalid                        = 'Please select a valid cleandate!';
     
-    this.m_lang['es'].result_1_day                          = 'You have been clean for 1 day!';
-    this.m_lang['es'].result_days_format                    = 'You have been clean for %d days!';
+        this.m_lang['es'].result_1_day                          = 'You have been clean for 1 day!';
+        this.m_lang['es'].result_days_format                    = 'You have been clean for %d days!';
 
-    /** These are for the second (months, years and days) blurb. */
-    this.m_lang['es'].result_months_format                  = 'This is %d months.';
-    this.m_lang['es'].result_months_and_1_day_format        = 'This is %d months and 1 day.';
-    this.m_lang['es'].result_months_and_days_format         = 'This is %d months and %d days.';
-    this.m_lang['es'].result_1_year                         = 'This is 1 year.';
-    this.m_lang['es'].result_1_year_and_1_day               = 'This is 1 year and 1 day.';
-    this.m_lang['es'].result_1_year_and_1_month             = 'This is 1 year and 1 month.';
-    this.m_lang['es'].result_1_year_1_month_and_1_day       = 'This is 1 year, 1 month and 1 day.';
-    this.m_lang['es'].result_1_year_months_and_1_day_format = 'This is 1 year, %d months and 1 day.';
-    this.m_lang['es'].result_1_year_days_format             = 'This is 1 year and %d days.';
-    this.m_lang['es'].result_years_format                   = 'This is %d years.';
-    this.m_lang['es'].result_years_months_format            = 'This is %d years and %d months.';
-    this.m_lang['es'].result_years_1_month_and_1_day_format = 'This is %d years, 1 month and 1 day.';
-    this.m_lang['es'].result_years_months_and_1_day_format  = 'This is %d years, %d months and 1 day.';
-    this.m_lang['es'].result_years_and_1_month_format       = 'This is %d years and 1 month.';
-    this.m_lang['es'].result_years_and_1_day_format         = 'This is %d years and 1 day.';
-    this.m_lang['es'].result_years_and_days_format          = 'This is %d years and %d days.';
-    this.m_lang['es'].result_years_1_month_and_days_format  = 'This is %d years, 1 month and %d days.';
-    this.m_lang['es'].result_years_months_and_days_format   = 'This is %d years, %d months and %d days.';
+        /** These are for the second (months, years and days) blurb. */
+        this.m_lang['es'].result_months_format                  = 'This is %d months.';
+        this.m_lang['es'].result_months_and_1_day_format        = 'This is %d months and 1 day.';
+        this.m_lang['es'].result_months_and_days_format         = 'This is %d months and %d days.';
+        this.m_lang['es'].result_1_year                         = 'This is 1 year.';
+        this.m_lang['es'].result_1_year_and_1_day               = 'This is 1 year and 1 day.';
+        this.m_lang['es'].result_1_year_and_1_month             = 'This is 1 year and 1 month.';
+        this.m_lang['es'].result_1_year_1_month_and_1_day       = 'This is 1 year, 1 month and 1 day.';
+        this.m_lang['es'].result_1_year_months_and_1_day_format = 'This is 1 year, %d months and 1 day.';
+        this.m_lang['es'].result_1_year_days_format             = 'This is 1 year and %d days.';
+        this.m_lang['es'].result_years_format                   = 'This is %d years.';
+        this.m_lang['es'].result_years_months_format            = 'This is %d years and %d months.';
+        this.m_lang['es'].result_years_1_month_and_1_day_format = 'This is %d years, 1 month and 1 day.';
+        this.m_lang['es'].result_years_months_and_1_day_format  = 'This is %d years, %d months and 1 day.';
+        this.m_lang['es'].result_years_and_1_month_format       = 'This is %d years and 1 month.';
+        this.m_lang['es'].result_years_and_1_day_format         = 'This is %d years and 1 day.';
+        this.m_lang['es'].result_years_and_days_format          = 'This is %d years and %d days.';
+        this.m_lang['es'].result_years_1_month_and_days_format  = 'This is %d years, 1 month and %d days.';
+        this.m_lang['es'].result_years_months_and_days_format   = 'This is %d years, %d months and %d days.';
    
-    /************************************/
-    /*       SIMPLIFIED CHINESE         */
-    /************************************/
-    this.m_lang['zh-Hans'] = new Object();
+        /************************************/
+        /*       SIMPLIFIED CHINESE         */
+        /************************************/
+        this.m_lang['zh-Hans'] = new Object();
     
-    /* The following are strings to be assigned to each language. */
+        /* The following are strings to be assigned to each language. */
     
-    /** This is the header, at the top. */
-    this.m_lang['zh-Hans'].section_title                            = 'NA Cleantime Calculator';
-    /** This is the prompt over the popup menus. */
-    this.m_lang['zh-Hans'].prompt                                   = 'Please enter your Clean Date';
-    /** This is the text for the calculate button. */
-    this.m_lang['zh-Hans'].calculate_button_text                    = 'Calculate';
-    /** This is the text for the change layout button. */
-    this.m_lang['zh-Hans'].change_layout_button_text                = 'Change Tag Layout';
-    /** This is the text for the show special tags checkbox. */
-    this.m_lang['zh-Hans'].change_use_special_tags_label            = 'Show Special Tags';
-    /** These are the months, spelled out. */
-    this.m_lang['zh-Hans'].months                                   = Array(
-                                                                            'ERROR',
-                                                                            'January',
-                                                                            'February',
-                                                                            'March',
-                                                                            'April',
-                                                                            'May',
-                                                                            'June',
-                                                                            'July',
-                                                                            'August',
-                                                                            'September',
-                                                                            'October',
-                                                                            'November',
-                                                                            'December'
-                                                                            );
-    this.m_lang['zh-Hans'].result_invalid                           = 'Please select a valid cleandate!';
+        /** This is the header, at the top. */
+        this.m_lang['zh-Hans'].section_title                            = 'NA Cleantime Calculator';
+        /** This is the prompt over the popup menus. */
+        this.m_lang['zh-Hans'].prompt                                   = 'Please enter your Clean Date';
+        /** This is the text for the calculate button. */
+        this.m_lang['zh-Hans'].calculate_button_text                    = 'Calculate';
+        /** This is the text for the change layout button. */
+        this.m_lang['zh-Hans'].change_layout_button_text                = 'Change Tag Layout';
+        /** This is the text for the show special tags checkbox. */
+        this.m_lang['zh-Hans'].change_use_special_tags_label            = 'Show Special Tags';
+        /** These are the months, spelled out. */
+        this.m_lang['zh-Hans'].months                                   = Array(
+                                                                                'ERROR',
+                                                                                'January',
+                                                                                'February',
+                                                                                'March',
+                                                                                'April',
+                                                                                'May',
+                                                                                'June',
+                                                                                'July',
+                                                                                'August',
+                                                                                'September',
+                                                                                'October',
+                                                                                'November',
+                                                                                'December'
+                                                                                );
+        this.m_lang['zh-Hans'].result_invalid                           = 'Please select a valid cleandate!';
     
-    this.m_lang['zh-Hans'].result_1_day                             = 'You have been clean for 1 day!';
-    this.m_lang['zh-Hans'].result_days_format                       = 'You have been clean for %d days!';
+        this.m_lang['zh-Hans'].result_1_day                             = 'You have been clean for 1 day!';
+        this.m_lang['zh-Hans'].result_days_format                       = 'You have been clean for %d days!';
 
-    /** These are for the second (months, years and days) blurb. */
-    this.m_lang['zh-Hans'].result_months_format                     = 'This is %d months.';
-    this.m_lang['zh-Hans'].result_months_and_1_day_format           = 'This is %d months and 1 day.';
-    this.m_lang['zh-Hans'].result_months_and_days_format            = 'This is %d months and %d days.';
-    this.m_lang['zh-Hans'].result_1_year                            = 'This is 1 year.';
-    this.m_lang['zh-Hans'].result_1_year_and_1_day                  = 'This is 1 year and 1 day.';
-    this.m_lang['zh-Hans'].result_1_year_and_1_month                = 'This is 1 year and 1 month.';
-    this.m_lang['zh-Hans'].result_1_year_1_month_and_1_day          = 'This is 1 year, 1 month and 1 day.';
-    this.m_lang['zh-Hans'].result_1_year_months_and_1_day_format    = 'This is 1 year, %d months and 1 day.';
-    this.m_lang['zh-Hans'].result_1_year_days_format                = 'This is 1 year and %d days.';
-    this.m_lang['zh-Hans'].result_years_format                      = 'This is %d years.';
-    this.m_lang['zh-Hans'].result_years_months_format               = 'This is %d years and %d months.';
-    this.m_lang['zh-Hans'].result_years_1_month_and_1_day_format    = 'This is %d years, 1 month and 1 day.';
-    this.m_lang['zh-Hans'].result_years_months_and_1_day_format     = 'This is %d years, %d months and 1 day.';
-    this.m_lang['zh-Hans'].result_years_and_1_month_format          = 'This is %d years and 1 month.';
-    this.m_lang['zh-Hans'].result_years_and_1_day_format            = 'This is %d years and 1 day.';
-    this.m_lang['zh-Hans'].result_years_and_days_format             = 'This is %d years and %d days.';
-    this.m_lang['zh-Hans'].result_years_1_month_and_days_format     = 'This is %d years, 1 month and %d days.';
-    this.m_lang['zh-Hans'].result_years_months_and_days_format      = 'This is %d years, %d months and %d days.';
+        /** These are for the second (months, years and days) blurb. */
+        this.m_lang['zh-Hans'].result_months_format                     = 'This is %d months.';
+        this.m_lang['zh-Hans'].result_months_and_1_day_format           = 'This is %d months and 1 day.';
+        this.m_lang['zh-Hans'].result_months_and_days_format            = 'This is %d months and %d days.';
+        this.m_lang['zh-Hans'].result_1_year                            = 'This is 1 year.';
+        this.m_lang['zh-Hans'].result_1_year_and_1_day                  = 'This is 1 year and 1 day.';
+        this.m_lang['zh-Hans'].result_1_year_and_1_month                = 'This is 1 year and 1 month.';
+        this.m_lang['zh-Hans'].result_1_year_1_month_and_1_day          = 'This is 1 year, 1 month and 1 day.';
+        this.m_lang['zh-Hans'].result_1_year_months_and_1_day_format    = 'This is 1 year, %d months and 1 day.';
+        this.m_lang['zh-Hans'].result_1_year_days_format                = 'This is 1 year and %d days.';
+        this.m_lang['zh-Hans'].result_years_format                      = 'This is %d years.';
+        this.m_lang['zh-Hans'].result_years_months_format               = 'This is %d years and %d months.';
+        this.m_lang['zh-Hans'].result_years_1_month_and_1_day_format    = 'This is %d years, 1 month and 1 day.';
+        this.m_lang['zh-Hans'].result_years_months_and_1_day_format     = 'This is %d years, %d months and 1 day.';
+        this.m_lang['zh-Hans'].result_years_and_1_month_format          = 'This is %d years and 1 month.';
+        this.m_lang['zh-Hans'].result_years_and_1_day_format            = 'This is %d years and 1 day.';
+        this.m_lang['zh-Hans'].result_years_and_days_format             = 'This is %d years and %d days.';
+        this.m_lang['zh-Hans'].result_years_1_month_and_days_format     = 'This is %d years, 1 month and %d days.';
+        this.m_lang['zh-Hans'].result_years_months_and_days_format      = 'This is %d years, %d months and %d days.';
    
-    /************************************/
-    /*       TRADITIONAL CHINESE        */
-    /************************************/
-    this.m_lang['zh-Hant'] = new Object();
+        /************************************/
+        /*       TRADITIONAL CHINESE        */
+        /************************************/
+        this.m_lang['zh-Hant'] = new Object();
     
-    /* The following are strings to be assigned to each language. */
+        /* The following are strings to be assigned to each language. */
     
-    /** This is the header, at the top. */
-    this.m_lang['zh-Hant'].section_title                            = 'NA Cleantime Calculator';
-    /** This is the prompt over the popup menus. */
-    this.m_lang['zh-Hant'].prompt                                   = 'Please enter your Clean Date';
-    /** This is the text for the calculate button. */
-    this.m_lang['zh-Hant'].calculate_button_text                    = 'Calculate';
-    /** This is the text for the change layout button. */
-    this.m_lang['zh-Hant'].change_layout_button_text                = 'Change Tag Layout';
-    /** This is the text for the show special tags checkbox. */
-    this.m_lang['zh-Hant'].change_use_special_tags_label            = 'Show Special Tags';
-    /** These are the months, spelled out. */
-    this.m_lang['zh-Hant'].months                                   = Array(
-                                                                            'ERROR',
-                                                                            'January',
-                                                                            'February',
-                                                                            'March',
-                                                                            'April',
-                                                                            'May',
-                                                                            'June',
-                                                                            'July',
-                                                                            'August',
-                                                                            'September',
-                                                                            'October',
-                                                                            'November',
-                                                                            'December'
-                                                                            );
-    this.m_lang['zh-Hant'].result_invalid                           = 'Please select a valid cleandate!';
+        /** This is the header, at the top. */
+        this.m_lang['zh-Hant'].section_title                            = 'NA Cleantime Calculator';
+        /** This is the prompt over the popup menus. */
+        this.m_lang['zh-Hant'].prompt                                   = 'Please enter your Clean Date';
+        /** This is the text for the calculate button. */
+        this.m_lang['zh-Hant'].calculate_button_text                    = 'Calculate';
+        /** This is the text for the change layout button. */
+        this.m_lang['zh-Hant'].change_layout_button_text                = 'Change Tag Layout';
+        /** This is the text for the show special tags checkbox. */
+        this.m_lang['zh-Hant'].change_use_special_tags_label            = 'Show Special Tags';
+        /** These are the months, spelled out. */
+        this.m_lang['zh-Hant'].months                                   = Array(
+                                                                                'ERROR',
+                                                                                'January',
+                                                                                'February',
+                                                                                'March',
+                                                                                'April',
+                                                                                'May',
+                                                                                'June',
+                                                                                'July',
+                                                                                'August',
+                                                                                'September',
+                                                                                'October',
+                                                                                'November',
+                                                                                'December'
+                                                                                );
+        this.m_lang['zh-Hant'].result_invalid                           = 'Please select a valid cleandate!';
     
-    this.m_lang['zh-Hant'].result_1_day                             = 'You have been clean for 1 day!';
-    this.m_lang['zh-Hant'].result_days_format                       = 'You have been clean for %d days!';
+        this.m_lang['zh-Hant'].result_1_day                             = 'You have been clean for 1 day!';
+        this.m_lang['zh-Hant'].result_days_format                       = 'You have been clean for %d days!';
 
-    /** These are for the second (months, years and days) blurb. */
-    this.m_lang['zh-Hant'].result_months_format                     = 'This is %d months.';
-    this.m_lang['zh-Hant'].result_months_and_1_day_format           = 'This is %d months and 1 day.';
-    this.m_lang['zh-Hant'].result_months_and_days_format            = 'This is %d months and %d days.';
-    this.m_lang['zh-Hant'].result_1_year                            = 'This is 1 year.';
-    this.m_lang['zh-Hant'].result_1_year_and_1_day                  = 'This is 1 year and 1 day.';
-    this.m_lang['zh-Hant'].result_1_year_and_1_month                = 'This is 1 year and 1 month.';
-    this.m_lang['zh-Hant'].result_1_year_1_month_and_1_day          = 'This is 1 year, 1 month and 1 day.';
-    this.m_lang['zh-Hant'].result_1_year_months_and_1_day_format    = 'This is 1 year, %d months and 1 day.';
-    this.m_lang['zh-Hant'].result_1_year_days_format                = 'This is 1 year and %d days.';
-    this.m_lang['zh-Hant'].result_years_format                      = 'This is %d years.';
-    this.m_lang['zh-Hant'].result_years_months_format               = 'This is %d years and %d months.';
-    this.m_lang['zh-Hant'].result_years_1_month_and_1_day_format    = 'This is %d years, 1 month and 1 day.';
-    this.m_lang['zh-Hant'].result_years_months_and_1_day_format     = 'This is %d years, %d months and 1 day.';
-    this.m_lang['zh-Hant'].result_years_and_1_month_format          = 'This is %d years and 1 month.';
-    this.m_lang['zh-Hant'].result_years_and_1_day_format            = 'This is %d years and 1 day.';
-    this.m_lang['zh-Hant'].result_years_and_days_format             = 'This is %d years and %d days.';
-    this.m_lang['zh-Hant'].result_years_1_month_and_days_format     = 'This is %d years, 1 month and %d days.';
-    this.m_lang['zh-Hant'].result_years_months_and_days_format      = 'This is %d years, %d months and %d days.';
+        /** These are for the second (months, years and days) blurb. */
+        this.m_lang['zh-Hant'].result_months_format                     = 'This is %d months.';
+        this.m_lang['zh-Hant'].result_months_and_1_day_format           = 'This is %d months and 1 day.';
+        this.m_lang['zh-Hant'].result_months_and_days_format            = 'This is %d months and %d days.';
+        this.m_lang['zh-Hant'].result_1_year                            = 'This is 1 year.';
+        this.m_lang['zh-Hant'].result_1_year_and_1_day                  = 'This is 1 year and 1 day.';
+        this.m_lang['zh-Hant'].result_1_year_and_1_month                = 'This is 1 year and 1 month.';
+        this.m_lang['zh-Hant'].result_1_year_1_month_and_1_day          = 'This is 1 year, 1 month and 1 day.';
+        this.m_lang['zh-Hant'].result_1_year_months_and_1_day_format    = 'This is 1 year, %d months and 1 day.';
+        this.m_lang['zh-Hant'].result_1_year_days_format                = 'This is 1 year and %d days.';
+        this.m_lang['zh-Hant'].result_years_format                      = 'This is %d years.';
+        this.m_lang['zh-Hant'].result_years_months_format               = 'This is %d years and %d months.';
+        this.m_lang['zh-Hant'].result_years_1_month_and_1_day_format    = 'This is %d years, 1 month and 1 day.';
+        this.m_lang['zh-Hant'].result_years_months_and_1_day_format     = 'This is %d years, %d months and 1 day.';
+        this.m_lang['zh-Hant'].result_years_and_1_month_format          = 'This is %d years and 1 month.';
+        this.m_lang['zh-Hant'].result_years_and_1_day_format            = 'This is %d years and 1 day.';
+        this.m_lang['zh-Hant'].result_years_and_days_format             = 'This is %d years and %d days.';
+        this.m_lang['zh-Hant'].result_years_1_month_and_days_format     = 'This is %d years, 1 month and %d days.';
+        this.m_lang['zh-Hant'].result_years_months_and_days_format      = 'This is %d years, %d months and %d days.';
     
-    /************************************/
-    /*            MAIN CODE             */
-    /************************************/
+        /************************************/
+        /*            MAIN CODE             */
+        /************************************/
     
-    // First, see if we have any GET parameters supplied.
-    // GET parameters trump arguments passed in, and arguments trump defaults.
-    this.m_getParameters = this.getParameters();
+        // First, see if we have any GET parameters supplied.
+        // GET parameters trump arguments passed in, and arguments trump defaults.
+        this.m_getParameters = this.getParameters();
     
-    // See if a root directory was specified.
-    if ( this.m_getParameters['NACC-dir-root'] ) {
-        this.m_relative_directory_root = this.m_getParameters['NACC-dir-root'] + (!this.m_getParameters['NACC-dir-root'].toString().match(/\/$/) ? '/' : '');
-    } else {
-        if ( inDirectoryRoot ) {
-            this.m_relative_directory_root = inDirectoryRoot + (!this.m_relative_directory_root.toString().match(/\/$/) ? '/' : '');
+        // See if a root directory was specified.
+        if ( this.m_getParameters['NACC-dir-root'] ) {
+            this.m_relative_directory_root = this.m_getParameters['NACC-dir-root'] + (!this.m_getParameters['NACC-dir-root'].toString().match(/\/$/) ? '/' : '');
         } else {
-            this.m_relative_directory_root = '';
-        };
-    };
-
-    // See if a style was specified.
-    if ( this.m_getParameters['NACC-style'] ) {
-        this.m_style_selector = this.m_getParameters['NACC-style'];
-    } else {
-        if ( inStyle ) {
-            this.m_style_selector = inStyle;
-        } else {
-            this.m_style_selector = null;
-        };
-    };
-
-    // See if a language was specified.
-    if ( this.m_getParameters['NACC-lang'] ) {
-        this.m_lang_selector = this.m_getParameters['NACC-lang'];
-    } else {
-        if ( inLang ) {
-            this.m_lang_selector = inLang;
-        } else {
-            this.m_lang_selector = 'en';
-        };
-    };
-    
-    // See if an initial tag layout was specified.
-    if ( this.m_getParameters['NACC-tag-layout'] ) {
-        this.m_keytag_layout = this.m_getParameters['NACC-tag-layout'];
-    } else {
-        if ( inTagLayout ) {
-            this.m_keytag_layout = inTagLayout;
-        } else {
-            this.m_keytag_layout = 'linear';
-        };
-    };
-    
-    // See if we want to initially display the "specialty" tags.
-    if ( this.m_getParameters['NACC-special-tags'] ) {
-        this.m_keytag_special = true;
-    } else {
-        this.m_keytag_special = inShowSpecialTags ? true : false;
-    };
-    
-    // The first thing that we do, is reference the container element.
-    this.m_my_container = document.getElementById(inContainerElementID);
-    
-    // Link this NACC instance with the container element.
-    this.m_my_container.nacc_instance = this;
-    
-    // Make sure the container is tagged with the NACC-Instance class.
-    if ( this.m_my_container.className ) {
-        this.m_my_container.className += ' NACC-Instance';   // Appending to any existing class.
-    } else {
-        this.m_my_container.className = 'NACC-Instance';     // From scratch.
-    };
-    
-    // If a style was specified, we add that, as well.
-    if ( this.m_style_selector ) {
-        this.m_my_container.className += ' ' + this.m_style_selector;
-    };
-    
-    // Clear the decks for action, matey!
-    this.m_my_container.innerHTML = '';
-    
-    // This is where we actually create everything.
-    this.createHeader();
-    this.createForm();
-    
-    // This is a function that makes sure that the days of the month popup menu is valid.
-    this.evaluateMonthDays();
-    
-    // See if a date was supplied. If so, we immediately calculate.
-    var year = parseInt(this.m_getParameters['NACC-year']);
-    var month = parseInt(this.m_getParameters['NACC-month']);
-    var day = parseInt(this.m_getParameters['NACC-day']);
-    
-    // Look for any passed-in parameters.
-    if ( !year ) {
-        year = parseInt(inYear);
-    };
-    
-    if ( !month ) {
-        month = parseInt(inMonth);
-    };
-    
-    if ( !day ) {
-        year = parseInt(inDay);
-    };
-    
-    // We have to have all 3 to do an immediate calculation.
-    if ( year && month && day ) {
-        // Set up the popups to reflect the given date.
-        this.m_month_popup.selectedIndex = month - 1;
-
-        for ( var i = 0; i < this.m_year_popup.options.length; i++ ) {
-            if ( parseInt(this.m_year_popup.options[i].value) == parseInt(year) ) {
-                this.m_year_popup.selectedIndex = i;
-                break;
+            if ( inDirectoryRoot ) {
+                this.m_relative_directory_root = inDirectoryRoot + (!this.m_relative_directory_root.toString().match(/\/$/) ? '/' : '');
+            } else {
+                this.m_relative_directory_root = '';
             };
         };
 
-        this.m_day_popup.selectedIndex = day - 1;
-        
-        // Make sure we're kosher.
+        // See if a style was specified.
+        if ( this.m_getParameters['NACC-style'] ) {
+            this.m_style_selector = this.m_getParameters['NACC-style'];
+        } else {
+            if ( inStyle ) {
+                this.m_style_selector = inStyle;
+            } else {
+                this.m_style_selector = null;
+            };
+        };
+
+        // See if a language was specified.
+        if ( this.m_getParameters['NACC-lang'] ) {
+            this.m_lang_selector = this.m_getParameters['NACC-lang'];
+        } else {
+            if ( inLang ) {
+                this.m_lang_selector = inLang;
+            } else {
+                this.m_lang_selector = 'en';
+            };
+        };
+    
+        // See if an initial tag layout was specified.
+        if ( this.m_getParameters['NACC-tag-layout'] ) {
+            this.m_keytag_layout = this.m_getParameters['NACC-tag-layout'];
+        } else {
+            if ( inTagLayout ) {
+                this.m_keytag_layout = inTagLayout;
+            } else {
+                this.m_keytag_layout = 'linear';
+            };
+        };
+    
+        // See if we want to initially display the "specialty" tags.
+        if ( this.m_getParameters['NACC-special-tags'] ) {
+            this.m_keytag_special = true;
+        } else {
+            this.m_keytag_special = inShowSpecialTags ? true : false;
+        };
+    
+        // The first thing that we do, is reference the container element.
+        this.m_my_container = document.getElementById(inContainerElementID);
+    
+        // Link this NACC instance with the container element.
+        this.m_my_container.nacc_instance = this;
+    
+        // Make sure the container is tagged with the NACC-Instance class.
+        if ( this.m_my_container.className ) {
+            this.m_my_container.className += ' NACC-Instance';   // Appending to any existing class.
+        } else {
+            this.m_my_container.className = 'NACC-Instance';     // From scratch.
+        };
+    
+        // If a style was specified, we add that, as well.
+        if ( this.m_style_selector ) {
+            this.m_my_container.className += ' ' + this.m_style_selector;
+        };
+    
+        // Clear the decks for action, matey!
+        this.m_my_container.innerHTML = '';
+    
+        // This is where we actually create everything.
+        this.createHeader();
+        this.createForm();
+    
+        // This is a function that makes sure that the days of the month popup menu is valid.
         this.evaluateMonthDays();
+    
+        // See if a date was supplied. If so, we immediately calculate.
+        var year = parseInt(this.m_getParameters['NACC-year']);
+        var month = parseInt(this.m_getParameters['NACC-month']);
+        var day = parseInt(this.m_getParameters['NACC-day']);
+    
+        // Look for any passed-in parameters.
+        if ( !year ) {
+            year = parseInt(inYear);
+        };
+    
+        if ( !month ) {
+            month = parseInt(inMonth);
+        };
+    
+        if ( !day ) {
+            year = parseInt(inDay);
+        };
+    
+        // We have to have all 3 to do an immediate calculation.
+        if ( year && month && day ) {
+            // Set up the popups to reflect the given date.
+            this.m_month_popup.selectedIndex = month - 1;
+
+            for ( var i = 0; i < this.m_year_popup.options.length; i++ ) {
+                if ( parseInt(this.m_year_popup.options[i].value) == parseInt(year) ) {
+                    this.m_year_popup.selectedIndex = i;
+                    break;
+                };
+            };
+
+            this.m_day_popup.selectedIndex = day - 1;
         
-        // Just run a calculation, as if the button were hit. The form will be evaluated.
-        this.calculateCleantime(this.m_calculate_button);
+            // Make sure we're kosher.
+            this.evaluateMonthDays();
+        
+            // Just run a calculation, as if the button were hit. The form will be evaluated.
+            this.calculateCleantime(this.m_calculate_button);
+        };
+    } else {
+        // Let folks know they borked it.
+        alert('NACC ERROR: INVALID CONTAINER ELEMENT ID');
     };
 };
 

@@ -20,6 +20,9 @@
     along with this code.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/********************************************************************************************
+######################################## GLOBAL STYLES ######################################
+********************************************************************************************/
 /** This is the overall container */
 .NACC-Instance {
     width: 100%;
@@ -140,21 +143,19 @@
     margin-left: auto;
 }
 
-/****************************************************/
-/*              DEFAULT (GRAY) STYLE                */
-/****************************************************/
+/********************************************************************************************
+######################################## DEFAULT STYLES #####################################
+********************************************************************************************/
 
 /** This is the overall container */
 .NACC-Instance {
-    border-radius: 0.4em;
-    border: solid 1px gray;
-    background: linear-gradient(to bottom, gray, white);
+    border-radius: 0.4em;   /** Rounded corners. */
+    border: solid 1px gray; /** Gray border. */
+    background: linear-gradient(to bottom, gray, white);    /** Gray to white opaque gradient. */
 }
 
 /** These are the various textual items. */
-.NACC-Instance .NACC-Header,
-.NACC-Instance .NACC-Results-Text,
-.NACC-Instance .NACC-Prompt-Label {
+.NACC-Instance {
     font-family: Arial,Sans-Serif;
     color: black;
 }
@@ -182,14 +183,19 @@
     background: linear-gradient(to top, gray, white);
 }
 
-/****************************************************/
-/*             BT (BLUE AND WHITE) STYLE            */
-/****************************************************/
+/********************************************************************************************
+######################################## NACC-BT STYLES #####################################
+********************************************************************************************/
 
 /** This is the overall container */
 .NACC-Instance.NACC-BT {
-    border-color: #009;
-    background: linear-gradient(to bottom, #009, white);
+    border-color: white;
+    background: #009;
+}
+
+/** These are the various textual items. */
+.NACC-Instance.NACC-BT {
+    font-family: Verdana,Sans-Serif;
 }
 
 /** This is the prompt above the selects. */
@@ -213,7 +219,8 @@
     background: linear-gradient(to top, #009, white);
 }
 /** This is the show special tags checkbox. */
-.NACC-Instance .NACC-Show-Special-Tags-Checkbox-Label {
+.NACC-Instance.NACC-BT .NACC-Results-Text,
+.NACC-Instance.NACC-BT .NACC-Show-Special-Tags-Checkbox-Label {
     color:white
 }
 
