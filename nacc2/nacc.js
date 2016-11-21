@@ -63,22 +63,22 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         this.m_lang['en'].change_use_special_tags_label         = 'Show Special Tags';
         /** These are the months, spelled out. */
         this.m_lang['en'].months                                = Array(
-                                                                        'ERROR',
-                                                                        'January',
-                                                                        'February',
-                                                                        'March',
-                                                                        'April',
-                                                                        'May',
-                                                                        'June',
-                                                                        'July',
-                                                                        'August',
-                                                                        'September',
-                                                                        'October',
-                                                                        'November',
-                                                                        'December'
+                                                                        "ERROR",
+                                                                        "January",
+                                                                        "February",
+                                                                        "March",
+                                                                        "April",
+                                                                        "May",
+                                                                        "June",
+                                                                        "July",
+                                                                        "August",
+                                                                        "September",
+                                                                        "October",
+                                                                        "November",
+                                                                        "December"
                                                                         );
         /** These are for the top (days) blurb. */
-        this.m_lang['en'].result_invalid                        = 'Please select a valid cleandate!';
+        this.m_lang['en'].result_invalid                        = 'Please select a valid clean date!';
     
         this.m_lang['en'].result_1_day                          = 'You have been clean for 1 day!';
         this.m_lang['en'].result_days_format                    = 'You have been clean for %d days!';
@@ -111,55 +111,55 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         /* The following are strings to be assigned to each language. */
     
         /** This is the header, at the top. */
-        this.m_lang['es'].section_title                         = 'NA Cleantime Calculator';
+        this.m_lang['es'].section_title                         = 'Calculadora de Tiempo Limpio NA';
         /** This is the prompt over the popup menus. */
-        this.m_lang['es'].prompt                                = 'Please enter your Clean Date';
+        this.m_lang['es'].prompt                                = 'Por favor, entra tu fecha de inicio.';
         /** This is the text for the calculate button. */
-        this.m_lang['es'].calculate_button_text                 = 'Calculate';
+        this.m_lang['es'].calculate_button_text                 = 'Calcular';
         /** This is the text for the change layout button. */
-        this.m_lang['es'].change_layout_button_text             = 'Change Tag Layout';
+        this.m_lang['es'].change_layout_button_text             = 'Cambiar los llaveros de posición.';
         /** This is the text for the show special tags checkbox. */
-        this.m_lang['es'].change_use_special_tags_label         = 'Show Special Tags';
+        this.m_lang['es'].change_use_special_tags_label         = 'Mostrar Llaveros Especiales.';
         /** These are the months, spelled out. */
         this.m_lang['es'].months                                = Array(
-                                                                        'ERROR',
-                                                                        'January',
-                                                                        'February',
-                                                                        'March',
-                                                                        'April',
-                                                                        'May',
-                                                                        'June',
-                                                                        'July',
-                                                                        'August',
-                                                                        'September',
-                                                                        'October',
-                                                                        'November',
-                                                                        'December'
+                                                                        "ERROR",
+                                                                        "Enero",
+                                                                        "Febrero",
+                                                                        "Marzo",
+                                                                        "Abril",
+                                                                        "Mayo",
+                                                                        "Junio",
+                                                                        "Julio",
+                                                                        "Agosto",
+                                                                        "Septiembre",
+                                                                        "Octubre",
+                                                                        "Noviembre",
+                                                                        "Diciembre"
                                                                         );
-        this.m_lang['es'].result_invalid                        = 'Please select a valid cleandate!';
+        this.m_lang['es'].result_invalid                        = '¡Por favor, entra una fecha de inicio válido!';
     
-        this.m_lang['es'].result_1_day                          = 'You have been clean for 1 day!';
-        this.m_lang['es'].result_days_format                    = 'You have been clean for %d days!';
+        this.m_lang['es'].result_1_day                          = '¡Has estado limpio por 1 día!';
+        this.m_lang['es'].result_days_format                    = '¡Has estado limpio por %d días!';
 
         /** These are for the second (months, years and days) blurb. */
-        this.m_lang['es'].result_months_format                  = 'This is %d months.';
-        this.m_lang['es'].result_months_and_1_day_format        = 'This is %d months and 1 day.';
-        this.m_lang['es'].result_months_and_days_format         = 'This is %d months and %d days.';
-        this.m_lang['es'].result_1_year                         = 'This is 1 year.';
-        this.m_lang['es'].result_1_year_and_1_day               = 'This is 1 year and 1 day.';
-        this.m_lang['es'].result_1_year_and_1_month             = 'This is 1 year and 1 month.';
-        this.m_lang['es'].result_1_year_1_month_and_1_day       = 'This is 1 year, 1 month and 1 day.';
-        this.m_lang['es'].result_1_year_months_and_1_day_format = 'This is 1 year, %d months and 1 day.';
-        this.m_lang['es'].result_1_year_days_format             = 'This is 1 year and %d days.';
-        this.m_lang['es'].result_years_format                   = 'This is %d years.';
-        this.m_lang['es'].result_years_months_format            = 'This is %d years and %d months.';
-        this.m_lang['es'].result_years_1_month_and_1_day_format = 'This is %d years, 1 month and 1 day.';
-        this.m_lang['es'].result_years_months_and_1_day_format  = 'This is %d years, %d months and 1 day.';
-        this.m_lang['es'].result_years_and_1_month_format       = 'This is %d years and 1 month.';
-        this.m_lang['es'].result_years_and_1_day_format         = 'This is %d years and 1 day.';
-        this.m_lang['es'].result_years_and_days_format          = 'This is %d years and %d days.';
-        this.m_lang['es'].result_years_1_month_and_days_format  = 'This is %d years, 1 month and %d days.';
-        this.m_lang['es'].result_years_months_and_days_format   = 'This is %d years, %d months and %d days.';
+        this.m_lang['es'].result_months_format                  = 'Esto suma un total de %d meses.';
+        this.m_lang['es'].result_months_and_1_day_format        = 'Esto suma un total de %d meses y un día.';
+        this.m_lang['es'].result_months_and_days_format         = 'Esto suma un total de %d meses y %d días.';
+        this.m_lang['es'].result_1_year                         = 'Esto suma un total de 1 año.';
+        this.m_lang['es'].result_1_year_and_1_day               = 'Esto suma un total de 1 año y 1 día.';
+        this.m_lang['es'].result_1_year_and_1_month             = 'Esto suma un total de 1 año y 1 mes.';
+        this.m_lang['es'].result_1_year_1_month_and_1_day       = 'Esto suma un total de 1 año, 1 mes y 1 día.';
+        this.m_lang['es'].result_1_year_months_and_1_day_format = 'Esto suma un total de 1 año, %d meses y 1 día.';
+        this.m_lang['es'].result_1_year_days_format             = 'Esto suma un total de 1 año y %d días.';
+        this.m_lang['es'].result_years_format                   = 'Esto suma un total de %d años.';
+        this.m_lang['es'].result_years_months_format            = 'Esto suma un total de %d años y %d meses.';
+        this.m_lang['es'].result_years_1_month_and_1_day_format = 'Esto suma un total de %d años, 1 mes y 1 día.';
+        this.m_lang['es'].result_years_months_and_1_day_format  = 'Esto suma un total de %d años, %d meses y 1 día.';
+        this.m_lang['es'].result_years_and_1_month_format       = 'Esto suma un total de %d años y 1 mes.';
+        this.m_lang['es'].result_years_and_1_day_format         = 'Esto suma un total de %d años y 1 día.';
+        this.m_lang['es'].result_years_and_days_format          = 'Esto suma un total de %d años y %d días.';
+        this.m_lang['es'].result_years_1_month_and_days_format  = 'Esto suma un total de %d años, 1 mes y %d días.';
+        this.m_lang['es'].result_years_months_and_days_format   = 'Esto suma un total de %d años, %d meses y %d días.';
    
         /************************************/
         /*       SIMPLIFIED CHINESE         */
@@ -169,55 +169,55 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         /* The following are strings to be assigned to each language. */
     
         /** This is the header, at the top. */
-        this.m_lang['zh-Hans'].section_title                            = 'NA Cleantime Calculator';
+        this.m_lang['zh-Hans'].section_title                            = 'NA 清醒时间计算器';
         /** This is the prompt over the popup menus. */
-        this.m_lang['zh-Hans'].prompt                                   = 'Please enter your Clean Date';
+        this.m_lang['zh-Hans'].prompt                                   = '请输入您的清醒日期';  
         /** This is the text for the calculate button. */
-        this.m_lang['zh-Hans'].calculate_button_text                    = 'Calculate';
+        this.m_lang['zh-Hans'].calculate_button_text                    = '计算'; 
         /** This is the text for the change layout button. */
-        this.m_lang['zh-Hans'].change_layout_button_text                = 'Change Tag Layout';
+        this.m_lang['zh-Hans'].change_layout_button_text                = '更改钥匙扣设置';
         /** This is the text for the show special tags checkbox. */
-        this.m_lang['zh-Hans'].change_use_special_tags_label            = 'Show Special Tags';
+        this.m_lang['zh-Hans'].change_use_special_tags_label            = '显示特殊钥匙扣';
         /** These are the months, spelled out. */
         this.m_lang['zh-Hans'].months                                   = Array(
-                                                                                'ERROR',
-                                                                                'January',
-                                                                                'February',
-                                                                                'March',
-                                                                                'April',
-                                                                                'May',
-                                                                                'June',
-                                                                                'July',
-                                                                                'August',
-                                                                                'September',
-                                                                                'October',
-                                                                                'November',
-                                                                                'December'
+                                                                                "错误",
+                                                                                "1月",
+                                                                                "2月",
+                                                                                "3月",
+                                                                                "4月",
+                                                                                "5月",
+                                                                                "6月",
+                                                                                "7月",
+                                                                                "8月",
+                                                                                "9月",
+                                                                                "10月",
+                                                                                "11月",
+                                                                                "12月"
                                                                                 );
-        this.m_lang['zh-Hans'].result_invalid                           = 'Please select a valid cleandate!';
+        this.m_lang['zh-Hans'].result_invalid                           = '请选择一个有效的清醒日期';
     
-        this.m_lang['zh-Hans'].result_1_day                             = 'You have been clean for 1 day!';
-        this.m_lang['zh-Hans'].result_days_format                       = 'You have been clean for %d days!';
+        this.m_lang['zh-Hans'].result_1_day                             = '您已经清醒一天了!';
+        this.m_lang['zh-Hans'].result_days_format                       = '您已经清醒%d天了! ';
 
         /** These are for the second (months, years and days) blurb. */
-        this.m_lang['zh-Hans'].result_months_format                     = 'This is %d months.';
-        this.m_lang['zh-Hans'].result_months_and_1_day_format           = 'This is %d months and 1 day.';
-        this.m_lang['zh-Hans'].result_months_and_days_format            = 'This is %d months and %d days.';
-        this.m_lang['zh-Hans'].result_1_year                            = 'This is 1 year.';
-        this.m_lang['zh-Hans'].result_1_year_and_1_day                  = 'This is 1 year and 1 day.';
-        this.m_lang['zh-Hans'].result_1_year_and_1_month                = 'This is 1 year and 1 month.';
-        this.m_lang['zh-Hans'].result_1_year_1_month_and_1_day          = 'This is 1 year, 1 month and 1 day.';
-        this.m_lang['zh-Hans'].result_1_year_months_and_1_day_format    = 'This is 1 year, %d months and 1 day.';
-        this.m_lang['zh-Hans'].result_1_year_days_format                = 'This is 1 year and %d days.';
-        this.m_lang['zh-Hans'].result_years_format                      = 'This is %d years.';
-        this.m_lang['zh-Hans'].result_years_months_format               = 'This is %d years and %d months.';
-        this.m_lang['zh-Hans'].result_years_1_month_and_1_day_format    = 'This is %d years, 1 month and 1 day.';
-        this.m_lang['zh-Hans'].result_years_months_and_1_day_format     = 'This is %d years, %d months and 1 day.';
-        this.m_lang['zh-Hans'].result_years_and_1_month_format          = 'This is %d years and 1 month.';
-        this.m_lang['zh-Hans'].result_years_and_1_day_format            = 'This is %d years and 1 day.';
-        this.m_lang['zh-Hans'].result_years_and_days_format             = 'This is %d years and %d days.';
-        this.m_lang['zh-Hans'].result_years_1_month_and_days_format     = 'This is %d years, 1 month and %d days.';
-        this.m_lang['zh-Hans'].result_years_months_and_days_format      = 'This is %d years, %d months and %d days.';
+        this.m_lang['zh-Hans'].result_months_format                     = '这是%d个月了';
+        this.m_lang['zh-Hans'].result_months_and_1_day_format           = '这是%d个月零一天了.';
+        this.m_lang['zh-Hans'].result_months_and_days_format            = '这是%d个月%d天了.';
+        this.m_lang['zh-Hans'].result_1_year                            = '这是一年了.';
+        this.m_lang['zh-Hans'].result_1_year_and_1_day                  = '这是一年零一天了.';
+        this.m_lang['zh-Hans'].result_1_year_and_1_month                = '这是一年一个月了. ';
+        this.m_lang['zh-Hans'].result_1_year_1_month_and_1_day          = '这是一年一个月零一天了. ';
+        this.m_lang['zh-Hans'].result_1_year_months_and_1_day_format    = '这是一年，%d个月零一天了.';
+        this.m_lang['zh-Hans'].result_1_year_days_format                = '这是一年，%d天了. ';
+        this.m_lang['zh-Hans'].result_years_format                      = '这是%d年了. ';
+        this.m_lang['zh-Hans'].result_years_months_format               =  '这是%d年%d月了. ';
+        this.m_lang['zh-Hans'].result_years_1_month_and_1_day_format    = '这是%d年，一个月零一天了.';
+        this.m_lang['zh-Hans'].result_years_months_and_1_day_format     = '这是%d年，%d月零一天了.';  
+        this.m_lang['zh-Hans'].result_years_and_1_month_format          = '这是%d年一个月了. ';
+        this.m_lang['zh-Hans'].result_years_and_1_day_format            = '这是%d年零一天了. ';
+        this.m_lang['zh-Hans'].result_years_and_days_format             = '这是%d年%d天了.';  
+        this.m_lang['zh-Hans'].result_years_1_month_and_days_format     = '这是%d年，一个月%d天了.';  
+        this.m_lang['zh-Hans'].result_years_months_and_days_format      = '这是%d个年，%d个月，%d天了.';  
    
         /************************************/
         /*       TRADITIONAL CHINESE        */
@@ -227,56 +227,56 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         /* The following are strings to be assigned to each language. */
     
         /** This is the header, at the top. */
-        this.m_lang['zh-Hant'].section_title                            = 'NA Cleantime Calculator';
+        this.m_lang['zh-Hant'].section_title                            = 'NA 清醒時間計算器'; 
         /** This is the prompt over the popup menus. */
-        this.m_lang['zh-Hant'].prompt                                   = 'Please enter your Clean Date';
+        this.m_lang['zh-Hant'].prompt                                   = '請輸入您的清醒日期';
         /** This is the text for the calculate button. */
-        this.m_lang['zh-Hant'].calculate_button_text                    = 'Calculate';
+        this.m_lang['zh-Hant'].calculate_button_text                    = '計算';
         /** This is the text for the change layout button. */
-        this.m_lang['zh-Hant'].change_layout_button_text                = 'Change Tag Layout';
+        this.m_lang['zh-Hant'].change_layout_button_text                = '更改鑰匙扣設置';
         /** This is the text for the show special tags checkbox. */
-        this.m_lang['zh-Hant'].change_use_special_tags_label            = 'Show Special Tags';
+        this.m_lang['zh-Hant'].change_use_special_tags_label            =  '顯示特殊鑰匙扣';
         /** These are the months, spelled out. */
         this.m_lang['zh-Hant'].months                                   = Array(
-                                                                                'ERROR',
-                                                                                'January',
-                                                                                'February',
-                                                                                'March',
-                                                                                'April',
-                                                                                'May',
-                                                                                'June',
-                                                                                'July',
-                                                                                'August',
-                                                                                'September',
-                                                                                'October',
-                                                                                'November',
-                                                                                'December'
+                                                                                "錯誤",
+                                                                                "1月",
+                                                                                "2月",
+                                                                                "3月",
+                                                                                "4月",
+                                                                                "5月",
+                                                                                "6月",
+                                                                                "7月",
+                                                                                "8月",
+                                                                                "9月",
+                                                                                "10月",
+                                                                                "11月",
+                                                                                "12月"
                                                                                 );
-        this.m_lang['zh-Hant'].result_invalid                           = 'Please select a valid cleandate!';
+        this.m_lang['zh-Hant'].result_invalid                           = '請選擇一個有效的清醒日期';
     
-        this.m_lang['zh-Hant'].result_1_day                             = 'You have been clean for 1 day!';
-        this.m_lang['zh-Hant'].result_days_format                       = 'You have been clean for %d days!';
+        this.m_lang['zh-Hant'].result_1_day                             = '您已經清醒一天了!';
+        this.m_lang['zh-Hant'].result_days_format                       = '您已经清醒%d天了! ';
 
         /** These are for the second (months, years and days) blurb. */
-        this.m_lang['zh-Hant'].result_months_format                     = 'This is %d months.';
-        this.m_lang['zh-Hant'].result_months_and_1_day_format           = 'This is %d months and 1 day.';
-        this.m_lang['zh-Hant'].result_months_and_days_format            = 'This is %d months and %d days.';
-        this.m_lang['zh-Hant'].result_1_year                            = 'This is 1 year.';
-        this.m_lang['zh-Hant'].result_1_year_and_1_day                  = 'This is 1 year and 1 day.';
-        this.m_lang['zh-Hant'].result_1_year_and_1_month                = 'This is 1 year and 1 month.';
-        this.m_lang['zh-Hant'].result_1_year_1_month_and_1_day          = 'This is 1 year, 1 month and 1 day.';
-        this.m_lang['zh-Hant'].result_1_year_months_and_1_day_format    = 'This is 1 year, %d months and 1 day.';
-        this.m_lang['zh-Hant'].result_1_year_days_format                = 'This is 1 year and %d days.';
-        this.m_lang['zh-Hant'].result_years_format                      = 'This is %d years.';
-        this.m_lang['zh-Hant'].result_years_months_format               = 'This is %d years and %d months.';
-        this.m_lang['zh-Hant'].result_years_1_month_and_1_day_format    = 'This is %d years, 1 month and 1 day.';
-        this.m_lang['zh-Hant'].result_years_months_and_1_day_format     = 'This is %d years, %d months and 1 day.';
-        this.m_lang['zh-Hant'].result_years_and_1_month_format          = 'This is %d years and 1 month.';
-        this.m_lang['zh-Hant'].result_years_and_1_day_format            = 'This is %d years and 1 day.';
-        this.m_lang['zh-Hant'].result_years_and_days_format             = 'This is %d years and %d days.';
-        this.m_lang['zh-Hant'].result_years_1_month_and_days_format     = 'This is %d years, 1 month and %d days.';
-        this.m_lang['zh-Hant'].result_years_months_and_days_format      = 'This is %d years, %d months and %d days.';
-    
+        this.m_lang['zh-Hant'].result_months_format                     = '這是%d個月了';
+        this.m_lang['zh-Hant'].result_months_and_1_day_format           = '這是%d個月零一天了.';
+        this.m_lang['zh-Hant'].result_months_and_days_format            = '這是%d個月%d天了.';
+        this.m_lang['zh-Hant'].result_1_year                            = '這是一年了.';
+        this.m_lang['zh-Hant'].result_1_year_and_1_day                  = '這是一年零一天了.';
+        this.m_lang['zh-Hant'].result_1_year_and_1_month                = '這是一年一個月了. ';
+        this.m_lang['zh-Hant'].result_1_year_1_month_and_1_day          = '這是一年一個月零一天了. ';
+        this.m_lang['zh-Hant'].result_1_year_months_and_1_day_format    = '這是一年，%d個月零一天了.';
+        this.m_lang['zh-Hant'].result_1_year_days_format                = '這是一年，%d天了. ';
+        this.m_lang['zh-Hant'].result_years_format                      = '這是%d年了. ';
+        this.m_lang['zh-Hant'].result_years_months_format               = '這是%d年%d月了. ';
+        this.m_lang['zh-Hant'].result_years_1_month_and_1_day_format    = '這是%d年，一個月零一天了.';
+        this.m_lang['zh-Hant'].result_years_months_and_1_day_format     = '這是%d年，%d月零一天了.';
+        this.m_lang['zh-Hant'].result_years_and_1_month_format          = '這是%d年一個月了. ';
+        this.m_lang['zh-Hant'].result_years_and_1_day_format            = '這是%d年零一天了. ';
+        this.m_lang['zh-Hant'].result_years_and_days_format             = '這是%d年%d天了.';
+        this.m_lang['zh-Hant'].result_years_1_month_and_days_format     = '這是%d年，一個月%d天了.';
+        this.m_lang['zh-Hant'].result_years_months_and_days_format      = '這是%d個年，%d個月，%d天了.'; 
+
         /************************************/
         /*            MAIN CODE             */
         /************************************/
