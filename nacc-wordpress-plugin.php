@@ -18,7 +18,7 @@ function nacc_head ( )
 			{
 			echo "<!-- Added by the NACC plugin. -->\n";
 			echo '<link rel="stylesheet" href="'.get_option('siteurl').'/wp-content/plugins/nacc-wordpress-plugin/nacc.css" type="text/css" />'."\n";
-			echo '<script type="text/javascript" src="'.get_option('siteurl').'/wp-content/plugins/nacc-wordpress-plugin/nacc.js"></script>';
+			echo '<script type="text/javascript" src="'.get_option('siteurl').'/wp-content/plugins/nacc-wordpress-plugin/nacc2/nacc.js"></script>';
 			}
 		}
 	}
@@ -31,7 +31,7 @@ function nacc_content ( $the_content )
 		$cc_text .= '<noscript>';
 		$cc_text .= '<h1 style="text-align:center">JavaScript Required</h1>';
 		$cc_text .= '<h2 style="text-align:center">Sadly, you must enable JavaScript on your browser in order to use this cleantime calculator.</h2>';
-		$cc_text .= '</noscript><script type="text/javascript">NACC("nacc_container", 0, 0, 0, 1, "'.get_option('siteurl').'/wp-content/plugins/nacc-wordpress-plugin/");</script>'."\n";
+		$cc_text .= '</noscript><script type="text/javascript">NACC("nacc_container", 0, 0, 0, 1, "'.get_option('siteurl').'/wp-content/plugins/nacc-wordpress-plugin/nacc2/");</script>'."\n";
 		$the_content = preg_replace ( "/(<p.*?>)?<!--\s?NACC\s?-->(<\/p>)?/", $cc_text, $the_content);
 		$the_content = preg_replace ( "/(<p.*?>)?\[\[\s?NACC\s?\]\](<\/p>)?/", $cc_text, $the_content);
 		}
