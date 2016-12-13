@@ -224,3 +224,44 @@
     color:white
 }
 
+/********************************************************************************************
+###################################### NACC-GNYR2 STYLES ####################################
+********************************************************************************************/
+
+/** This is the overall container */
+.NACC-Instance.NACC-GNYR2 {
+    border-color: white;
+    background: #009;
+}
+
+/** These are the various textual items. */
+.NACC-Instance.NACC-GNYR2 {
+    font-family: Verdana,Sans-Serif;
+}
+
+/** This is the prompt above the selects. */
+.NACC-Instance.NACC-GNYR2 .NACC-Prompt-Label {
+    color: #009;
+}
+
+/** This is the header, at the top. */
+.NACC-Instance.NACC-GNYR2 .NACC-Header {
+    color: white;
+}
+
+/** This is the main form fieldset. */
+.NACC-Instance.NACC-GNYR2 .NACC-Fieldset {
+    border-color: white;
+}
+
+/** This is the legend for the fieldset, which contains the selects and calculate button. */
+.NACC-Instance.NACC-GNYR2 .NACC-Legend {
+    border-color: white;
+    background: linear-gradient(to top, #009, white);
+}
+/** This is the show special tags checkbox. */
+.NACC-Instance.NACC-GNYR2 .NACC-Results-Text,
+.NACC-Instance.NACC-GNYR2 .NACC-Show-Special-Tags-Checkbox-Label {
+    color:white
+}
+

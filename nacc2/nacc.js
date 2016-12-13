@@ -36,13 +36,64 @@
     \param  inDay                   An initial calculation day (integer 1-31). If you want the instance to immediately appear with a calculation, then ALL 3 of these must be specified.
 */
 function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialTags, inDirectoryRoot, inYear, inMonth, inDay) {
+
+    /********************************************************************************************
+    ########################################## PROPERTIES #######################################
+    ********************************************************************************************/
+    /// This contains any GET parameters.
+    var m_getParameters = null;
+    /// This contains any directory offset (used when in plugin situations).
+    var m_relative_directory_root = null;
+    /// This is the style selector.
+    var m_style_selector = null;
+    /// This is the language selector.
+    var m_lang_selector = null;
+    /// This is an array, with all the language-specific strings.
+    var m_lang = null;
+    /// This specifies the keytag layout.
+    var m_keytag_layout = null;
+    /// This specifies whether the specialty keytags are displayed.
+    var m_keytag_special = null;
+    /// This is the object that "owns" this instance.
+    var m_my_container = null;
+    /// This is the form that contains the popups.
+    var m_my_form = null;
+    /// This is the prompt above the popups.
+    var m_my_prompt = null;
+    /// This is the fieldset that contains the popups and the results.
+    var m_my_fieldset = null;
+    /// This is the fieldset legend that contains the popups.
+    var m_my_legend = null;
+    /// This is a div that will contain the popups.
+    var m_popup_container = null;
+    /// This is the month popup.
+    var m_month_popup = null;
+    /// This is the day of the month popup.
+    var m_day_popup = null;
+    /// This is the year popup.
+    var m_year_popup = null;
+    /// This is the calculate button.
+    var m_calculate_button = null;
+    /// This is the calculate results div.
+    var m_calculation_results_div = null;
+    /// This is the calculate results display toggle button.
+    var m_calculation_results_display_toggle_button = null;
+    /// This is the calculate results special tags display checkbox.
+    var m_calculation_results_show_special_tags_checkbox = null;
+    /// This is the label for the calculate results special tags display checkbox.
+    var m_calculation_results_show_special_tags_checkbox_label = null;
+    /// This is the calculate results text div.
+    var m_calculation_results_text_div = null;
+    /// This is the calculate results keytags div.
+    var m_calculation_results_keytags_div = null;
+    
+        /************************************/
+        /*           LOCALIZATION           */
+        /************************************/
     this.m_lang = Array();
     
     // Make sure that we have a valid container element.
     if ( inContainerElementID && document.getElementById(inContainerElementID) ) {
-        /************************************/
-        /*           LOCALIZATION           */
-        /************************************/
         /************************************/
         /*             ENGLISH              */
         /************************************/
@@ -290,7 +341,7 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
             this.m_relative_directory_root = this.m_getParameters['NACC-dir-root'] + (!this.m_getParameters['NACC-dir-root'].toString().match(/\/$/) ? '/' : '');
         } else {
             if ( inDirectoryRoot ) {
-                this.m_relative_directory_root = inDirectoryRoot + (!this.m_relative_directory_root.toString().match(/\/$/) ? '/' : '');
+                this.m_relative_directory_root = inDirectoryRoot + (!inDirectoryRoot.toString().match(/\/$/) ? '/' : '');
             } else {
                 this.m_relative_directory_root = '';
             };
@@ -407,56 +458,6 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         alert('NACC ERROR: INVALID CONTAINER ELEMENT ID');
     };
 };
-
-/********************************************************************************************
-########################################## PROPERTIES #######################################
-********************************************************************************************/
-/// This contains any GET parameters.
-NACC.prototype.m_getParameters = null;
-/// This contains any directory offset (used when in plugin situations).
-NACC.prototype.m_relative_directory_root = null;
-/// This is the style selector.
-NACC.prototype.m_style_selector = null;
-/// This is the language selector.
-NACC.prototype.m_lang_selector = null;
-/// This is an array, with all the language-specific strings.
-NACC.prototype.m_lang = null;
-/// This specifies the keytag layout.
-NACC.prototype.m_keytag_layout = null;
-/// This specifies whether the specialty keytags are displayed.
-NACC.prototype.m_keytag_special = null;
-/// This is the object that "owns" this instance.
-NACC.prototype.m_my_container = null;
-/// This is the form that contains the popups.
-NACC.prototype.m_my_form = null;
-/// This is the prompt above the popups.
-NACC.prototype.m_my_prompt = null;
-/// This is the fieldset that contains the popups and the results.
-NACC.prototype.m_my_fieldset = null;
-/// This is the fieldset legend that contains the popups.
-NACC.prototype.m_my_legend = null;
-/// This is a div that will contain the popups.
-NACC.prototype.m_popup_container = null;
-/// This is the month popup.
-NACC.prototype.m_month_popup = null;
-/// This is the day of the month popup.
-NACC.prototype.m_day_popup = null;
-/// This is the year popup.
-NACC.prototype.m_year_popup = null;
-/// This is the calculate button.
-NACC.prototype.m_calculate_button = null;
-/// This is the calculate results div.
-NACC.prototype.m_calculation_results_div = null;
-/// This is the calculate results display toggle button.
-NACC.prototype.m_calculation_results_display_toggle_button = null;
-/// This is the calculate results special tags display checkbox.
-NACC.prototype.m_calculation_results_show_special_tags_checkbox = null;
-/// This is the label for the calculate results special tags display checkbox.
-NACC.prototype.m_calculation_results_show_special_tags_checkbox_label = null;
-/// This is the calculate results text div.
-NACC.prototype.m_calculation_results_text_div = null;
-/// This is the calculate results keytags div.
-NACC.prototype.m_calculation_results_keytags_div = null;
 
 /********************************************************************************************
 ################################### INTERNAL UTILITY METHODS ################################
