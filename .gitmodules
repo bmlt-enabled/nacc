@@ -1,0 +1,3 @@
+[submodule "nacc2"]
+	path = nacc2
+	url = https://bitbucket.org/bmlt/nacc2.git
