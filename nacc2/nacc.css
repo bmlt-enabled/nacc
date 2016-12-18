@@ -276,7 +276,7 @@
 {
     border: none;
     background-color: transparent;
-    color:blue;
+    color:white;
     font-size: medium;
     text-decoration: underline;
     cursor: pointer;
@@ -285,6 +285,6 @@
 .NACC-Instance.NACC-GNYR2 .NACC-Calculate-Button:hover,
 .NACC-Instance.NACC-GNYR2 .NACC-Change-Layout-Button:hover
 {
-    color:red;
+    color:#fc6;
     text-decoration: none;
 }
