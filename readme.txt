@@ -1,8 +1,8 @@
-=== NACC WordPress Plugin 2 ===
+=== NACC WordPress Plugin ===
 Contributors: magblogapi
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
 Requires at least: 2.0
-Tested up to: 4.7
+Tested up to: 4.9.1
 Stable tag: 3.0.0
 
 == Description ==
@@ -15,18 +15,13 @@ That text will be replaced with this cleantime calculator.
 
 1. Upload `the nacc` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Place `<!-- NACC -->`in the HTML view, or `[[NACC]]` in either view, of a page. It will be replaced by the plugin.
-
-== Screenshots ==
-
-1. The initial screen
-2. The vertical tag layout
-3. The horizontal tag layout
+3. Place `<!-- NACC -->`in the "Text" view, or `[[NACC]]` in either view, of a page. It will be replaced by the plugin.
 
 == Changelog ==
 
 Version 3.0.0- TBD
 	Complete rewrite to support all JavaScript.
+	NOTE: This loses support for the Iranian Solar Calendar. Sorry. JavaScript doesn't support it.
 
 Version 2.0.10- July 29, 2010
 	Fixed a bug that seems to be caused by a JavaScript issue for leap years.
