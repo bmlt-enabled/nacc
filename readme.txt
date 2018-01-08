@@ -2,8 +2,8 @@
 Contributors: magblogapi
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
 Requires at least: 2.0
-Tested up to: 4.9.1
-Stable tag: 3.0.0
+Tested up to: 4.7
+Stable tag: 2.0.10
 
 == Description ==
 
