@@ -19,8 +19,8 @@ function nacc_head ( )
         if ( $shortcode_obj )
 			{
 			echo "<!-- Added by the NACC plugin. -->\n";
-			echo '<link rel="stylesheet" href="'.get_option('siteurl').'/wp-content/plugins/nacc-wordpress-plugin/nacc2/include_stripper.php?filename=nacc.css" type="text/css" />'."\n";
-			echo '<script type="text/javascript" src="'.get_option('siteurl').'/wp-content/plugins/nacc-wordpress-plugin/nacc2/include_stripper.php?filename=nacc.js"></script>'."\n";
+			echo '<link rel="stylesheet" href="'.plugin_dir_url().'nacc2/filename=nacc.css" type="text/css" />'."\n";
+			echo '<script type="text/javascript" src="'.plugin_dir_url().'nacc2/nacc.js"></script>'."\n";
 			}
 		}
 	}
