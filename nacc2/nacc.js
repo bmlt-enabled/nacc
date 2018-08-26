@@ -143,6 +143,7 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         this.m_lang['en'].result_1_year_and_1_month             = 'This is 1 year and 1 month.';
         this.m_lang['en'].result_1_year_1_month_and_1_day       = 'This is 1 year, 1 month and 1 day.';
         this.m_lang['en'].result_1_year_months_and_1_day_format = 'This is 1 year, %d months and 1 day.';
+        this.m_lang['en'].result_1_year_months_and_days_format  = 'This is 1 year, %d months and %d days.';
         this.m_lang['en'].result_1_year_days_format             = 'This is 1 year and %d days.';
         this.m_lang['en'].result_years_format                   = 'This is %d years.';
         this.m_lang['en'].result_years_months_format            = 'This is %d years and %d months.';
@@ -201,6 +202,7 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         this.m_lang['es'].result_1_year_and_1_month             = 'Esto suma un total de 1 año y 1 mes.';
         this.m_lang['es'].result_1_year_1_month_and_1_day       = 'Esto suma un total de 1 año, 1 mes y 1 día.';
         this.m_lang['es'].result_1_year_months_and_1_day_format = 'Esto suma un total de 1 año, %d meses y 1 día.';
+        this.m_lang['es'].result_1_year_months_and_days_format  = 'Esto suma un total de 1 año, %d meses y %d días.';
         this.m_lang['es'].result_1_year_days_format             = 'Esto suma un total de 1 año y %d días.';
         this.m_lang['es'].result_years_format                   = 'Esto suma un total de %d años.';
         this.m_lang['es'].result_years_months_format            = 'Esto suma un total de %d años y %d meses.';
@@ -579,6 +581,8 @@ NACC.prototype.displayCalculationResults = function(inCalculationResults) {
                     main_blurb = this.m_lang[this.m_lang_selector].result_1_year_and_1_day;
                 } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
                     main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_1_year_days_format, inCalculationResults.days);
+                } else if ( (1 == inCalculationResults.years) && (1 < inCalculationResults.months) && (1 < inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_1_year_months_and_days_format, inCalculationResults.months, inCalculationResults.days);
                 } else if ( (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
                     main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_format, inCalculationResults.years);
                 } else if ( (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
@@ -956,6 +960,30 @@ NACC.prototype.create30YearKeytag = function(inFace) {
 
 /***********************************************************************/
 /**
+    \brief  This creates and returns one 10,000 day keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.create05Keytag = function(inFace) {
+    return this.createOneKeytag('15' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one 10,000 day keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.create15Keytag = function(inFace) {
+    return this.createOneKeytag('16' + (inFace ? '_Front' : ''));
+};
+
+/***********************************************************************/
+/**
     \brief  This creates the header at the top of the div.
 */
 NACC.prototype.createHeader = function() {
@@ -1248,9 +1276,19 @@ NACC.prototype.createTagsArray = function(inNumDays, inMonths) {
             var specialTag = false;
             
             if ( this.m_keytag_special ) {
+                if ( comp == 60 ) {
+                    specialTag = true;
+                    this.create05Keytag(isFace);
+                };
+                
                 if ( comp == 120 ) {
                     specialTag = true;
                     this.createDecadeKeytag(isFace);
+                };
+                
+                if ( comp == 180 ) {
+                    specialTag = true;
+                    this.create15Keytag(isFace);
                 };
                 
                 if ( !specialTag && (comp == 300) ) {
