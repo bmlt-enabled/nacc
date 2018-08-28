@@ -51,9 +51,18 @@
     display: block;
 }
 
+.NACC-Instance .NACC-Legend-div {
+    display: table;
+    margin: auto;
+}
+
+.NACC-Instance .NACC-Legend {
+    text-align: center;
+}
+
 /** These apply to the selects and the Calculate button. */
-.NACC-Instance .NACC-Legend select,
-.NACC-Instance .NACC-Legend input {
+.NACC-Instance .NACC-Legend-div select,
+.NACC-Instance .NACC-Legend-div input {
     display: block;
     float:left;
     margin-left: 0.125em;
@@ -109,44 +118,42 @@
     display: table;
     margin-left: auto;
     margin-right: auto;
+    background-color: transparent;
 }
 
-/** This describes a keytag image. */
-.NACC-Instance .NACC-Keytag {
-    background-color: rgba(0, 0, 0, 0); /* Transparent background */
-    width: 100px;
-}
-
+/** This allows us to compensate for the automatic offset of the tags. */
 .NACC-Instance .NACC-Keytag-Tabular {
     margin-top: 82px;
     padding-right: 50px;
+    text-align:left;
 }
 
-/** If we are displaying a closed ring, then we add an image to the background. */
-.NACC-Instance .NACC-Keytag-Tabular .NACC-Keytag,
-.NACC-Instance .NACC-Keytag.NACC-Keytag-Ringtop {
-    background-image: url('images/00_RingTop.png');
-    background-position: top center;
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
-
+/** This describes a keytag image layout. */
 .NACC-Instance .NACC-Keytag {
+    width: 100px;
+    max-width:100px;
+    overflow: visible;
     margin-top:-122px;
     display: block;
     margin-left: auto;
     margin-right:auto;
+    background-color: transparent;
 }
 
+/** If we are displaying a closed ring, then we add an image to the background. */
+.NACC-Instance .NACC-Keytag.NACC-Keytag-Ringtop {
+    background-image: url('images/00_RingTop.png');
+    background-position: center top;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: local;
+}
+
+/** We display inline-block, so we get a flow that will wrap. */
 .NACC-Instance .NACC-Keytag-Tabular .NACC-Keytag {
-    display: inline;
-    float:left;
+    display: inline-block;
     margin-top:-82px;
     margin-right:-50px;
-}
-
-.NACC-Instance .NACC-Keytag-Tabular .NACC-White-Tag {
-    margin-left: auto;
 }
 
 /********************************************************************************************
@@ -180,7 +187,7 @@
 }
 
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
-.NACC-Instance .NACC-Legend {
+.NACC-Instance .NACC-Legend-div {
     margin: auto;
     text-align: center;
     border-radius: 0.25em;
@@ -220,7 +227,7 @@
 }
 
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
-.NACC-Instance.NACC-BT .NACC-Legend {
+.NACC-Instance.NACC-BT .NACC-Legend-div {
     border-color: white;
     background: linear-gradient(to top, #009, white);
 }
@@ -261,7 +268,7 @@
 }
 
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
-.NACC-Instance.NACC-GNYR2 .NACC-Legend {
+.NACC-Instance.NACC-GNYR2 .NACC-Legend-div {
     border-color: #ACCACB;
     background: none;
     background-color: #ACCACB;
@@ -300,3 +307,87 @@
     color:#fc6;
     text-decoration: none;
 }
+
+/********************************************************************************************
+###################################### NACC-HOLI STYLES ####################################
+********************************************************************************************/
+
+/** This is the overall container */
+.NACC-Instance.NACC-HOLI {
+    border-color: white;
+    background: transparent;
+}
+
+/** These are the various textual items. */
+.NACC-Instance.NACC-HOLI {
+    font-family: Verdana,Sans-Serif;
+}
+
+/** This is the prompt above the selects. */
+.NACC-Instance.NACC-HOLI .NACC-Prompt-Label {
+    color: white;
+    font-weight: bold;
+}
+
+/** This is the header, at the top. */
+.NACC-Instance.NACC-HOLI .NACC-Header {
+    color: white;
+}
+
+/** This is the main form fieldset. */
+.NACC-Instance.NACC-HOLI .NACC-Fieldset {
+    border-color: transparent;
+}
+
+/** This is the legend for the fieldset, which contains the selects and calculate button. */
+.NACC-Instance.NACC-HOLI .NACC-Legend-div {
+    border-color: #ACCACB;
+    background: none;
+    background-color: black;
+    padding: 0.25em;
+}
+
+/** This is the label and text in the results. */
+.NACC-Instance.NACC-HOLI .NACC-Results-Text {
+    color: #BE202D;
+}
+
+/** This is the show special tags checkbox label. */
+.NACC-Instance.NACC-HOLI .NACC-Show-Special-Tags-Checkbox-Label {
+    color: white;
+    line-height: 1em;
+    vertical-align: top;
+}
+
+.NACC-Instance.NACC-HOLI div.NACC-Popups {
+    padding-top: 0.5em;
+}
+
+.NACC-Instance.NACC-HOLI .NACC-Calculate-Button {
+    margin: 0.25em;
+    margin-top: -0.5em;
+}
+
+.NACC-Instance.NACC-HOLI .NACC-Calculate-Button,
+.NACC-Instance.NACC-HOLI .NACC-Change-Layout-Button
+{
+    border: 0;
+    border: 1 px solid #BE202D;
+    border-radius: 0.4em;   /** Rounded corners. */
+    background-color: #BE202D;
+    color:white;
+    padding: 0.25em;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.NACC-Instance.NACC-HOLI .NACC-Calculate-Button:hover,
+.NACC-Instance.NACC-HOLI .NACC-Change-Layout-Button:hover,
+.NACC-Instance.NACC-HOLI .NACC-Calculate-Button:active,
+.NACC-Instance.NACC-HOLI .NACC-Change-Layout-Button:active
+{
+    color:black;
+    background-color:white;
+    text-decoration: underline;
+}
+

@@ -64,6 +64,8 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
     var m_my_fieldset = null;
     /// This is the fieldset legend that contains the popups.
     var m_my_legend = null;
+    /// This is the fieldset legend internal div that contains the popups.
+    var m_my_legend_div = null;
     /// This is a div that will contain the popups.
     var m_popup_container = null;
     /// This is the month popup.
@@ -143,6 +145,7 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         this.m_lang['en'].result_1_year_and_1_month             = 'This is 1 year and 1 month.';
         this.m_lang['en'].result_1_year_1_month_and_1_day       = 'This is 1 year, 1 month and 1 day.';
         this.m_lang['en'].result_1_year_months_and_1_day_format = 'This is 1 year, %d months and 1 day.';
+        this.m_lang['en'].result_1_year_months_and_days_format  = 'This is 1 year, %d months and %d days.';
         this.m_lang['en'].result_1_year_days_format             = 'This is 1 year and %d days.';
         this.m_lang['en'].result_years_format                   = 'This is %d years.';
         this.m_lang['en'].result_years_months_format            = 'This is %d years and %d months.';
@@ -201,6 +204,7 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         this.m_lang['es'].result_1_year_and_1_month             = 'Esto suma un total de 1 año y 1 mes.';
         this.m_lang['es'].result_1_year_1_month_and_1_day       = 'Esto suma un total de 1 año, 1 mes y 1 día.';
         this.m_lang['es'].result_1_year_months_and_1_day_format = 'Esto suma un total de 1 año, %d meses y 1 día.';
+        this.m_lang['es'].result_1_year_months_and_days_format  = 'Esto suma un total de 1 año, %d meses y %d días.';
         this.m_lang['es'].result_1_year_days_format             = 'Esto suma un total de 1 año y %d días.';
         this.m_lang['es'].result_years_format                   = 'Esto suma un total de %d años.';
         this.m_lang['es'].result_years_months_format            = 'Esto suma un total de %d años y %d meses.';
@@ -579,6 +583,8 @@ NACC.prototype.displayCalculationResults = function(inCalculationResults) {
                     main_blurb = this.m_lang[this.m_lang_selector].result_1_year_and_1_day;
                 } else if ( (1 == inCalculationResults.years) && (0 == inCalculationResults.months) && (1 < inCalculationResults.days) ) {
                     main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_1_year_days_format, inCalculationResults.days);
+                } else if ( (1 == inCalculationResults.years) && (1 < inCalculationResults.months) && (1 < inCalculationResults.days) ) {
+                    main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_1_year_months_and_days_format, inCalculationResults.months, inCalculationResults.days);
                 } else if ( (0 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
                     main_blurb = this.sprintf(this.m_lang[this.m_lang_selector].result_years_format, inCalculationResults.years);
                 } else if ( (1 == inCalculationResults.months) && (0 == inCalculationResults.days) ) {
@@ -807,7 +813,7 @@ NACC.prototype.createWhiteKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createOrangeKeytag = function(inFace) {
-    return this.createOneKeytag('02' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('02' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -819,7 +825,7 @@ NACC.prototype.createOrangeKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createGreenKeytag = function(inFace) {
-    return this.createOneKeytag('03' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('03' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -831,7 +837,7 @@ NACC.prototype.createGreenKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createRedKeytag = function(inFace) {
-    return this.createOneKeytag('04' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('04' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -843,7 +849,7 @@ NACC.prototype.createRedKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createBlueKeytag = function(inFace) {
-    return this.createOneKeytag('05' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('05' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -855,7 +861,7 @@ NACC.prototype.createBlueKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createYellowKeytag = function(inFace) {
-    return this.createOneKeytag('06' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('06' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -867,7 +873,7 @@ NACC.prototype.createYellowKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createYearKeytag = function(inFace) {
-    return this.createOneKeytag('07' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('07' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -879,7 +885,7 @@ NACC.prototype.createYearKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createGrayKeytag = function(inFace) {
-    return this.createOneKeytag('08' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('08' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -891,7 +897,7 @@ NACC.prototype.createGrayKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createBlackKeytag = function(inFace) {
-    return this.createOneKeytag('09' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('09' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -903,7 +909,7 @@ NACC.prototype.createBlackKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createDecadeKeytag = function(inFace) {
-    return this.createOneKeytag('10' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('10' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -915,7 +921,7 @@ NACC.prototype.createDecadeKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.createDecadesKeytag = function(inFace) {
-    return this.createOneKeytag('11' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('11' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -927,7 +933,7 @@ NACC.prototype.createDecadesKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.create25YearKeytag = function(inFace) {
-    return this.createOneKeytag('12' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('12' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -939,7 +945,7 @@ NACC.prototype.create25YearKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.create10KKeytag = function(inFace) {
-    return this.createOneKeytag('13' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('13' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -951,7 +957,31 @@ NACC.prototype.create10KKeytag = function(inFace) {
     \returns an img object.
 */
 NACC.prototype.create30YearKeytag = function(inFace) {
-    return this.createOneKeytag('14' + (inFace ? '_Front' : ''));
+    return this.createOneKeytag('14' + (inFace ? '_Front' : ''), !inFace);
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one 10,000 day keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.create05Keytag = function(inFace) {
+    return this.createOneKeytag('15' + (inFace ? '_Front' : ''), !inFace);
+};
+
+/***********************************************************************/
+/**
+    \brief  This creates and returns one 10,000 day keytag object, as an img.
+    
+    \param  inFace If this will be the logo side, this should be true.
+    
+    \returns an img object.
+*/
+NACC.prototype.create15Keytag = function(inFace) {
+    return this.createOneKeytag('16' + (inFace ? '_Front' : ''), !inFace);
 };
 
 /***********************************************************************/
@@ -996,9 +1026,12 @@ NACC.prototype.createFieldset = function() {
 NACC.prototype.createLegend = function() {
     this.m_my_legend = this.createDOMObject('legend', 'NACC-Legend', this.m_my_fieldset);
     
-    if ( null != this.m_my_legend ) {  
-        this.createPrompt();
-        this.createPopupContainer();
+    if ( null != this.m_my_legend ) {
+        this.m_my_legend_div = this.createDOMObject('legend', 'NACC-Legend-div', this.m_my_legend);
+        if ( null != this.m_my_legend ) {
+            this.createPrompt();
+            this.createPopupContainer();
+        };
     };
 };
 
@@ -1007,7 +1040,7 @@ NACC.prototype.createLegend = function() {
     \brief  This creates the prompt above the popups.
 */
 NACC.prototype.createPrompt = function() {
-    this.m_my_prompt = this.createDOMObject('label', 'NACC-Prompt-Label', this.m_my_legend);
+    this.m_my_prompt = this.createDOMObject('label', 'NACC-Prompt-Label', this.m_my_legend_div);
     
     if ( null != this.m_my_prompt ) {  
         this.m_my_prompt.innerHTML = this.m_lang[this.m_lang_selector].prompt;
@@ -1019,7 +1052,7 @@ NACC.prototype.createPrompt = function() {
     \brief  This creates the popup container and the popups.
 */
 NACC.prototype.createPopupContainer = function() {
-    this.m_popup_container = this.createDOMObject('div', 'NACC-Popups', this.m_my_legend);
+    this.m_popup_container = this.createDOMObject('div', 'NACC-Popups', this.m_my_legend_div);
     
     if ( null != this.m_popup_container ) {
         this.createMonthPopup();
@@ -1248,9 +1281,19 @@ NACC.prototype.createTagsArray = function(inNumDays, inMonths) {
             var specialTag = false;
             
             if ( this.m_keytag_special ) {
+                if ( comp == 60 ) {
+                    specialTag = true;
+                    this.create05Keytag(isFace);
+                };
+                
                 if ( comp == 120 ) {
                     specialTag = true;
                     this.createDecadeKeytag(isFace);
+                };
+                
+                if ( comp == 180 ) {
+                    specialTag = true;
+                    this.create15Keytag(isFace);
                 };
                 
                 if ( !specialTag && (comp == 300) ) {
