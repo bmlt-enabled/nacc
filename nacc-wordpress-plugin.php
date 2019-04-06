@@ -3,7 +3,7 @@
 Plugin Name: NACC WordPress Plugin
 Plugin URI: http://magshare.org/nacc
 Description: This is a WordPress plugin implementation of the N.A. Cleantime Calculator. To use this, specify &lt;!&#45;&#45; NACC &#45;&#45;&gt; or [[NACC]] in your text code. That text will be replaced with this cleantime calculator.
-Version: 3.0.0
+Version: 3.0.1
 Install: Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "<!-- NACC -->" or "[[NACC]]" in the code section of a page or a post.
 */ 
 
@@ -127,6 +127,6 @@ function replace_shortcode ($in_text_to_parse,      ///< The text to search for 
     return $ret;
     }
 
-add_filter ( 'the_content', nacc_content );
+add_filter ( 'the_content', 'nacc_content' );
 add_action ( 'wp_head', 'nacc_head' );
 ?>
