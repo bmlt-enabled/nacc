@@ -3,7 +3,7 @@ Contributors: magblogapi
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
 Requires at least: 2.0
 Tested up to: 5.2.4
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 
 == Description ==
 
@@ -23,8 +23,11 @@ That text will be replaced with this cleantime calculator.
 
 == Changelog ==
 
+Version 3.1.2- November 4, 2019
+	Fixed a bug in the image directory URI.
+
 Version 3.1.1- November 4, 2019
-	There was a bug in the Italian translation that was fixed..
+	There was a bug in the Italian translation that was fixed.
 	
 Version 3.1.0- November 4, 2019
 	Added Italian Localization.

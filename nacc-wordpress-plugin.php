@@ -3,7 +3,7 @@
 Plugin Name: NACC WordPress Plugin
 Plugin URI: http://magshare.org/nacc
 Description: This is a WordPress plugin implementation of the N.A. Cleantime Calculator. To use this, specify &lt;!&#45;&#45; NACC &#45;&#45;&gt; or [[NACC]] in your text code. That text will be replaced with this cleantime calculator.
-Version: 3.1.1
+Version: 3.1.2
 Install: Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "<!-- NACC -->" or "[[NACC]]" in the code section of a page or a post.
 */ 
 
@@ -27,7 +27,7 @@ function nacc_head ( )
 
 function nacc_content ( $the_content )
 	{
-	$shortcode_obj = get_shortcode ( $the_content );
+	$shortcode_obj = explode(',', get_shortcode ( $the_content ));
 	
 	if ( $shortcode_obj )
 		{
@@ -35,7 +35,7 @@ function nacc_content ( $the_content )
 		$cc_text .= '<noscript>';
 		$cc_text .= '<h1 style="text-align:center">JavaScript Required</h1>';
 		$cc_text .= '<h2 style="text-align:center">Sadly, you must enable JavaScript on your browser in order to use this cleantime calculator.</h2>';
-        $siteURI = get_option('siteurl').'/wp-content/plugins/nacc-wordpress-plugin/nacc2/';
+        $siteURI = '"'.esc_url ( plugins_url ( 'nacc2', __FILE__ ) ).'"';
         
         if ( ($shortcode_obj !== true) && (!is_array ( $shortcode_obj )) )
             {
@@ -44,14 +44,19 @@ function nacc_content ( $the_content )
         
 		if ( is_array ( $shortcode_obj ) && (count ( $shortcode_obj ) > 0) )
 		    {
-		    $theme = trim(strval ( $shortcode_obj[0] ), '"');
-		    $lang = 0;
+		    $theme = '"'.trim(strval ( $shortcode_obj[0] ), '"').'"';
+		    $lang = '"en"';
 		    $layout = '"linear"';
 		    $showSpecial = 'true';
 		    
 		    if ( count ( $shortcode_obj ) > 1 )
 		        {
-		        $lang = '"'.strval ( $shortcode_obj[1] ).'"';
+		        $lang_temp = strval ( $shortcode_obj[1] );
+		        
+		        if ( $lang_temp )
+		            {
+		            $lang = $lang_temp;
+		            }
 		        }
 		    
 		    if ( count ( $shortcode_obj ) > 2 )
@@ -63,12 +68,11 @@ function nacc_content ( $the_content )
 		        {
 		        $showSpecial = $shortcode_obj[3] ? 'true' : 'false';
 		        }
-		    
-		    $cc_text .= '</noscript><script type="text/javascript">var nacc = new NACC("nacc_container", "'.$theme.'", '.$lang.', '.$layout.', '.$showSpecial.', "'.$siteURI.'");</script>'."\n";
+		    $cc_text .= '</noscript><script type="text/javascript">var nacc = new NACC("nacc_container", '.$theme.', '.$lang.', '.$layout.', '.$showSpecial.', '.$siteURI.');</script>'."\n";
 		    }
 		else
 		    {
-		    $cc_text .= '</noscript><script type="text/javascript">var nacc = new NACC("nacc_container", 0, 0, 0, 1, "'.$siteURI.'");</script>'."\n";
+		    $cc_text .= '</noscript><script type="text/javascript">var nacc = new NACC("nacc_container", 0, 0, 0, 1, '.$siteURI.');</script>'."\n";
             }
         
 		$the_content = replace_shortcode ( $the_content, $cc_text );
