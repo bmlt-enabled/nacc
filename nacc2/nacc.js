@@ -335,6 +335,8 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         /************************************/
         /*             ITALIAN              */
         /************************************/
+        this.m_lang['it'] = new Object();
+    
          /** This is the header, at the top. */
         this.m_lang['it'].section_title                         = 'NA Tempo di Pulizia';
         /** This is the prompt over the popup menus. */
