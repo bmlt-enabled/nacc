@@ -3,7 +3,7 @@
 Plugin Name: NACC WordPress Plugin
 Plugin URI: http://magshare.org/nacc
 Description: This is a WordPress plugin implementation of the N.A. Cleantime Calculator. To use this, specify &lt;!&#45;&#45; NACC &#45;&#45;&gt; or [[NACC]] in your text code. That text will be replaced with this cleantime calculator.
-Version: 3.1.2
+Version: 3.1.3
 Install: Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "<!-- NACC -->" or "[[NACC]]" in the code section of a page or a post.
 */ 
 
@@ -27,15 +27,15 @@ function nacc_head ( )
 
 function nacc_content ( $the_content )
 	{
-	$shortcode_obj = explode(',', get_shortcode ( $the_content ));
-	
+	$shortcode_obj = explode(',', html_entity_decode(get_shortcode ( $the_content )));
+
 	if ( $shortcode_obj )
 		{
 		$cc_text = '<div id = "nacc_container"></div>'."\n";
 		$cc_text .= '<noscript>';
 		$cc_text .= '<h1 style="text-align:center">JavaScript Required</h1>';
 		$cc_text .= '<h2 style="text-align:center">Sadly, you must enable JavaScript on your browser in order to use this cleantime calculator.</h2>';
-        $siteURI = '"'.esc_url ( plugins_url ( 'nacc2', __FILE__ ) ).'"';
+        $siteURI = '"'.plugins_url ( 'nacc2', __FILE__ ).'"';
         
         if ( ($shortcode_obj !== true) && (!is_array ( $shortcode_obj )) )
             {
@@ -44,14 +44,14 @@ function nacc_content ( $the_content )
         
 		if ( is_array ( $shortcode_obj ) && (count ( $shortcode_obj ) > 0) )
 		    {
-		    $theme = '"'.trim(strval ( $shortcode_obj[0] ), '"').'"';
+		    $theme = '"'.trim(strval ( $shortcode_obj[0] ), '\'"').'"';
 		    $lang = '"en"';
 		    $layout = '"linear"';
 		    $showSpecial = 'true';
 		    
 		    if ( count ( $shortcode_obj ) > 1 )
 		        {
-		        $lang_temp = strval ( $shortcode_obj[1] );
+		        $lang_temp = '"'.trim(strval ( $shortcode_obj[1] ), '\'"').'"';
 		        
 		        if ( $lang_temp )
 		            {
@@ -61,13 +61,14 @@ function nacc_content ( $the_content )
 		    
 		    if ( count ( $shortcode_obj ) > 2 )
 		        {
-		        $layout = '"'.strval ( $shortcode_obj[2] ).'"';
+		        $layout = '"'.trim(strval ( $shortcode_obj[2] ), '\'"').'"';
 		        }
 		    
 		    if ( count ( $shortcode_obj ) > 3 )
 		        {
-		        $showSpecial = $shortcode_obj[3] ? 'true' : 'false';
+		        $showSpecial = trim(strval ( $shortcode_obj[3] ), '\'"');
 		        }
+		        
 		    $cc_text .= '</noscript><script type="text/javascript">var nacc = new NACC("nacc_container", '.$theme.', '.$lang.', '.$layout.', '.$showSpecial.', '.$siteURI.');</script>'."\n";
 		    }
 		else

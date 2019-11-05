@@ -3,7 +3,7 @@ Contributors: magblogapi
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
 Requires at least: 2.0
 Tested up to: 5.2.4
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 
 == Description ==
 
@@ -16,12 +16,15 @@ That text will be replaced with this cleantime calculator.
 1. Upload `the nacc` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Place `<!-- NACC -->`in the HTML view, or `[[NACC]]` in either view, of a page. It will be replaced by the plugin.
-4. You can change how the plugin appears like so: `<!-- NACC("THEME") -->`, where `THEME` is currently `NACC-BT` (Dark blue and white), or `NACC-GNYR2` (Light blue style customized for the Greater New York Region). Leave it out for default (gray).
-5. You can change the language like so: `<!-- NACC("THEME","LANG") -->`, where `LANG` is currently `en` (English -Default), `es` (Spanish), `zh-Hans` (Simplified Chinese), `zh-Hant` (Traditional Chinese), or `it` (Italian).
-6. You can specify which layout (vertical or horizontal) you want the tags to appear in by default, like so: `<!-- NACC("THEME","LANG","LAYOUT") -->`, where `LAYOUT` is `linear` (default, in a long line), or `tabular` (In a horizontal row).
-7. You can specify whether or not the "special" tags are shown, like so: `<!-- NACC("THEME","LANG","LAYOUT","SPECIAL") -->`, where `SPECIAL` is `true` or `false`.
+4. You can change how the plugin appears like so: `<!-- NACC(`THEME`) -->`, where `THEME` is currently `NACC-BT` (Dark blue and white), `NACC-GNYR2` (Light blue style customized for the Greater New York Region), or "NACC-HOLI" (Black and Red, customized for the Heart of Long Island ASC). Leave it out for default (gray).
+5. You can change the language like so: `<!-- NACC(`THEME`,`LANG`) -->`, where `LANG` is currently `en` (English -Default), `es` (Spanish), `zh-Hans` (Simplified Chinese), `zh-Hant` (Traditional Chinese), or `it` (Italian).
+6. You can specify which layout (vertical or horizontal) you want the tags to appear in by default, like so: `<!-- NACC(`THEME`,`LANG`,`LAYOUT`) -->`, where `LAYOUT` is `linear` (default, in a long line), or `tabular` (In a horizontal row).
+7. You can specify whether or not the "special" tags are shown, like so: `<!-- NACC(`THEME`,`LANG`,`LAYOUT`,`SPECIAL`) -->`, where `SPECIAL` is `true` or `false`.
 
 == Changelog ==
+
+Version 3.1.3- November 5, 2019
+	Fixed a bug in shortcode setup.
 
 Version 3.1.2- November 4, 2019
 	Fixed a bug in the image directory URI.
