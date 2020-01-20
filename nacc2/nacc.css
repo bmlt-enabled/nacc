@@ -58,6 +58,7 @@
 
 .NACC-Instance .NACC-Legend {
     text-align: center;
+    margin: auto;
 }
 
 /** These apply to the selects and the Calculate button. */
