@@ -1,0 +1,123 @@
+language: php
+
+php:
+- '7.1'
+env:
+  global:
+  - S3_BUCKET=archives.bmlt.app
+jobs:
+  include:
+
+  - stage: lint
+    install:
+    - composer install
+    script:
+    - find . -name "*.php" ! -path '*/vendor/*' -print0 | xargs -0 -n1 -P8 php -l
+    - vendor/squizlabs/php_codesniffer/bin/phpcs --warning-severity=6 --standard=PSR2 --ignore=vendor --extensions=php ./
+  - stage: naccjs zip file
+    env:
+    - BUILD_DIR=build
+    - DIST_DIR_S3=dist_naccjs/s3
+    - DIST_DIR_GITHUB=dist_naccjs/github
+    - GITHUB_RELEASE_FILENAME=naccjs.zip
+    - ZIP_FILENAME=naccjs-build${TRAVIS_BUILD_NUMBER}-${TRAVIS_COMMIT}.zip
+    - S3_KEY=naccjs
+    script:
+    - cd nacc && zip -r ${ZIP_FILENAME} *
+    - mkdir -p $BUILD_DIR && mv $ZIP_FILENAME $BUILD_DIR/
+    before_deploy:
+    - mkdir -p $DIST_DIR_S3 && cp $BUILD_DIR/$ZIP_FILENAME $DIST_DIR_S3/$ZIP_FILENAME
+    - mkdir -p $DIST_DIR_GITHUB && cp $BUILD_DIR/$ZIP_FILENAME $DIST_DIR_GITHUB/$GITHUB_RELEASE_FILENAME
+    deploy:
+      - provider: s3
+        access_key_id: AKIAI7JHYFA6DI3WYP5A
+        secret_access_key:
+          secure: LoNVg9RqBdN4Jn4Y1Z9FkjwnIGcm9XRGojvX+UoJNMczUVn5FcGd80feH+Zzb+DUOmvBHO1SyIEp3M+4Zy25SXf/3ZN8ejy4Z4hJa2FCx56FHiF11L0puyWAVUvfOgfz5vEEuVYdBzZ6+uqLbDZgTLZcn3PC9Q4vsiMgkjDhObbRJz8Da10ZNKO/aCxYHa0Gq5UsPnFwcE4N4JM4dvo5qymObmjjQDJ5zI2SnC/CbLtShuCyh+V9O0x+IpMkVq1DFwC2sPEf3MfwQPEYUSuek0AstEJAZPx1ttnqY8GuG3KKHop/rQNcSaWQc7XuxBF1T0/SLPxhuUxmaTWeBoWFAKasECG66T/GpVAE9NI0GWhJAc7mINDRvQhSyu6TI5J1/W4t8td9kNlV8T+VMcCGPa3Eb7XFF8k9B7wIKoR4A+oTrIfp7mplNei6ucCXjyoY4moZ/rqucqu+9KSowjOyjP/j2Zmip/ehdg7HAOqLkvofLItmwByTgHYs6cSTfPNVdZogCdaefsU1oIFDHvjD9Cu2+R/yQS3A2Xoht3L9OPKeVnNh+my/MjL8/1nGIu0/o8I1l6BQFGBQN4uRzLsDdqUlg5+oG3DeDTppk0pS9UwRwfrEZ+EpPOkmShmK53zOONuJ3nDAjLS+yY/+UO+0hj66b8A9tX8AeGBOhFld9NU=
+        bucket: "$S3_BUCKET"
+        local_dir: "$DIST_DIR_S3"
+        upload-dir: "$S3_KEY"
+        skip_cleanup: true
+        on:
+          all_branches: true
+      - provider: releases
+        api_key:
+          secure: m9YgcR+DGY7qqeZufjdj8jnyj4sKDpyDiIQYQjyCRhIep4U2lK4+ug0GkVCWVnH5iqzDAbZA75veak3JwKBVy+k/R1FKpC+oukyN4q6M7dKiO5eGEhG8JgoOOetlRlCMZPFuDwJCoatJSm+mBMr690Hc154DEhPiJLh4CjTyKK8dSu0QOsnnNyVwngCC//dEQuG7xvRM8QZk9BJ87O1pNujQalsMWFlQH1M9FW1NB+bn0+cubvpCY8dOmW2WRQO+pn7WqS5R4XPUd9Vh1uei1KREnyWTK+ZkVKTj6+nx5wM8EMYO5NxonJ4h4ffmc2PquvXRn3HotfeMg0SY+vrRH4gbbpMp/bZC+5j+BTUCQRXwCRFWzHoaLV0id31PZ6qMOK7fUbJRMIRkULzMGLxJxoC+nMWmQ2h438e4tSrl9QBpQQwSKRC+vn45WRwrNW6ywZ7IPkWtlZvMSFrd4V1r9nS8quvrcMRNEAVyOyNyj5yoLstJBkrz1Q2NhFwcqeJwIvWRyLkWsub2OOihBCk4PDQ3Q2d4S43DUKILx0L3IjhxVKbD+SbI7kJb1yKsGDIhH6wbavvUxQVBRvju+rHfLfDdU5mn8k3Y/WESRjBfxhZn8cIhIWMYFxMEVbwvMr+5+e2MOXRk5mcM7YbnknhVslCKY6X/gFliDurMc9atVD0=
+        file: "$DIST_DIR_GITHUB/$GITHUB_RELEASE_FILENAME"
+        skip_cleanup: true
+        name: "$TRAVIS_TAG"
+        on:
+          tags: true
+          condition: $TRAVIS_TAG != *beta*
+      - provider: releases
+        api_key:
+          secure: m9YgcR+DGY7qqeZufjdj8jnyj4sKDpyDiIQYQjyCRhIep4U2lK4+ug0GkVCWVnH5iqzDAbZA75veak3JwKBVy+k/R1FKpC+oukyN4q6M7dKiO5eGEhG8JgoOOetlRlCMZPFuDwJCoatJSm+mBMr690Hc154DEhPiJLh4CjTyKK8dSu0QOsnnNyVwngCC//dEQuG7xvRM8QZk9BJ87O1pNujQalsMWFlQH1M9FW1NB+bn0+cubvpCY8dOmW2WRQO+pn7WqS5R4XPUd9Vh1uei1KREnyWTK+ZkVKTj6+nx5wM8EMYO5NxonJ4h4ffmc2PquvXRn3HotfeMg0SY+vrRH4gbbpMp/bZC+5j+BTUCQRXwCRFWzHoaLV0id31PZ6qMOK7fUbJRMIRkULzMGLxJxoC+nMWmQ2h438e4tSrl9QBpQQwSKRC+vn45WRwrNW6ywZ7IPkWtlZvMSFrd4V1r9nS8quvrcMRNEAVyOyNyj5yoLstJBkrz1Q2NhFwcqeJwIvWRyLkWsub2OOihBCk4PDQ3Q2d4S43DUKILx0L3IjhxVKbD+SbI7kJb1yKsGDIhH6wbavvUxQVBRvju+rHfLfDdU5mn8k3Y/WESRjBfxhZn8cIhIWMYFxMEVbwvMr+5+e2MOXRk5mcM7YbnknhVslCKY6X/gFliDurMc9atVD0=
+        file: "$DIST_DIR_GITHUB/$GITHUB_RELEASE_FILENAME"
+        skip_cleanup: true
+        name: "$TRAVIS_TAG"
+        prerelease: true
+          on:
+            tags: true
+            condition: $TRAVIS_TAG =~ "beta"
+  - stage: wordpress-plugin zip file
+    env:
+      - BUILD_DIR=build
+      - DIST_DIR_S3=dist/s3
+      - DIST_DIR_GITHUB=dist/github
+      - GITHUB_RELEASE_FILENAME=nacc-wordpress-plugin.zip
+      - PLUGIN="nacc-wordpress-plugin"
+      - MAINFILE="nacc-wordpress-plugin.php"
+      - ZIP_FILENAME=nacc-wordpress-plugin-build${TRAVIS_BUILD_NUMBER}-${TRAVIS_COMMIT}.zip
+      - S3_KEY=nacc-wordpress-plugin
+    script:
+      - find ./ -type d | xargs chmod 755
+      - find ./ -name '*.php' | xargs chmod 644
+      - git archive --format=zip --output=${ZIP_FILENAME} ${TRAVIS_COMMIT}
+      - zip -r ${ZIP_FILENAME} nacc/*
+      - mkdir -p $BUILD_DIR && mv $ZIP_FILENAME $BUILD_DIR/
+    before_deploy:
+      - mkdir -p $DIST_DIR_S3 && cp $BUILD_DIR/$ZIP_FILENAME $DIST_DIR_S3/$ZIP_FILENAME
+      - mkdir -p $DIST_DIR_GITHUB && cp $BUILD_DIR/$ZIP_FILENAME $DIST_DIR_GITHUB/$GITHUB_RELEASE_FILENAME
+      - curl -LO https://raw.githubusercontent.com/bmlt-enabled/bmlt-wordpress-deploy/master/deploy-wordpress.sh
+      - chmod +x deploy-wordpress.sh
+    deploy:
+    - provider: s3
+      access_key_id: AKIAI7JHYFA6DI3WYP5A
+      secret_access_key:
+        secure: LoNVg9RqBdN4Jn4Y1Z9FkjwnIGcm9XRGojvX+UoJNMczUVn5FcGd80feH+Zzb+DUOmvBHO1SyIEp3M+4Zy25SXf/3ZN8ejy4Z4hJa2FCx56FHiF11L0puyWAVUvfOgfz5vEEuVYdBzZ6+uqLbDZgTLZcn3PC9Q4vsiMgkjDhObbRJz8Da10ZNKO/aCxYHa0Gq5UsPnFwcE4N4JM4dvo5qymObmjjQDJ5zI2SnC/CbLtShuCyh+V9O0x+IpMkVq1DFwC2sPEf3MfwQPEYUSuek0AstEJAZPx1ttnqY8GuG3KKHop/rQNcSaWQc7XuxBF1T0/SLPxhuUxmaTWeBoWFAKasECG66T/GpVAE9NI0GWhJAc7mINDRvQhSyu6TI5J1/W4t8td9kNlV8T+VMcCGPa3Eb7XFF8k9B7wIKoR4A+oTrIfp7mplNei6ucCXjyoY4moZ/rqucqu+9KSowjOyjP/j2Zmip/ehdg7HAOqLkvofLItmwByTgHYs6cSTfPNVdZogCdaefsU1oIFDHvjD9Cu2+R/yQS3A2Xoht3L9OPKeVnNh+my/MjL8/1nGIu0/o8I1l6BQFGBQN4uRzLsDdqUlg5+oG3DeDTppk0pS9UwRwfrEZ+EpPOkmShmK53zOONuJ3nDAjLS+yY/+UO+0hj66b8A9tX8AeGBOhFld9NU=
+      bucket: "$S3_BUCKET"
+      local_dir: "$DIST_DIR_S3"
+      upload-dir: "$S3_KEY"
+      skip_cleanup: true
+      on:
+        all_branches: true
+    - provider: releases
+      api_key:
+        secure: m9YgcR+DGY7qqeZufjdj8jnyj4sKDpyDiIQYQjyCRhIep4U2lK4+ug0GkVCWVnH5iqzDAbZA75veak3JwKBVy+k/R1FKpC+oukyN4q6M7dKiO5eGEhG8JgoOOetlRlCMZPFuDwJCoatJSm+mBMr690Hc154DEhPiJLh4CjTyKK8dSu0QOsnnNyVwngCC//dEQuG7xvRM8QZk9BJ87O1pNujQalsMWFlQH1M9FW1NB+bn0+cubvpCY8dOmW2WRQO+pn7WqS5R4XPUd9Vh1uei1KREnyWTK+ZkVKTj6+nx5wM8EMYO5NxonJ4h4ffmc2PquvXRn3HotfeMg0SY+vrRH4gbbpMp/bZC+5j+BTUCQRXwCRFWzHoaLV0id31PZ6qMOK7fUbJRMIRkULzMGLxJxoC+nMWmQ2h438e4tSrl9QBpQQwSKRC+vn45WRwrNW6ywZ7IPkWtlZvMSFrd4V1r9nS8quvrcMRNEAVyOyNyj5yoLstJBkrz1Q2NhFwcqeJwIvWRyLkWsub2OOihBCk4PDQ3Q2d4S43DUKILx0L3IjhxVKbD+SbI7kJb1yKsGDIhH6wbavvUxQVBRvju+rHfLfDdU5mn8k3Y/WESRjBfxhZn8cIhIWMYFxMEVbwvMr+5+e2MOXRk5mcM7YbnknhVslCKY6X/gFliDurMc9atVD0=
+      file: "$DIST_DIR_GITHUB/$GITHUB_RELEASE_FILENAME"
+      skip_cleanup: true
+      name: "$TRAVIS_TAG"
+      on:
+        tags: true
+        condition: $TRAVIS_TAG != *beta*
+    - provider: releases
+      api_key:
+        secure: m9YgcR+DGY7qqeZufjdj8jnyj4sKDpyDiIQYQjyCRhIep4U2lK4+ug0GkVCWVnH5iqzDAbZA75veak3JwKBVy+k/R1FKpC+oukyN4q6M7dKiO5eGEhG8JgoOOetlRlCMZPFuDwJCoatJSm+mBMr690Hc154DEhPiJLh4CjTyKK8dSu0QOsnnNyVwngCC//dEQuG7xvRM8QZk9BJ87O1pNujQalsMWFlQH1M9FW1NB+bn0+cubvpCY8dOmW2WRQO+pn7WqS5R4XPUd9Vh1uei1KREnyWTK+ZkVKTj6+nx5wM8EMYO5NxonJ4h4ffmc2PquvXRn3HotfeMg0SY+vrRH4gbbpMp/bZC+5j+BTUCQRXwCRFWzHoaLV0id31PZ6qMOK7fUbJRMIRkULzMGLxJxoC+nMWmQ2h438e4tSrl9QBpQQwSKRC+vn45WRwrNW6ywZ7IPkWtlZvMSFrd4V1r9nS8quvrcMRNEAVyOyNyj5yoLstJBkrz1Q2NhFwcqeJwIvWRyLkWsub2OOihBCk4PDQ3Q2d4S43DUKILx0L3IjhxVKbD+SbI7kJb1yKsGDIhH6wbavvUxQVBRvju+rHfLfDdU5mn8k3Y/WESRjBfxhZn8cIhIWMYFxMEVbwvMr+5+e2MOXRk5mcM7YbnknhVslCKY6X/gFliDurMc9atVD0=
+      file: "$DIST_DIR_GITHUB/$GITHUB_RELEASE_FILENAME"
+      skip_cleanup: true
+      name: "$TRAVIS_TAG"
+      prerelease: true
+        on:
+          tags: true
+          condition: $TRAVIS_TAG =~ "beta"
+    - provider: script
+      script: ./deploy-wordpress.sh
+      skip_cleanup: true
+      on:
+        tags: true
+        condition: $TRAVIS_TAG != *beta*
+notifications:
+  slack:
+    rooms:
+    - secure: bmoIugz9sorNakDw7LnfC3iB7a4CnhuZeZBAVxefSoqipbZAGLoA86pSaDwSK3kNsCRAUXyHJ0pBxxJuCO5jrQKhl9TNBFQQ60KPvn3LQj9OXXTSHp4qoqBytipQGyjeqySu4fJt8Lc0u8FQ0qinxn21qF7K7c54aygVKQd+nxf/+9rVzSOJIY+c6UEBb9FwKfHl9cOJy8nTHYPNl0ZbQaYVS1gvyOV2jzrlurOXb0t2xYs2W9EOAjUd2E4ZVaD8EEyRZ9zcvy8ne41qZGBLMJjHZo6TdN4x0AdEYiITst5fKj+YILNCaVQMyURu5h65RPVXyjZ/eIOUixSt1EOpMTxWcRiDn3H7B2F7eEUIXyo/c5x1AEWEQFLGK+/PEqWx/zaBG0rJJdzVbLaqet2kg5piy+f84EBCZiXm7CZIYPMSjLJo9AJDcY9iSRgvpRnkSagHZAgMILNut53aNPd8i3FoOeycPwux/KDQpSz0uIpn4xu26VY0bzxJ8N27VugUhmNhLCN05Hgw8GoDjEoh4EgPPsdNVzXT4mzpjx2GfhRZOm/78LUSDB/w3oIAEPzRFfhberBAo0l2w9T5+Ynbw9yyquYgNUOW/nMhbwqOPbWqndHa8Xume0DXp2COHEqoSZx4gDIIRRKjKdsrFjjasWB5K7IQXQfBoiGAL7EscNA=
+    on_success: change
+  email: false

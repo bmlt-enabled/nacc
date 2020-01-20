@@ -1,8 +1,8 @@
 === NACC WordPress Plugin ===
-Contributors: magblogapi
+Contributors: magblogapi, bmltenabled
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
 Requires at least: 2.0
-Tested up to: 5.2.4
+Tested up to: 5.3.2
 Stable tag: 3.1.3
 
 == Description ==
