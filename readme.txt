@@ -3,7 +3,7 @@ Contributors: magblogapi, bmltenabled
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
 Requires at least: 2.0
 Tested up to: 5.3.2
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 
 == Description ==
 
@@ -22,6 +22,9 @@ That text will be replaced with this cleantime calculator.
 7. You can specify whether or not the "special" tags are shown, like so: `<!-- NACC(`THEME`,`LANG`,`LAYOUT`,`SPECIAL`) -->`, where `SPECIAL` is `true` or `false`.
 
 == Changelog ==
+
+Version 3.1.4- January 20, 2020
+	Added CSS to center align the legend by default.
 
 Version 3.1.3- November 5, 2019
 	Fixed a bug in shortcode setup.
