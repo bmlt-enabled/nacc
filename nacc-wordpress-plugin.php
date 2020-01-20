@@ -3,7 +3,7 @@
 Plugin Name: NACC WordPress Plugin
 Plugin URI: http://magshare.org/nacc
 Description: This is a WordPress plugin implementation of the N.A. Cleantime Calculator. To use this, specify &lt;!&#45;&#45; NACC &#45;&#45;&gt; or [[NACC]] in your text code. That text will be replaced with this cleantime calculator.
-Version: 3.1.3
+Version: 3.1.4
 Install: Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "<!-- NACC -->" or "[[NACC]]" in the code section of a page or a post.
 */
 
@@ -70,16 +70,20 @@ function nacc_content($the_content)
     return $the_content;
 }
 
-/************************************************************************************//**
-*   \brief This will parse the given text, to see if it contains the submitted code.    *
-*                                                                                       *
-*   The code can be contained in EITHER an HTML comment (<!--CODE-->), OR a double-[[]] *
-*   notation.                                                                           *
-*                                                                                       *
-*   \returns Boolean true if the code is found (1 or more instances), OR an associative *
-*   array of data that is associated with the code (anything within parentheses). Null  *
-*   is returned if there is no shortcode detected.                                      *
-****************************************************************************************/
+/************************************************************************************/
+/**
+ *   \brief This will parse the given text, to see if it contains the submitted code.    *
+ *                                                                                       *
+ *   The code can be contained in EITHER an HTML comment (<!--CODE-->), OR a double-[[]] *
+ *   notation.                                                                           *
+ *                                                                                       *
+ *   \returns Boolean true if the code is found (1 or more instances), OR an associative *
+ *   array of data that is associated with the code (anything within parentheses). Null  *
+ *   is returned if there is no shortcode detected.                                      *
+ ***************************************************************************************
+ * @param $in_text_to_parse
+ * @return bool|string|null
+ */
 function get_shortcode($in_text_to_parse)
 {
     $ret = null;
@@ -98,14 +102,19 @@ function get_shortcode($in_text_to_parse)
     return $ret;
 }
 
-/************************************************************************************//**
-*   \brief This will parse the given text, to see if it contains the submitted code.    *
-*                                                                                       *
-*   The code can be contained in EITHER an HTML comment (<!--CODE-->), OR a double-[[]] *
-*   notation.                                                                           *
-*                                                                                       *
-*   \returns A string, consisting of the new text.                                      *
-****************************************************************************************/
+/************************************************************************************/
+/**
+ *   \brief This will parse the given text, to see if it contains the submitted code.    *
+ *                                                                                       *
+ *   The code can be contained in EITHER an HTML comment (<!--CODE-->), OR a double-[[]] *
+ *   notation.                                                                           *
+ *                                                                                       *
+ *   \returns A string, consisting of the new text.                                      *
+ ***************************************************************************************
+ * @param $in_text_to_parse
+ * @param $in_replacement_text
+ * @return string|string[]|null
+ */
 function replace_shortcode(
     $in_text_to_parse,      ///< The text to search for shortcodes
     $in_replacement_text    ///< The text we'll be replacing the shortcode with.
