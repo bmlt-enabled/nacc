@@ -1,9 +1,8 @@
 === NACC WordPress Plugin ===
-Contributors: magblogapi, bmltenabled
+Contributors: magblogapi, bmltenabled, pjaudiomv
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
-Requires at least: 2.0
-Tested up to: 5.4.0
-Stable tag: 3.1.4
+Tested up to: 5.8.2
+Stable tag: 3.1.5
 
 == Description ==
 
@@ -22,6 +21,9 @@ That text will be replaced with this cleantime calculator.
 7. You can specify whether or not the "special" tags are shown, like so: `<!-- NACC(`THEME`,`LANG`,`LAYOUT`,`SPECIAL`) -->`, where `SPECIAL` is `true` or `false`.
 
 == Changelog ==
+
+Version 3.1.5- January 2, 2021
+	Version bump.
 
 Version 3.1.4- January 20, 2020
 	Added CSS to center align the legend by default.
