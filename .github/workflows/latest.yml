@@ -34,9 +34,8 @@ jobs:
           find ./ -type d | xargs chmod 755
           find ./ -name '*.php' | xargs chmod 644
           git archive --format=zip --output=${ZIP_FILENAME} ${GITHUB_SHA}
-          zip -r ${ZIP_FILENAME} nacc2/*
+          zip -r ${ZIP_FILENAME_JS} nacc2/*
           TAG="${GITHUB_REF##*/}"
-          cd naccjs/dist; zip -r ../../${ZIP_FILENAME_JS} *; cd ../../
           mkdir -p $BUILD_DIR && mv $ZIP_FILENAME_JS $BUILD_DIR/ && mv $ZIP_FILENAME $BUILD_DIR/
           mkdir -p $DIST_DIR_S3_JS && cp $BUILD_DIR/$ZIP_FILENAME_JS $DIST_DIR_S3_JS/$ZIP_FILENAME_JS
           mkdir -p $DIST_DIR_GITHUB_JS && cp $BUILD_DIR/$ZIP_FILENAME_JS $DIST_DIR_GITHUB_JS/$GITHUB_RELEASE_FILENAME_JS
