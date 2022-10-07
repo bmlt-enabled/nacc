@@ -1,0 +1,71 @@
+name: 'latest'
+
+on:
+  push:
+    branches: [ 'master' ]
+
+jobs:
+  deploy-nacc-latest:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      BUILD_DIR: build
+      DIST_DIR_S3_JS: dist_naccjs/s3
+      DIST_DIR_S3: dist/s3
+      DIST_DIR_GITHUB_JS: dist_naccjs/github
+      DIST_DIR_GITHUB: dist/github
+      GITHUB_RELEASE_FILENAME_JS: naccjs.zip
+      GITHUB_RELEASE_FILENAME: nacc-wordpress-plugin.zip
+      S3_KEY_JS: naccjs
+      S3_KEY: nacc-wordpress-plugin
+    steps:
+      - uses: actions/checkout@v2
+        id: code-checkout
+
+      - name: Prepare nacc zip file
+        run: |
+          export ZIP_FILENAME_JS=naccjs-build${GITHUB_RUN_NUMBER}-${GITHUB_SHA}.zip
+          echo "ZIP_FILENAME_JS=${ZIP_FILENAME_JS}" >> $GITHUB_ENV
+          export ZIP_FILENAME=nacc-wordpress-plugin-build${GITHUB_RUN_NUMBER}-${GITHUB_SHA}.zip
+          echo "ZIP_FILENAME=${ZIP_FILENAME}" >> $GITHUB_ENV
+          find ./ -type d | xargs chmod 755
+          find ./ -name '*.php' | xargs chmod 644
+          git archive --format=zip --output=${ZIP_FILENAME} ${GITHUB_SHA}
+          zip -r ${ZIP_FILENAME} nacc2/*
+          TAG="${GITHUB_REF##*/}"
+          cd naccjs/dist; zip -r ../../${ZIP_FILENAME_JS} *; cd ../../
+          mkdir -p $BUILD_DIR && mv $ZIP_FILENAME_JS $BUILD_DIR/ && mv $ZIP_FILENAME $BUILD_DIR/
+          mkdir -p $DIST_DIR_S3_JS && cp $BUILD_DIR/$ZIP_FILENAME_JS $DIST_DIR_S3_JS/$ZIP_FILENAME_JS
+          mkdir -p $DIST_DIR_GITHUB_JS && cp $BUILD_DIR/$ZIP_FILENAME_JS $DIST_DIR_GITHUB_JS/$GITHUB_RELEASE_FILENAME_JS
+          mkdir -p $DIST_DIR_S3 && cp $BUILD_DIR/$ZIP_FILENAME $DIST_DIR_S3/$ZIP_FILENAME
+          mkdir -p $DIST_DIR_GITHUB && cp $BUILD_DIR/$ZIP_FILENAME $DIST_DIR_GITHUB/$GITHUB_RELEASE_FILENAME
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions/gh-ci-s3-artifact
+          role-session-name: gh-actions-nacc
+          aws-region: us-east-1
+
+      - name: copy nacc artifacts to s3
+        run: |
+          aws s3 cp ${DIST_DIR_S3_JS}/${ZIP_FILENAME_JS} s3://${{ secrets.S3_BUCKET }}/${S3_KEY_JS}/${ZIP_FILENAME_JS}
+          aws s3 cp ${DIST_DIR_S3}/${ZIP_FILENAME} s3://${{ secrets.S3_BUCKET }}/${S3_KEY}/${ZIP_FILENAME}
+
+      - name: Publish Release to Latest WP
+        id: publish_latest
+        uses: bmlt-enabled/wordpress-releases-github-action@v1
+        with:
+          file: ${{ env.DIST_DIR_S3 }}/${{ env.ZIP_FILENAME }}
+          aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          s3_key: ${{ env.S3_KEY }}
+#
+#      - uses: act10ns/slack@v1
+#        with:
+#          status: ${{ job.status }}
+#          steps: ${{ toJson(steps) }}
+#          channel: '#nacc'
+#        if: failure()
