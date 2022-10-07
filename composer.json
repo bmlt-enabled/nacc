@@ -1,4 +1,13 @@
 {
+  "name": "bmlt/nacc",
+  "description": "This is a WordPress NA Clean time calculator.",
+  "type": "project",
+  "license": "MIT",
+  "authors": [{
+    "name": "littlegreenviper"
+  },{
+    "name": "pjaudiomv"
+  }],
   "require-dev": {
     "squizlabs/php_codesniffer": "3.*"
   }
