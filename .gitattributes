@@ -6,4 +6,5 @@ composer.json export-ignore
 composer.lock export-ignore
 docker-compose.yml export-ignore
 Dockerfile export-ignore
+Makefile export-ignore
 /.github export-ignore
