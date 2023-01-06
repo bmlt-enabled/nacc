@@ -67,7 +67,7 @@ jobs:
         uses: ncipollo/release-action@v1.11.1
         if: github.ref_type == 'tag'
         with:
-          artifacts: ${{ env.ARTIFACT_PATH }},${{ env.ARTIFACT_PATH_JS }}
+          artifacts: "${{ env.ARTIFACT_PATH }},${{ env.ARTIFACT_PATH_JS }}"
           bodyFile: "changelog.txt"
           prerelease: ${{ env.RELEASE_TYPE }}
 
