@@ -39,10 +39,6 @@ jobs:
           echo "GITHUB_RELEASE_FILENAME=${GITHUB_RELEASE_FILENAME}" >> $GITHUB_ENV
           echo "GITHUB_RELEASE_PATH_JS=${DIST_DIR_GITHUB_JS}/${GITHUB_RELEASE_FILENAME_JS}" >> $GITHUB_ENV
           echo "GITHUB_RELEASE_PATH=${DIST_DIR_GITHUB}/${GITHUB_RELEASE_FILENAME}" >> $GITHUB_ENV
-          echo "ARTIFACT_PATH_JS=${GITHUB_RELEASE_PATH_JS}" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME_JS=${GITHUB_RELEASE_FILENAME_JS}" >> $GITHUB_ENV
-          echo "ARTIFACT_PATH=${GITHUB_RELEASE_PATH}" >> $GITHUB_ENV
-          echo "ARTIFACT_NAME=${GITHUB_RELEASE_FILENAME}" >> $GITHUB_ENV
           find ./ -type d | xargs chmod 755
           find ./ -name '*.php' | xargs chmod 644
           git archive --format=zip --output=${ZIP_FILENAME} ${GITHUB_SHA}
@@ -67,7 +63,7 @@ jobs:
         uses: ncipollo/release-action@v1.11.1
         if: github.ref_type == 'tag'
         with:
-          artifacts: "${ARTIFACT_PATH},${ARTIFACT_PATH_JS}"
+          artifacts: "${GITHUB_RELEASE_PATH},${GITHUB_RELEASE_PATH_JS}"
           bodyFile: "changelog.txt"
           prerelease: ${{ env.RELEASE_TYPE }}
 
