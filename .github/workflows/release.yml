@@ -63,7 +63,7 @@ jobs:
         uses: ncipollo/release-action@v1.11.1
         if: github.ref_type == 'tag'
         with:
-          artifacts: "dist/github/nacc-wordpress-plugin.zip,dist_naccjs/github/naccjs.zip"
+          artifacts: ${{ env.GITHUB_RELEASE_PATH }},${{ env.GITHUB_RELEASE_PATH_JS }}
           bodyFile: "changelog.txt"
           prerelease: ${{ env.RELEASE_TYPE }}
 
