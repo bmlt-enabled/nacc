@@ -33,7 +33,7 @@ jobs:
         run: |
           export ZIP_FILENAME_JS=naccjs-build${GITHUB_RUN_NUMBER}-${GITHUB_SHA}.zip
           echo "ZIP_FILENAME_JS=${ZIP_FILENAME_JS}" >> $GITHUB_ENV
-          export ZIP_FILENAME=nacc-wordpress-plugin-build${GITHUB_RUN_NUMBER}-${GITHUB_SHA}.zip
+          export ZIP_FILENAME=${PLUGIN}-${GITHUB_REF##*/}.zip
           echo "ZIP_FILENAME=${ZIP_FILENAME}" >> $GITHUB_ENV
           echo "GITHUB_RELEASE_FILENAME_JS=${GITHUB_RELEASE_FILENAME_JS}" >> $GITHUB_ENV
           echo "GITHUB_RELEASE_FILENAME=${GITHUB_RELEASE_FILENAME}" >> $GITHUB_ENV
