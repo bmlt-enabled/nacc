@@ -1,8 +1,8 @@
 === NACC WordPress Plugin ===
 Contributors: magblogapi, bmltenabled, pjaudiomv
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
-Tested up to: 6.0.2
-Stable tag: 3.1.6
+Tested up to: 6.2.1
+Stable tag: 3.1.7
 
 == Description ==
 
@@ -21,6 +21,9 @@ That text will be replaced with this cleantime calculator.
 7. You can specify whether the "special" tags are shown, like so: `<!-- NACC(`THEME`,`LANG`,`LAYOUT`,`SPECIAL`) -->`, where `SPECIAL` is `true` or `false`.
 
 == Changelog ==
+
+= 3.1.7 =
+* Fix Additional PHP warning.
 
 = 3.1.6 =
 * Fix PHP warning.
