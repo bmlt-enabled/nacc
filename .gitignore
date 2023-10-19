@@ -7,3 +7,5 @@ vendor/
 logs/
 build/
 *.zip
+.phpdoc/
+docs/
