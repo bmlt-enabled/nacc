@@ -5,9 +5,9 @@
  * Plugin URI: https://wordpress.org/plugins/nacc-wordpress-plugin/
  * Contributors: BMLTGuy, pjaudiomv, bmltenabled
  * Author: bmlt-enabled
- * Description: This is a WordPress plugin implementation of the N.A. Cleantime Calculator. To use this, specify &lt;!&#45;&#45; NACC &#45;&#45;&gt; or [[NACC]] in your text code. That text will be replaced with this cleantime calculator.
+ * Description: This is a WordPress plugin implementation of the N.A. Cleantime Calculator. To use this, specify [NACC] in your text code. That text will be replaced with this cleantime calculator.
  * Version: 4.0.0
- * Install: Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "<!-- NACC -->" or "[[NACC]]" in the code section of a page or a post.
+ * Install: Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "[NACC]" in the code section of a page or a post.
  */
 
 namespace NACCPlugin;
