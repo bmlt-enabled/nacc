@@ -1,5 +1,7 @@
 <?php
+
 /***********************************************************************/
+
 /**     \file   include_stripper.php
 
     NACC is free software: you can redistribute it and/or modify
@@ -19,7 +21,7 @@
     $pathname = $_GET['filename'];
 if (!preg_match("|/|", $pathname)) {
     if (preg_match("/.*?\.(js|css)$/", $pathname)) {
-        $pathname = dirname(__FILE__)."/$pathname";
+        $pathname = dirname(__FILE__) . "/$pathname";
         $opt = file_get_contents($pathname);
         if (!defined('__DEBUG_MODE__')) {
             $opt = preg_replace("|\/\*.*?\*\/|s", "", $opt);
