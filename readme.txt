@@ -30,8 +30,8 @@ That text will be replaced with this cleantime calculator.
 
 = 4.0.0 =
 
-* **Breaking Change**. This plugin now uses standard WordPress shortcode syntax and attributes. [nacc]
-* Now uses standard WordPress shortcodes and attributes.
+* Note if you are using double square brackets [[nacc]], you will want to move to just one [nacc].
+* Now supports standard WordPress shortcodes and attributes [nacc].
 * Added Settings Menu to WordPress dashboard.
 * Refactored codebase.
 
