@@ -22,22 +22,28 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
  */
 class NACC
 {
+    private const SETTINGS_GROUP = 'nacc-group';
+    private const DEFAULT_THEME = 'NACC-Instance';
+    private const DEFAULT_LANGUAGE = 'en';
+    private const DEFAULT_LAYOUT = 'linear';
+
+    private $pluginDir;
     /**
      * Singleton instance of the class.
      *
      * @var null|self
      */
-    private static $instance = null;
+    private static ?self $instance = null;
 
     /**
      * Constructor method for initializing the plugin.
      */
     public function __construct()
     {
+        $this->pluginDir = plugin_dir_url(__FILE__);
         // Register the 'pluginSetup' method to be executed during the 'init' action hook
         add_action('init', [$this, 'pluginSetup']);
     }
-
 
     /**
      * Setup method for initializing the plugin.
@@ -52,13 +58,13 @@ class NACC
     {
         if (is_admin()) {
             // If in the admin dashboard, register admin menu and settings actions
-            add_action('admin_menu', [$this, 'createMenu']);
-            add_action('admin_init', [$this, 'registerSettings']);
+            add_action('admin_menu', [static::class, 'createMenu']);
+            add_action('admin_init', [static::class, 'registerSettings']);
         } else {
             // If not in the admin dashboard, set up a shortcode and associated actions
             add_action('wp_enqueue_scripts', [$this, 'assets']);
-            add_shortcode('nacc', [$this, 'setupShortcode']);
-            add_filter('do_shortcode_tag', [$this, 'triggerAfterShortcodeLoaded'], 10, 3);
+            add_shortcode('nacc', [static::class, 'setupShortcode']);
+            add_filter('do_shortcode_tag', [static::class, 'triggerAfterShortcodeLoaded'], 10, 3);
             add_filter('the_content', [$this, 'naccContent']); // Support for legacy shortcodes
         }
     }
@@ -74,7 +80,7 @@ class NACC
      * @param array $atts Shortcode attributes.
      * @return string The HTML for the NACC shortcode.
      */
-    public function setupShortcode($atts): string
+    public static function setupShortcode(array $atts = []): string
     {
         return '<div id="nacc_container"></div>';
     }
@@ -84,11 +90,11 @@ class NACC
      *
      * @param string $output The output content of the shortcode.
      * @param string $tag The shortcode tag.
-     * @param array $attr The attributes passed to the shortcode.
+     * @param array $atts The attributes passed to the shortcode.
      *
      * @return string The modified output content.
      */
-    public function triggerAfterShortcodeLoaded($output, $tag, $atts): string
+    public static function triggerAfterShortcodeLoaded(string $output, string $tag, array $atts): string
     {
         if ($tag === 'nacc') {
             global $shortcodeAtts;
@@ -107,7 +113,7 @@ class NACC
                 'siteURI' => $siteURI
             ];
             add_action('wp_footer', function () use ($shortcodeAtts) {
-                $this->renderKeytags($shortcodeAtts);
+                static::renderKeytags($shortcodeAtts);
             });
             return $output;
         }
@@ -122,7 +128,7 @@ class NACC
      *
      * @return void
      */
-    public function renderKeytags(array $args): void
+    private static function renderKeytags(array $args): void
     {
         wp_add_inline_script('nacc-js', 'var nacc = new NACC(\'nacc_container\', "' . $args['theme'] . '", "' . $args['lang'] . '", "' . $args['layout'] . '", "' . $args['special'] . '", "' . $args['siteURI'] . '");');
     }
@@ -147,6 +153,7 @@ class NACC
 
         // Get the shortcode and decode it
         $shortcode = html_entity_decode($this->getShortcode($theContent) ?? '');
+
 
         // Check if a shortcode was found
         if (!empty($shortcode)) {
@@ -192,7 +199,7 @@ class NACC
 
         // Add an action to render legacy keytags in wp_footer
         add_action('wp_footer', function () use ($params) {
-            $this->renderKeytags($params);
+            static::renderKeytags($params);
         });
 
         return $theContent;
@@ -209,12 +216,12 @@ class NACC
      ***************************************************************************************
      * @param string $inTextToParse
      * @param string $inReplacementText
-     * @return string|string[]|null
+     * @return string|null
      */
-    public function replaceShortcode(
+    private function replaceShortcode(
         string $inTextToParse,      ///< The text to search for shortcodes
         string $inReplacementText    ///< The text we'll be replacing the shortcode with.
-    ) {
+    ): string | null {
         // Define the regular expressions for shortcode in HTML and brackets
         $codeRegexHtml = "/(\<p[^\>]*?\>)?<!--\s?nacc\s?(\(.*?\))?\s?-->(\<\/p>)?/i";
         $codeRegexBrackets = "/(\<p[^\>]*?\>)?\[\[\s?nacc\s?(\(.*?\))?\s?]](\<\/p>)?/i";
@@ -240,7 +247,7 @@ class NACC
      * @param string $inTextToParse
      * @return mixed
      */
-    public function getShortcode(string $inTextToParse)
+    private function getShortcode(string $inTextToParse)
     {
         // Define the regular expressions for shortcode in HTML and brackets
         $codeRegexHtml = "/<!--\s?nacc\s?(\(.*?\))?\s?-->/i";
@@ -275,8 +282,8 @@ class NACC
     public function assets(): void
     {
         // Enqueue plugin styles and scripts
-        wp_enqueue_style("nacc-css", plugin_dir_url(__FILE__) . "nacc2/nacc.css", false, filemtime(plugin_dir_path(__FILE__) . "nacc2/nacc.css"), false);
-        wp_enqueue_script('nacc-js', plugin_dir_url(__FILE__) . "nacc2/nacc.js", [], '4.0', true);
+        wp_enqueue_style("nacc-css", $this->pluginDir . "nacc2/nacc.css", false, filemtime(plugin_dir_path(__FILE__) . "nacc2/nacc.css"), false);
+        wp_enqueue_script('nacc-js', $this->pluginDir . "nacc2/nacc.js", [], '4.0', true);
     }
 
     /**
@@ -288,25 +295,25 @@ class NACC
      *
      * @return void
      */
-    public function registerSettings(): void
+    public static function registerSettings(): void
     {
         // Register plugin settings with WordPress
-        register_setting('nacc-group', 'nacc_theme', [
+        register_setting(self::SETTINGS_GROUP, 'nacc_theme', [
             'type' => 'string',
-            'default' => 'NACC-Instance',
+            'default' => self::DEFAULT_THEME,
             'sanitize_callback' => 'sanitize_text_field',
         ]);
-        register_setting('nacc-group', 'nacc_language', [
+        register_setting(self::SETTINGS_GROUP, 'nacc_language', [
             'type' => 'string',
-            'default' => 'en',
+            'default' => self::DEFAULT_LANGUAGE,
             'sanitize_callback' => 'sanitize_text_field',
         ]);
-        register_setting('nacc-group', 'nacc_layout', [
+        register_setting(self::SETTINGS_GROUP, 'nacc_layout', [
             'type' => 'string',
-            'default' => 'linear',
+            'default' => self::DEFAULT_LAYOUT,
             'sanitize_callback' => 'sanitize_text_field',
         ]);
-        register_setting('nacc-group', 'nacc_special', [
+        register_setting(self::SETTINGS_GROUP, 'nacc_special', [
             'type' => 'boolean',
             'sanitize_callback' => 'wp_validate_boolean',
         ]);
@@ -320,7 +327,7 @@ class NACC
      *
      * @return void
      */
-    public function createMenu(): void
+    public static function createMenu(): void
     {
         // Create the plugin's settings page in the WordPress admin menu
         add_options_page(
@@ -328,10 +335,10 @@ class NACC
             esc_html__('NACC'),          // Menu Title
             'manage_options',            // Capability
             'nacc',                      // Menu Slug
-            [$this, 'drawSettings']      // Callback function to display the page content
+            [static::class, 'drawSettings']      // Callback function to display the page content
         );
         // Add a settings link in the plugins list
-        add_filter('plugin_action_links_' . plugin_basename(__FILE__), [$this, 'settingsLink']);
+        add_filter('plugin_action_links_' . plugin_basename(__FILE__), [static::class, 'settingsLink']);
     }
 
     /**
@@ -344,7 +351,7 @@ class NACC
      *
      * @return array An updated array of plugin action links.
      */
-    public function settingsLink(array $links): array
+    public static function settingsLink(array $links): array
     {
         // Add a "Settings" link for the plugin in the WordPress admin
         $settings_url = admin_url('options-general.php?page=nacc');
@@ -360,13 +367,13 @@ class NACC
      *
      * @return void
      */
-    public function drawSettings(): void
+    public static function drawSettings(): void
     {
         // Display the plugin's settings page
-        $nacc_theme = esc_attr(get_option('nacc_theme'));
-        $nacc_special = get_option('nacc_special');
-        $nacc_language = get_option('nacc_language');
-        $nacc_layout = get_option('nacc_layout');
+        $naccTheme = esc_attr(get_option('nacc_theme'));
+        $naccSpecial = get_option('nacc_special');
+        $naccLanguage = get_option('nacc_language');
+        $naccLayout = get_option('nacc_layout');
         ?>
         <div class="wrap">
             <h2>NACC Settings</h2>
@@ -377,7 +384,7 @@ class NACC
                     <tr valign="top">
                         <th scope="row">Theme</th>
                         <td>
-                            <?php echo $this->renderSelectOption('nacc_theme', $nacc_theme, [
+                            <?php echo static::renderSelectOption('nacc_theme', $naccTheme, [
                                 'NACC-BT' => 'BT',
                                 'NACC-CRNA' => 'CRNA',
                                 'NACC-Instance' => 'Default',
@@ -390,9 +397,9 @@ class NACC
                     <tr valign="top">
                         <th scope="row">Language</th>
                         <td>
-                            <?php echo $this->renderSelectOption('nacc_language', $nacc_language, [
+                            <?php echo static::renderSelectOption('nacc_language', $naccLanguage, [
                                 'en' => 'English',
-                                'es' => 'es',
+                                'es' => 'Español',
                                 'zh-Hans' => 'zh-Hans',
                                 'zh-Hant' => 'zh-Hant',
                             ]); ?>
@@ -401,16 +408,16 @@ class NACC
                     <tr valign="top">
                         <th scope="row">Layout</th>
                         <td>
-                            <?php echo $this->renderSelectOption('nacc_layout', $nacc_layout, [
-                                'tabular' => 'tabular',
-                                'linear' => 'linear',
+                            <?php echo static::renderSelectOption('nacc_layout', $naccLayout, [
+                                'tabular' => 'Tabular',
+                                'linear' => 'Linear',
                             ]); ?>
                         </td>
                     </tr>
                     <tr valign="top">
                         <th scope="row">Show Special Keytags</th>
                         <td>
-                            <input type="checkbox" name="nacc_special" value="1" <?php checked(1, $nacc_special); ?> />
+                            <input type="checkbox" name="nacc_special" value="1" <?php checked(1, $naccSpecial); ?> />
                             <label for="nacc_special">If true, then the "specialty" (over 2 years) tags are displayed. Default is false.</label>
                         </td>
                     </tr>
@@ -433,7 +440,7 @@ class NACC
      *
      * @return string The generated HTML markup for the select input.
      */
-    private function renderSelectOption(string $name, string $selectedValue, array $options): string
+    private static function renderSelectOption(string $name, string $selectedValue, array $options): string
     {
         // Render a dropdown select input for settings
         $selectHtml = "<select id='$name' name='$name'>";
