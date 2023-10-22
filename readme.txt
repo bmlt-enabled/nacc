@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugins/nacc-wordpress-plugin/
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
 Requires PHP: 8.0
 Tested up to: 6.3.2
-Stable tag: 4.0.0
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,10 @@ That text will be replaced with this cleantime calculator.
 8. You can specify whether the "special" tags are shown, like so: `[nacc special="1"]`, where `special` is `1` for true or `0` for false.
 
 == Changelog ==
+
+= 4.0.1 =
+
+* Fix for initializing NACC on pages which don't contain shortcode.
 
 = 4.0.0 =
 
