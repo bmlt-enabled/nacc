@@ -6,7 +6,7 @@
  * Contributors: BMLTGuy, pjaudiomv, bmltenabled
  * Author: bmlt-enabled
  * Description: This is a WordPress plugin implementation of the N.A. Cleantime Calculator. To use this, specify [NACC] in your text code. That text will be replaced with this cleantime calculator.
- * Version: 4.0.0
+ * Version: 4.0.1
  * Install: Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "[NACC]" in the code section of a page or a post.
  */
 
@@ -80,7 +80,7 @@ class NACC
      * @param array $atts Shortcode attributes.
      * @return string The HTML for the NACC shortcode.
      */
-    public static function setupShortcode(array $atts = []): string
+    public static function setupShortcode($atts = []): string
     {
         return '<div id="nacc_container"></div>';
     }
@@ -94,7 +94,7 @@ class NACC
      *
      * @return string The modified output content.
      */
-    public static function triggerAfterShortcodeLoaded(string $output, string $tag, array $atts): string
+    public static function triggerAfterShortcodeLoaded(string $output, string $tag, $atts = []): string
     {
         if ($tag === 'nacc') {
             global $shortcodeAtts;
@@ -185,22 +185,20 @@ class NACC
             }
             $ccText .= '</noscript>' . "\n";
             // Replace the shortcode in the content with CleanTime Calculator HTML
+            // Prepare parameters for rendering
+            $params = [
+                'theme' => $theme,
+                'layout' => $layout,
+                'lang' => $lang,
+                'special' => $showSpecial,
+                'siteURI' => $siteURI
+            ];
             $theContent = $this->replaceShortcode($theContent, $ccText);
+            // Add an action to render legacy keytags in wp_footer
+            add_action('wp_footer', function () use ($params) {
+                static::renderKeytags($params);
+            });
         }
-
-        // Prepare parameters for rendering
-        $params = [
-            'theme' => $theme,
-            'layout' => $layout,
-            'lang' => $lang,
-            'special' => $showSpecial,
-            'siteURI' => $siteURI
-        ];
-
-        // Add an action to render legacy keytags in wp_footer
-        add_action('wp_footer', function () use ($params) {
-            static::renderKeytags($params);
-        });
 
         return $theContent;
     }
