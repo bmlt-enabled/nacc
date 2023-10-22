@@ -26,6 +26,7 @@ class NACC
     private const DEFAULT_THEME = 'NACC-Instance';
     private const DEFAULT_LANGUAGE = 'en';
     private const DEFAULT_LAYOUT = 'linear';
+    private const DEFAULT_SHOW_SPECIAL = 'true';
 
     private $pluginDir;
     /**
@@ -77,10 +78,10 @@ class NACC
      * Calculator. If no shortcode attributes are provided, default values from
      * plugin options are used.
      *
-     * @param array $atts Shortcode attributes.
+     * @param string|array $attrs Shortcode attributes.
      * @return string The HTML for the NACC shortcode.
      */
-    public static function setupShortcode($atts = []): string
+    public static function setupShortcode(string|array $attrs = []): string
     {
         return '<div id="nacc_container"></div>';
     }
@@ -90,30 +91,30 @@ class NACC
      *
      * @param string $output The output content of the shortcode.
      * @param string $tag The shortcode tag.
-     * @param array $atts The attributes passed to the shortcode.
+     * @param string|array $attrs The attributes passed to the shortcode.
      *
      * @return string The modified output content.
      */
-    public static function triggerAfterShortcodeLoaded(string $output, string $tag, $atts = []): string
+    public static function triggerAfterShortcodeLoaded(string $output, string $tag, string|array $attrs = []): string
     {
         if ($tag === 'nacc') {
-            global $shortcodeAtts;
+            global $shortcodeAttrs;
             // add_action('wp_enqueue_scripts', [$this, 'assets']);
             // Get shortcode attributes or use default values from options
-            $theme = !empty($atts['theme']) ? sanitize_text_field(strtoupper($atts['theme'])) : get_option('nacc_theme');
-            $language = !empty($atts['lang']) ? sanitize_text_field(strtolower($atts['lang'])) : get_option('nacc_language');
-            $layout = !empty($atts['layout']) ? sanitize_text_field(strtolower($atts['layout'])) : get_option('nacc_layout');
-            $special = !empty($atts['special']) ? sanitize_text_field(strtolower($atts['special'])) : get_option('nacc_special');
+            $theme = !empty($attrs['theme']) ? sanitize_text_field(strtoupper($attrs['theme'])) : get_option('nacc_theme');
+            $language = !empty($attrs['lang']) ? sanitize_text_field(strtolower($attrs['lang'])) : get_option('nacc_language');
+            $layout = !empty($attrs['layout']) ? sanitize_text_field(strtolower($attrs['layout'])) : get_option('nacc_layout');
+            $special = !empty($attrs['special']) ? sanitize_text_field(strtolower($attrs['special'])) : get_option('nacc_special');
             $siteURI = plugins_url('nacc2', __FILE__);
-            $shortcodeAtts = [
+            $shortcodeAttrs = [
                 'theme' => $theme,
                 'lang' => $language,
                 'layout' => $layout,
                 'special' => $special,
                 'siteURI' => $siteURI
             ];
-            add_action('wp_footer', function () use ($shortcodeAtts) {
-                static::renderKeytags($shortcodeAtts);
+            add_action('wp_footer', function () use ($shortcodeAttrs) {
+                static::renderKeytags($shortcodeAttrs);
             });
             return $output;
         }
@@ -123,9 +124,10 @@ class NACC
     /**
      * Render JavaScript for the shortcode.
      *
-     * This method generates and adds an inline JavaScript script to initialize
+     * This method generates and adds inline JavaScript to initialize
      * the NACC (N.A. Cleantime Calculator) with the provided shortcode attributes.
      *
+     * @param array $args
      * @return void
      */
     private static function renderKeytags(array $args): void
@@ -134,7 +136,6 @@ class NACC
     }
 
     /** Begin Code to Support Legacy non standard shortcode syntax IE. `<!-- NACC -->` or `[[NACC]]` */
-
     /**
      * Process content and replace a shortcode with CleanTime Calculator HTML.
      *
@@ -144,56 +145,34 @@ class NACC
      */
     public function naccContent(string $theContent): string
     {
-        // Initialize default values for shortcode parameters
-        $theme = '';
-        $lang = 'en';
-        $layout = 'linear';
-        $showSpecial = 'true';
-        $siteURI = plugins_url('nacc2', __FILE__);
-
         // Get the shortcode and decode it
         $shortcode = html_entity_decode($this->getShortcode($theContent) ?? '');
 
-
         // Check if a shortcode was found
         if (!empty($shortcode)) {
+            // Parse shortcode parameters, Initialize default values
+            $shortcodeObj = explode(',', $shortcode);
+            $shortcodeObj = array_map(fn($value) => trim(trim($value), "'"), $shortcodeObj);
+
+            // Prepare parameters for rendering
+            $params = [
+                'theme' => $shortcodeObj[0] ?? self::DEFAULT_THEME,
+                'lang' => $shortcodeObj[1] ?? self::DEFAULT_LANGUAGE,
+                'layout' => $shortcodeObj[2] ?? self::DEFAULT_LAYOUT,
+                'special' => $shortcodeObj[3] ?? self::DEFAULT_SHOW_SPECIAL,
+                'siteURI' => plugins_url('nacc2', __FILE__)
+            ];
+
             // Initialize the CleanTime Calculator text
             $ccText = '<div id="nacc_container"></div>' . "\n";
             $ccText .= '<noscript>';
             $ccText .= '<h1 style="text-align:center">JavaScript Required</h1>';
             $ccText .= '<h2 style="text-align:center">Sadly, you must enable JavaScript on your browser in order to use this cleantime calculator.</h2>';
-
-            // Parse shortcode parameters
-            $shortcodeObj = explode(',', $shortcode);
-            if (count($shortcodeObj) > 0) {
-                $theme = trim(trim($shortcodeObj[0]), "'");
-
-                if (count($shortcodeObj) > 1) {
-                    $langTemp = trim(trim($shortcodeObj[1]), "'");
-                    if ($langTemp) {
-                        $lang = $langTemp;
-                    }
-                }
-
-                if (count($shortcodeObj) > 2) {
-                    $layout = trim(trim($shortcodeObj[2]), "'");
-                }
-
-                if (count($shortcodeObj) > 3) {
-                    $showSpecial = trim(trim($shortcodeObj[3]), "'");
-                }
-            }
             $ccText .= '</noscript>' . "\n";
+
             // Replace the shortcode in the content with CleanTime Calculator HTML
-            // Prepare parameters for rendering
-            $params = [
-                'theme' => $theme,
-                'layout' => $layout,
-                'lang' => $lang,
-                'special' => $showSpecial,
-                'siteURI' => $siteURI
-            ];
             $theContent = $this->replaceShortcode($theContent, $ccText);
+
             // Add an action to render legacy keytags in wp_footer
             add_action('wp_footer', function () use ($params) {
                 static::renderKeytags($params);
@@ -266,7 +245,6 @@ class NACC
 
         return $ret;
     }
-
     /** End Code to Support Legacy */
 
     /**
