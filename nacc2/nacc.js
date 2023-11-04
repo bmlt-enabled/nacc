@@ -367,7 +367,7 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         this.m_lang['it'].result_invalid                        = 'Si prega di selezionare una data pulita valida!';
     
         this.m_lang['it'].result_1_day                          = 'Sei stato pulito per 1 giorno!';
-        this.m_lang['it'].result_days_format                    = 'Ei stato pulito per %d giorni!';
+        this.m_lang['it'].result_days_format                    = 'Sei pulito da per %d giorni!';
 
         /** These are for the second (months, years and days) blurb. */
         this.m_lang['it'].result_months_format                  = 'Questo è di %d mesi.';
