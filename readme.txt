@@ -4,7 +4,7 @@ Contributors: magblogapi, bmltenabled, pjaudiomv
 Plugin URI: https://wordpress.org/plugins/nacc-wordpress-plugin/
 Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
 Requires PHP: 8.0
-Tested up to: 6.4.0
+Tested up to: 6.4.1
 Stable tag: 4.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
