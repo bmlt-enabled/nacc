@@ -365,30 +365,30 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
                                                                         );
         /** These are for the top (days) blurb. */
         this.m_lang['it'].result_invalid                        = 'Si prega di selezionare una data pulita valida!';
-    
-        this.m_lang['it'].result_1_day                          = 'Sei stato pulito per 1 giorno!';
-        this.m_lang['it'].result_days_format                    = 'Sei pulito da per %d giorni!';
 
-        /** These are for the second (months, years and days) blurb. */
-        this.m_lang['it'].result_months_format                  = 'Questo è di %d mesi.';
-        this.m_lang['it'].result_months_and_1_day_format        = 'Questo è di %d mesi e 1 giorno.';
-        this.m_lang['it'].result_months_and_days_format         = 'Questo è di %d mesi e %d giorni.';
-        this.m_lang['it'].result_1_year                         = 'Questo è di 1 anno.';
-        this.m_lang['it'].result_1_year_and_1_day               = 'Questo è di 1 anno e 1 giorno.';
-        this.m_lang['it'].result_1_year_and_1_month             = 'Questo è di 1 anno e 1 mese.';
-        this.m_lang['it'].result_1_year_1_month_and_1_day       = 'Questo è di 1 anno, 1 mese e 1 giorno.';
-        this.m_lang['it'].result_1_year_months_and_1_day_format = 'Questo è di 1 anno, %d mesi e 1 giorno.';
-        this.m_lang['it'].result_1_year_months_and_days_format  = 'Questo è di 1 anno, %d mesi e %d giorni.';
-        this.m_lang['it'].result_1_year_days_format             = 'Questo è di 1 year e %d giorni.';
-        this.m_lang['it'].result_years_format                   = 'Questo è di %d anni.';
-        this.m_lang['it'].result_years_months_format            = 'Questo è di %d anni e %d mesi.';
-        this.m_lang['it'].result_years_1_month_and_1_day_format = 'Questo è di %d anni, 1 mese e 1 giorno.';
-        this.m_lang['it'].result_years_months_and_1_day_format  = 'Questo è di %d anni, %d mesi e 1 giorno.';
-        this.m_lang['it'].result_years_and_1_month_format       = 'Questo è di %d anni e 1 mese.';
-        this.m_lang['it'].result_years_and_1_day_format         = 'Questo è di %d anni e 1 giorno.';
-        this.m_lang['it'].result_years_and_days_format          = 'Questo è di %d anni e %d giorni.';
-        this.m_lang['it'].result_years_1_month_and_days_format  = 'Questo è di %d anni, 1 mese e %d giorni.';
-        this.m_lang['it'].result_years_months_and_days_format   = 'Questo è di %d anni, %d mesi e %d giorni.';
+		this.m_lang['it'].result_1_day                          = 'Sei stato pulito per 1 giorno!';
+		this.m_lang['it'].result_days_format                    = 'Sei pulito da %d giorni!';
+
+		/** These are for the second (months, years and days) blurb. */
+		this.m_lang['it'].result_months_format                  = '%d mesi.';
+		this.m_lang['it'].result_months_and_1_day_format        = '%d mesi e 1 giorno.';
+		this.m_lang['it'].result_months_and_days_format         = '%d mesi e %d giorni.';
+		this.m_lang['it'].result_1_year                         = '1 anno.';
+		this.m_lang['it'].result_1_year_and_1_day               = '1 anno e 1 giorno.';
+		this.m_lang['it'].result_1_year_and_1_month             = '1 anno e 1 mese.';
+		this.m_lang['it'].result_1_year_1_month_and_1_day       = '1 anno, 1 mese e 1 giorno.';
+		this.m_lang['it'].result_1_year_months_and_1_day_format = '1 anno, %d mesi e 1 giorno.';
+		this.m_lang['it'].result_1_year_months_and_days_format  = '1 anno, %d mesi e %d giorni.';
+		this.m_lang['it'].result_1_year_days_format             = '1 year e %d giorni.';
+		this.m_lang['it'].result_years_format                   = '%d anni.';
+		this.m_lang['it'].result_years_months_format            = '%d anni e %d mesi.';
+		this.m_lang['it'].result_years_1_month_and_1_day_format = '%d anni, 1 mese e 1 giorno.';
+		this.m_lang['it'].result_years_months_and_1_day_format  = '%d anni, %d mesi e 1 giorno.';
+		this.m_lang['it'].result_years_and_1_month_format       = '%d anni e 1 mese.';
+		this.m_lang['it'].result_years_and_1_day_format         = '%d anni e 1 giorno.';
+		this.m_lang['it'].result_years_and_days_format          = '%d anni e %d giorni.';
+		this.m_lang['it'].result_years_1_month_and_days_format  = '%d anni, 1 mese e %d giorni.';
+		this.m_lang['it'].result_years_months_and_days_format   = '%d anni, %d mesi e %d giorni.';
         /************************************/
         /*            MAIN CODE             */
         /************************************/
