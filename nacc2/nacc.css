@@ -534,3 +534,74 @@
     color:#fc6;
     text-decoration: none;
 }
+
+/********************************************************************************************
+###################################### NACC-SEZF STYLES ####################################
+********************************************************************************************/
+
+/** This is the overall container */
+.NACC-Instance.NACC-SEZF {
+    border-color: white;
+    background: transparent;
+}
+/** These are the various textual items. */
+.NACC-Instance.NACC-SEZF {
+    font-family: Verdana, Sans-Serif, serif;
+}
+/** This is the prompt above the selects. */
+.NACC-Instance.NACC-SEZF .NACC-Prompt-Label {
+    color: white;
+    font-weight: bold;
+}
+/** This is the header, at the top. */
+.NACC-Instance.NACC-SEZF .NACC-Header {
+    color: white;
+}
+/** This is the main form fieldset. */
+.NACC-Instance.NACC-SEZF .NACC-Fieldset {
+    border-color: transparent;
+}
+/** This is the legend for the fieldset, which contains the selects and calculate button. */
+.NACC-Instance.NACC-SEZF .NACC-Legend-div {
+    border-color: #ACCACB;
+    background: #178CA4 none;
+    padding: 0.25em;
+}
+/** This is the label and text in the results. */
+.NACC-Instance.NACC-SEZF .NACC-Results-Text {
+    color: #072A40;
+}
+/** This is the show special tags checkbox label. */
+.NACC-Instance.NACC-SEZF .NACC-Show-Special-Tags-Checkbox-Label {
+    color: white;
+    line-height: 1em;
+    vertical-align: top;
+}
+.NACC-Instance.NACC-SEZF div.NACC-Popups {
+    padding-top: 0.5em;
+}
+.NACC-Instance.NACC-SEZF .NACC-Calculate-Button {
+    margin: 0.25em;
+    margin-top: -0.5em;
+}
+.NACC-Instance.NACC-SEZF .NACC-Calculate-Button,
+.NACC-Instance.NACC-SEZF .NACC-Change-Layout-Button
+{
+    border: 0;
+    border: 1 px solid #BE202D;
+    border-radius: 0.4em;   /** Rounded corners. */
+    background-color: #072A40;
+    color:white;
+    padding: 0.25em;
+    font-size: medium;
+    cursor: pointer;
+}
+.NACC-Instance.NACC-SEZF .NACC-Calculate-Button:hover,
+.NACC-Instance.NACC-SEZF .NACC-Change-Layout-Button:hover,
+.NACC-Instance.NACC-SEZF .NACC-Calculate-Button:active,
+.NACC-Instance.NACC-SEZF .NACC-Change-Layout-Button:active
+{
+    color:black;
+    background-color:white;
+    text-decoration: underline;
+}

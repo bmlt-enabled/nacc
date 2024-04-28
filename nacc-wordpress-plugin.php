@@ -6,7 +6,7 @@
  * Contributors: BMLTGuy, pjaudiomv, bmltenabled
  * Author: bmlt-enabled
  * Description: This is a WordPress plugin implementation of the N.A. Cleantime Calculator. To use this, specify [NACC] in your text code. That text will be replaced with this cleantime calculator.
- * Version: 4.0.4
+ * Version: 4.0.5
  * Install: Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "[NACC]" in the code section of a page or a post.
  */
 
@@ -367,6 +367,7 @@ class NACC
                                 'NACC-GNYR2' => 'GNYR2',
                                 'NACC-HOLI' => 'HOLI',
                                 'NACC-NERNA' => 'NERNA',
+                                'NACC-SEZF' => 'SEZF',
                             ]); ?>
                         </td>
                     </tr>
