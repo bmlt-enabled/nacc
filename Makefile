@@ -31,7 +31,7 @@ lint-fix: composer ## PHP Lint Fix
 
 .PHONY: docs
 docs:  ## Generate Docs
-	docker run --rm -v $(shell pwd):/data phpdoc/phpdoc:3 --ignore=vendor/ --ignore=nacc2/ run -d . -t docs/
+	docker run --rm -v $(shell pwd):/data phpdoc/phpdoc:3 --ignore=vendor/ --ignore=nacc2/ -d . -t docs/
 
 .PHONY: dev
 dev:  ## Docker up
