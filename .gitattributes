@@ -7,4 +7,12 @@ composer.lock export-ignore
 docker-compose.yml export-ignore
 Dockerfile export-ignore
 Makefile export-ignore
+contribute.md export-ignore
 /.github export-ignore
+nacc2/include-stripper.php export-ignore
+nacc2/index.html export-ignore
+nacc2/index.php export-ignore
+nacc2/LICENSE.txt export-ignore
+nacc2/unit_test.html export-ignore
+nacc2/src/ export-ignore
+nacc2/README.md export-ignore

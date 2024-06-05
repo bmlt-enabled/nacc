@@ -140,10 +140,10 @@ If you have a PHP server available, you can optimize the page load by using the 
     <head>
         .
         .
-        <link rel="stylesheet" type="include_stripper.php?filename=text/css" href="nacc.css" />
+        <link rel="stylesheet" type="include-stripper.php?filename=text/css" href="nacc.css" />
         .
         .
-        <script type="text/javascript" src="include_stripper.php?filename=nacc.js"></script>
+        <script type="text/javascript" src="include-stripper.php?filename=nacc.js"></script>
         .
         .
     </head>
