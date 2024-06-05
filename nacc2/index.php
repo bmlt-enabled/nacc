@@ -8,7 +8,7 @@
             This is an example of an entirely browser-based NA Cleantime Calculator (NACC).
             You need to include the "nacc.js" and "nacc.css" files, as well as the "images"
             directory, into the same directory as this file.
-            This PHP file also requires that you also add the "include_stripper.php" file.
+            This PHP file also requires that you also add the "include-stripper.php" file.
 
             This file is exactly the same as the index.html file, with the
             exception that it includes the JS and CSS files through a PHP
@@ -39,9 +39,9 @@
         <meta http-equiv="Content-Style-Type" content="text/css" />
         <meta http-equiv="Content-Script-Type" content="text/javascript" />
         <title>NACC 2</title>
-        <!-- These two includes are different from the "index.html" file. Note the "include_stripper.php?filename=". -->
-        <link rel="stylesheet" type="text/css" href="include_stripper.php?filename=nacc.css" />
-        <script type="text/javascript" src="include_stripper.php?filename=nacc.js"></script>
+        <!-- These two includes are different from the "index.html" file. Note the "include-stripper.php?filename=". -->
+        <link rel="stylesheet" type="text/css" href="include-stripper.php?filename=nacc.css" />
+        <script type="text/javascript" src="include-stripper.php?filename=nacc.js"></script>
     </head>
     <body>
         <!--

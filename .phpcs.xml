@@ -41,6 +41,8 @@
     You can add specific global ignores to different
     rules here.
     -->
-    <rule ref='PSR12'></rule>
-    <rule ref="PSR1"></rule>
+    <rule ref="WordPress-Core">
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+        <exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+    </rule>
 </ruleset>

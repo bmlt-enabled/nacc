@@ -25,8 +25,8 @@ composer: $(VENDOR_AUTOLOAD) ## Runs composer install
 lint: composer ## PHP Lint
 	vendor/squizlabs/php_codesniffer/bin/phpcs
 
-.PHONY: lint-fix
-lint-fix: composer ## PHP Lint Fix
+.PHONY: fmt
+fmt: composer ## PHP Fmt
 	vendor/squizlabs/php_codesniffer/bin/phpcbf
 
 .PHONY: docs
@@ -34,5 +34,13 @@ docs:  ## Generate Docs
 	docker run --rm -v $(shell pwd):/data phpdoc/phpdoc:3 --ignore=vendor/ --ignore=nacc2/ -d . -t docs/
 
 .PHONY: dev
-dev:  ## Docker up
+dev: ## Start dev compose
 	docker-compose up
+
+.PHONY: mysql
+mysql:  ## Runs mysql cli in mysql container
+	docker exec -it nacc-db-1 mariadb -u root -psomewordpress wordpress
+
+.PHONY: bash
+bash:  ## Runs bash shell in wordpress container
+	docker exec -it -w /var/www/html nacc-wordpress-1 bash

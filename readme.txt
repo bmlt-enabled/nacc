@@ -2,12 +2,14 @@
 
 Contributors: magblogapi, bmltenabled, pjaudiomv
 Plugin URI: https://wordpress.org/plugins/nacc-wordpress-plugin/
-Tags: na, cleantime calculator, nacc, recovery, addiction, webservant
+Tags: na, cleantime calculator, nacc, recovery, addiction
 Requires PHP: 8.0
-Tested up to: 6.5.2
-Stable tag: 4.0.5
+Tested up to: 6.5.3
+Stable tag: 4.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+This is a WordPress plugin implementation of the N.A. Cleantime Calculator.
 
 == Description ==
 
@@ -27,6 +29,10 @@ That text will be replaced with this cleantime calculator.
 8. You can specify whether the "special" tags are shown, like so: `[nacc special="1"]`, where `special` is `1` for true or `0` for false.
 
 == Changelog ==
+
+= 4.1.0 =
+
+* Cleaned up code for WP best practices.
 
 = 4.0.5 =
 
