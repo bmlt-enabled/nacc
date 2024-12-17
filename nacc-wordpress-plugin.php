@@ -6,7 +6,7 @@
  * Install:           Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "[NACC]" in the code section of a page or a post.
  * Contributors:      BMLTGuy, pjaudiomv, bmltenabled
  * Authors:           bmltenabled
- * Version:           4.1.0
+ * Version:           4.2.0
  * Requires PHP:      8.0
  * Requires at least: 5.3
  * License:           GPL v2 or later
@@ -100,10 +100,10 @@ class NACC {
 			global $shortcode_attrs;
 			// add_action('wp_enqueue_scripts', [$this, 'assets']);
 			// Get shortcode attributes or use default values from options
-			$theme = ! empty( $attrs['theme'] ) ? sanitize_text_field( strtoupper( $attrs['theme'] ) ) : get_option( 'nacc_theme' );
-			$language = ! empty( $attrs['lang'] ) ? sanitize_text_field( strtolower( $attrs['lang'] ) ) : get_option( 'nacc_language' );
-			$layout = ! empty( $attrs['layout'] ) ? sanitize_text_field( strtolower( $attrs['layout'] ) ) : get_option( 'nacc_layout' );
-			$special = ! empty( $attrs['special'] ) ? sanitize_text_field( strtolower( $attrs['special'] ) ) : get_option( 'nacc_special' );
+			$theme = ! empty( $attrs['theme'] ) ? sanitize_text_field( strtoupper( $attrs['theme'] ) ) : sanitize_text_field( get_option( 'nacc_theme', self::DEFAULT_THEME ) );
+			$language = ! empty( $attrs['lang'] ) ? sanitize_text_field( strtolower( $attrs['lang'] ) ) : sanitize_text_field( get_option( 'nacc_language', self::DEFAULT_LANGUAGE ) );
+			$layout = ! empty( $attrs['layout'] ) ? sanitize_text_field( strtolower( $attrs['layout'] ) ) : sanitize_text_field( get_option( 'nacc_layout', self::DEFAULT_LAYOUT ) );
+			$special = ! empty( $attrs['special'] ) ? sanitize_text_field( strtolower( $attrs['special'] ) ) : sanitize_text_field( get_option( 'nacc_special', self::DEFAULT_SHOW_SPECIAL ) );
 			$site_uri = plugins_url( 'nacc2', __FILE__ );
 			$shortcode_attrs = [
 				'theme' => $theme,
@@ -133,7 +133,17 @@ class NACC {
 	 * @return void
 	 */
 	private static function render_keytags( array $args ): void {
-		wp_add_inline_script( 'nacc-js', 'var nacc = new NACC(\'nacc_container\', "' . $args['theme'] . '", "' . $args['lang'] . '", "' . $args['layout'] . '", "' . $args['special'] . '", "' . $args['siteURI'] . '");' );
+		wp_add_inline_script(
+			'nacc-js',
+			sprintf(
+				'var nacc = new NACC(\'nacc_container\', %s, %s, %s, %s, %s);',
+				wp_json_encode( esc_attr( $args['theme'] ) ),
+				wp_json_encode( esc_attr( $args['lang'] ) ),
+				wp_json_encode( esc_attr( $args['layout'] ) ),
+				wp_json_encode( esc_attr( $args['special'] ) ),
+				wp_json_encode( esc_attr( $args['siteURI'] ) )
+			)
+		);
 	}
 
 	/** Begin Code to Support Legacy non standard shortcode syntax IE. `<!-- NACC -->` or `[[NACC]]` */
