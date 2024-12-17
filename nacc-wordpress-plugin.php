@@ -15,7 +15,7 @@
 
 namespace NACCPlugin;
 
-if ( basename( $_SERVER['PHP_SELF'] ) == basename( __FILE__ ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die( 'Sorry, but you cannot access this page directly.' );
 }
 
@@ -332,8 +332,8 @@ class NACC {
 	public static function create_menu(): void {
 		// Create the plugin's settings page in the WordPress admin menu
 		add_options_page(
-			esc_html__( 'NACC Settings' ), // Page Title
-			esc_html__( 'NACC' ),          // Menu Title
+			esc_html__( 'NACC Settings', 'nacc' ), // Page Title
+			esc_html__( 'NACC', 'nacc' ),          // Menu Title
 			'manage_options',            // Capability
 			'nacc',                      // Menu Slug
 			[ static::class, 'draw_settings' ]      // Callback function to display the page content
