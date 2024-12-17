@@ -60,7 +60,7 @@ jobs:
           echo "RELEASE_TYPE=${RELEASE_TYPE}" >> $GITHUB_ENV
 
       - name: Create Release 🎉
-        uses: ncipollo/release-action@v1.11.1
+        uses: ncipollo/release-action@v1.14.0
         if: github.ref_type == 'tag'
         with:
           artifacts: ${{ env.GITHUB_RELEASE_PATH }},${{ env.GITHUB_RELEASE_PATH_JS }}
