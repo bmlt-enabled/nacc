@@ -75,6 +75,7 @@ You can call it with up to 9 input parameters, which must be called in the follo
 2. A string, indicating the style. Leave blank/null for default gray. The "BT" style would be 'NA-BT', as that is the CSS name it has been given.                                 
 3. A string, with the language selector (Example: 'en' -the default-, 'es' -Spanish-, etc.). Currently, these languages are supported:
     - English ("en"). This is also the default.
+    - Portuguese ("pt").
     - Spanish ("es").
     - Simplified Chinese ("zh-Hans").
     - Traditional Chinese ("zh-Hant").      

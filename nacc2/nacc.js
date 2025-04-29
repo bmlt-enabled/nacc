@@ -389,6 +389,64 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
 		this.m_lang['it'].result_years_and_days_format          = '%d anni e %d giorni.';
 		this.m_lang['it'].result_years_1_month_and_days_format  = '%d anni, 1 mese e %d giorni.';
 		this.m_lang['it'].result_years_months_and_days_format   = '%d anni, %d mesi e %d giorni.';
+
+		/************************************/
+		/*      Portuguese (Brazilian)      */
+		/************************************/
+		this.m_lang['pt'] = new Object();
+
+		/** This is the header, at the top. */
+		this.m_lang['pt'].section_title                         = 'Calculadora de Tempo Limpo';
+		/** This is the prompt over the popup menus. */
+		this.m_lang['pt'].prompt                                = 'Entre com a data que ficou limpo';
+		/** This is the text for the calculate button. */
+		this.m_lang['pt'].calculate_button_text                 = 'Calcular';
+		/** This is the text for the change layout button. */
+		this.m_lang['pt'].change_layout_button_text             = 'Mudar Layout das Fichas';
+		/** This is the text for the show special tags checkbox. */
+		this.m_lang['pt'].change_use_special_tags_label         = 'Mostrar fichas especiais';
+		/** These are the months, spelled out. */
+		this.m_lang['pt'].months                                = Array(
+			"ERROR",
+			"Janeiro",
+			"Fevereiro",
+			"Março",
+			"Abril",
+			"Maio",
+			"Junho",
+			"Julho",
+			"Agosto",
+			"Setembro",
+			"Outubro",
+			"Novembro",
+			"Dezembro"
+		);
+		/** These are for the top (days) blurb. */
+		this.m_lang['pt'].result_invalid                        = 'Selecione uma data válida!';
+
+		this.m_lang['pt'].result_1_day                          = 'Você está limpo há 1 dia!';
+		this.m_lang['pt'].result_days_format                    = 'Você está limpo %d dias!';
+
+		/** These are for the second (months, years and days) blurb. */
+		this.m_lang['pt'].result_months_format                  = 'Que são %d meses.';
+		this.m_lang['pt'].result_months_and_1_day_format        = 'Que são %d meses e 1 dia.';
+		this.m_lang['pt'].result_months_and_days_format         = 'Que são %d meses e %d dias.';
+		this.m_lang['pt'].result_1_year                         = 'Que é 1 ano.';
+		this.m_lang['pt'].result_1_year_and_1_day               = 'Que é 1 ano e 1 dia.';
+		this.m_lang['pt'].result_1_year_and_1_month             = 'Que é 1 ano e 1 mês.';
+		this.m_lang['pt'].result_1_year_1_month_and_1_day       = 'Que é 1 ano, 1 mês e 1 dia.';
+		this.m_lang['pt'].result_1_year_months_and_1_day_format = 'Que é 1 ano, %d meses e 1 dia.';
+		this.m_lang['pt'].result_1_year_months_and_days_format  = 'Que é 1 ano, %d meses e %d dias.';
+		this.m_lang['pt'].result_1_year_days_format             = 'Que é 1 ano e %d dias.';
+		this.m_lang['pt'].result_years_format                   = 'Que são %d anos.';
+		this.m_lang['pt'].result_years_months_format            = 'Que são %d anos e %d meses.';
+		this.m_lang['pt'].result_years_1_month_and_1_day_format = 'Que são %d anos, 1 mês e 1 dia.';
+		this.m_lang['pt'].result_years_months_and_1_day_format  = 'Que são %d anos, %d meses e 1 dia.';
+		this.m_lang['pt'].result_years_and_1_month_format       = 'Que são %d anos e 1 mês.';
+		this.m_lang['pt'].result_years_and_1_day_format         = 'Que são %d anos e 1 dia.';
+		this.m_lang['pt'].result_years_and_days_format          = 'Que são %d anos e %d dias.';
+		this.m_lang['pt'].result_years_1_month_and_days_format  = 'Que são %d anos, 1 mês e %d dias.';
+		this.m_lang['pt'].result_years_months_and_days_format   = 'Que são %d anos, %d meses e %d dias.';
         /************************************/
         /*            MAIN CODE             */
         /************************************/
