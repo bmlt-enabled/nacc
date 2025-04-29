@@ -6,7 +6,7 @@
  * Install:           Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "[NACC]" in the code section of a page or a post.
  * Contributors:      BMLTGuy, pjaudiomv, bmltenabled
  * Authors:           bmltenabled
- * Version:           4.2.1
+ * Version:           5.0.0
  * Requires PHP:      8.0
  * Requires at least: 5.3
  * License:           GPL v2 or later
@@ -101,13 +101,13 @@ class NACC {
 			// add_action('wp_enqueue_scripts', [$this, 'assets']);
 			// Get shortcode attributes or use default values from options
 			$theme = ! empty( $attrs['theme'] ) ? sanitize_text_field( strtoupper( $attrs['theme'] ) ) : sanitize_text_field( get_option( 'nacc_theme', self::DEFAULT_THEME ) );
-			$language = ! empty( $attrs['lang'] ) ? sanitize_text_field( strtolower( $attrs['lang'] ) ) : sanitize_text_field( get_option( 'nacc_language', self::DEFAULT_LANGUAGE ) );
+			$language = ! empty( $attrs['language'] ) ? sanitize_text_field( strtolower( $attrs['language'] ) ) : sanitize_text_field( get_option( 'nacc_language', self::DEFAULT_LANGUAGE ) );
 			$layout = ! empty( $attrs['layout'] ) ? sanitize_text_field( strtolower( $attrs['layout'] ) ) : sanitize_text_field( get_option( 'nacc_layout', self::DEFAULT_LAYOUT ) );
 			$special = ! empty( $attrs['special'] ) ? sanitize_text_field( strtolower( $attrs['special'] ) ) : sanitize_text_field( get_option( 'nacc_special', self::DEFAULT_SHOW_SPECIAL ) );
 			$site_uri = plugins_url( 'nacc2', __FILE__ );
 			$shortcode_attrs = [
 				'theme' => $theme,
-				'lang' => $language,
+				'language' => $language,
 				'layout' => $layout,
 				'special' => $special,
 				'siteURI' => $site_uri,
@@ -138,7 +138,7 @@ class NACC {
 			sprintf(
 				'var nacc = new NACC(\'nacc_container\', %s, %s, %s, %s, %s);',
 				wp_json_encode( esc_attr( $args['theme'] ) ),
-				wp_json_encode( esc_attr( $args['lang'] ) ),
+				wp_json_encode( esc_attr( $args['language'] ) ),
 				wp_json_encode( esc_attr( $args['layout'] ) ),
 				wp_json_encode( esc_attr( $args['special'] ) ),
 				wp_json_encode( esc_attr( $args['siteURI'] ) )
@@ -167,7 +167,7 @@ class NACC {
 			// Prepare parameters for rendering
 			$params = [
 				'theme' => $shortcode_obj[0] ?? self::DEFAULT_THEME,
-				'lang' => $shortcode_obj[1] ?? self::DEFAULT_LANGUAGE,
+				'language' => $shortcode_obj[1] ?? self::DEFAULT_LANGUAGE,
 				'layout' => $shortcode_obj[2] ?? self::DEFAULT_LAYOUT,
 				'special' => $shortcode_obj[3] ?? self::DEFAULT_SHOW_SPECIAL,
 				'siteURI' => plugins_url( 'nacc2', __FILE__ ),
