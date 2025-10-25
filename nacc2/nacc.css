@@ -1,6 +1,6 @@
 /***************************************************************************/
 /**
-    The NA Cleatime Calculator (NACC)
+    The NA Cleantime Calculator (NACC)
     
     This file is the stylesheet for the NACC. It has been deliberately
     set up to apply low-specificity styling, so it can be fairly easily
@@ -170,7 +170,7 @@
 
 /** These are the various textual items. */
 .NACC-Instance {
-    font-family: Arial,Sans-Serif;
+    font-family: Arial, Sans-Serif, serif;
     color: black;
 }
 
@@ -209,7 +209,7 @@
 
 /** These are the various textual items. */
 .NACC-Instance.NACC-BT {
-    font-family: Verdana,Sans-Serif;
+    font-family: Verdana, Sans-Serif, serif;
 }
 
 /** This is the prompt above the selects. */
@@ -250,7 +250,7 @@
 
 /** These are the various textual items. */
 .NACC-Instance.NACC-GNYR2 {
-    font-family: Verdana,Sans-Serif;
+    font-family: Verdana, Sans-Serif, serif;
 }
 
 /** This is the prompt above the selects. */
@@ -271,8 +271,7 @@
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
 .NACC-Instance.NACC-GNYR2 .NACC-Legend-div {
     border-color: #ACCACB;
-    background: none;
-    background-color: #ACCACB;
+    background: #ACCACB none;
 }
 
 /** This is the show special tags checkbox. */
@@ -292,8 +291,7 @@
 .NACC-Instance.NACC-GNYR2 .NACC-Calculate-Button,
 .NACC-Instance.NACC-GNYR2 .NACC-Change-Layout-Button
 {
-    border: 0;
-    border: 1 px solid #0C71C3;
+    border: 1px solid #0C71C3;
     border-radius: 0.4em;   /** Rounded corners. */
     background-color: #0C71C3;
     color:white;
@@ -321,7 +319,7 @@
 
 /** These are the various textual items. */
 .NACC-Instance.NACC-HOLI {
-    font-family: Verdana,Sans-Serif;
+    font-family: Verdana, Sans-Serif, serif;
 }
 
 /** This is the prompt above the selects. */
@@ -343,8 +341,7 @@
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
 .NACC-Instance.NACC-HOLI .NACC-Legend-div {
     border-color: #ACCACB;
-    background: none;
-    background-color: black;
+    background: black none;
     padding: 0.25em;
 }
 
@@ -365,15 +362,13 @@
 }
 
 .NACC-Instance.NACC-HOLI .NACC-Calculate-Button {
-    margin: 0.25em;
-    margin-top: -0.5em;
+    margin: -0.5em 0.25em 0.25em;
 }
 
 .NACC-Instance.NACC-HOLI .NACC-Calculate-Button,
 .NACC-Instance.NACC-HOLI .NACC-Change-Layout-Button
 {
-    border: 0;
-    border: 1 px solid #BE202D;
+    border: 1px solid #BE202D;
     border-radius: 0.4em;   /** Rounded corners. */
     background-color: #BE202D;
     color:white;
@@ -404,7 +399,7 @@
 
 /** These are the various textual items. */
 .NACC-Instance.NACC-NERNA {
-    font-family: Verdana,Sans-Serif;
+    font-family: Verdana, Sans-Serif, serif;
 }
 
 /** This is the prompt above the selects. */
@@ -425,8 +420,7 @@
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
 .NACC-Instance.NACC-NERNA .NACC-Legend {
     border-color: #ACCACB;
-    background: none;
-    background-color: #ACCACB;
+    background: #ACCACB none;
 }
 
 /** This is the show special tags checkbox. */
@@ -446,8 +440,7 @@
 .NACC-Instance.NACC-NERNA .NACC-Calculate-Button,
 .NACC-Instance.NACC-NERNA .NACC-Change-Layout-Button
 {
-    border: 0;
-    border: 1 px solid #6a73da;
+    border: 1px solid #6a73da;
     border-radius: 0.4em;   /** Rounded corners. */
     background-color: #6a73da;
     color:white;
@@ -475,7 +468,7 @@
 
 /** These are the various textual items. */
 .NACC-Instance.NACC-CRNA {
-    font-family: Verdana,Sans-Serif;
+    font-family: Verdana, Sans-Serif, serif;
 }
 
 /** This is the prompt above the selects. */
@@ -496,9 +489,8 @@
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
 .NACC-Instance.NACC-CRNA .NACC-Legend {
     border-color: #ACCACB;
-    background: none;
     font-size: small;
-    background-color: #ACCACB;
+    background: #ACCACB none;
 }
 
 /** This is the show special tags checkbox. */
@@ -518,8 +510,7 @@
 .NACC-Instance.NACC-CRNA .NACC-Calculate-Button,
 .NACC-Instance.NACC-CRNA .NACC-Change-Layout-Button
 {
-    border: 0;
-    border: 1 px solid #009;
+    border: 1px solid #009;
     border-radius: 0.4em;   /** Rounded corners. */
     background-color: #009;
     color:white;
@@ -581,14 +572,12 @@
     padding-top: 0.5em;
 }
 .NACC-Instance.NACC-SEZF .NACC-Calculate-Button {
-    margin: 0.25em;
-    margin-top: -0.5em;
+    margin: -0.5em 0.25em 0.25em;
 }
 .NACC-Instance.NACC-SEZF .NACC-Calculate-Button,
 .NACC-Instance.NACC-SEZF .NACC-Change-Layout-Button
 {
-    border: 0;
-    border: 1 px solid #BE202D;
+    border: 1px solid #BE202D;
     border-radius: 0.4em;   /** Rounded corners. */
     background-color: #072A40;
     color:white;

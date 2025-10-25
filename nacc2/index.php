@@ -36,10 +36,10 @@
         -->
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-        <meta http-equiv="Content-Style-Type" content="text/css" />
-        <meta http-equiv="Content-Script-Type" content="text/javascript" />
+        <meta http-equiv="content-type" content="text/css" />
+        <meta http-equiv="content-type" content="text/javascript" />
         <title>NACC 2</title>
-        <!-- These two includes are different from the "index.html" file. Note the "include-stripper.php?filename=". -->
+        <!-- These two include are different from the "index.html" file. Note the "include-stripper.php?filename=". -->
         <link rel="stylesheet" type="text/css" href="include-stripper.php?filename=nacc.css" />
         <script type="text/javascript" src="include-stripper.php?filename=nacc.js"></script>
     </head>
