@@ -551,7 +551,22 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
         if ( !day ) {
             year = parseInt(inDay);
         };
-    
+
+		// Try to load from localStorage if no parameters were supplied
+		if ( !year && !month && !day && typeof(Storage) !== 'undefined' ) {
+			var savedDate = localStorage.getItem('nacc_clean_date');
+			if ( savedDate ) {
+				try {
+					var dateObj = JSON.parse(savedDate);
+					year = parseInt(dateObj.year);
+					month = parseInt(dateObj.month);
+					day = parseInt(dateObj.day);
+				} catch(e) {
+					// Invalid saved data, ignore it
+				}
+			}
+		};
+
         // We have to have all 3 to do an immediate calculation.
         if ( year && month && day ) {
             // Set up the popups to reflect the given date.
@@ -773,7 +788,17 @@ NACC.prototype.calculateCleantime = function(inObject) {
     if ( inObject == owner.m_calculation_results_show_special_tags_checkbox ) {
         owner.m_keytag_special = !owner.m_keytag_special;
     };
-    
+
+	// Save the clean date to localStorage when calculate button is clicked
+	if ( inObject == owner.m_calculate_button && typeof(Storage) !== 'undefined' ) {
+		var dateToSave = {
+			year: year,
+			month: month + 1,  // Store as 1-12 for consistency
+			day: day
+		};
+		localStorage.setItem('nacc_clean_date', JSON.stringify(dateToSave));
+	};
+
     owner.calculate(year, month, day);
 };
 
