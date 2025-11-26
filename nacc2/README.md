@@ -175,6 +175,10 @@ You should have received a copy of the GNU General Public License along with the
 
 CHANGELIST
 ==========
+***Version 2.0.1* ** *-November 26, 2025*
+
+- Added localStorage support to automatically save and restore the user's clean date
+
 ***Version 2.0.0* ** *-TBD*
 
 - Initial Version
