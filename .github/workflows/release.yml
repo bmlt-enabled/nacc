@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy-nacc-release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
       contents: write
@@ -27,7 +27,7 @@ jobs:
       MAINFILE: nacc-wordpress-plugin.php
     steps:
       - name: Check out code 🛒
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build nacc zip file 🔧
         run: |
@@ -60,7 +60,7 @@ jobs:
           echo "RELEASE_TYPE=${RELEASE_TYPE}" >> $GITHUB_ENV
 
       - name: Create Release 🎉
-        uses: ncipollo/release-action@v1.14.0
+        uses: ncipollo/release-action@v1
         if: github.ref_type == 'tag'
         with:
           artifacts: ${{ env.GITHUB_RELEASE_PATH }},${{ env.GITHUB_RELEASE_PATH_JS }}

@@ -488,23 +488,39 @@ function NACC(inContainerElementID, inStyle, inLang, inTagLayout, inShowSpecialT
             };
         };
     
-        // See if an initial tag layout was specified.
-        if ( this.m_getParameters['NACC-tag-layout'] ) {
-            this.m_keytag_layout = this.m_getParameters['NACC-tag-layout'];
+    // See if an initial tag layout was specified.
+    if ( this.m_getParameters['NACC-tag-layout'] ) {
+        this.m_keytag_layout = this.m_getParameters['NACC-tag-layout'];
+    } else {
+        if ( inTagLayout ) {
+            this.m_keytag_layout = inTagLayout;
         } else {
-            if ( inTagLayout ) {
-                this.m_keytag_layout = inTagLayout;
+            // Try to load from localStorage
+            if ( typeof(Storage) !== 'undefined' ) {
+                var savedLayout = localStorage.getItem('nacc_keytag_layout');
+                this.m_keytag_layout = savedLayout ? savedLayout : 'linear';
             } else {
                 this.m_keytag_layout = 'linear';
             };
         };
-    
-        // See if we want to initially display the "specialty" tags.
-        if ( this.m_getParameters['NACC-special-tags'] ) {
+    };
+
+    // See if we want to initially display the "specialty" tags.
+    if ( this.m_getParameters['NACC-special-tags'] ) {
+        this.m_keytag_special = true;
+    } else {
+        if ( inShowSpecialTags ) {
             this.m_keytag_special = true;
         } else {
-            this.m_keytag_special = inShowSpecialTags ? true : false;
+            // Try to load from localStorage
+            if ( typeof(Storage) !== 'undefined' ) {
+                var savedSpecial = localStorage.getItem('nacc_keytag_special');
+                this.m_keytag_special = savedSpecial === 'true' ? true : false;
+            } else {
+                this.m_keytag_special = false;
+            };
         };
+    };
     
         // The first thing that we do, is reference the container element.
         this.m_my_container = document.getElementById(inContainerElementID);
@@ -782,11 +798,19 @@ NACC.prototype.calculateCleantime = function(inObject) {
     // If this was triggered by the rearrange layout button, we toggle the layout.
     if ( inObject == owner.m_calculation_results_display_toggle_button ) {
         owner.m_keytag_layout = (owner.m_keytag_layout == 'linear') ? 'tabular' : 'linear';
+        // Save the layout preference to localStorage
+        if ( typeof(Storage) !== 'undefined' ) {
+            localStorage.setItem('nacc_keytag_layout', owner.m_keytag_layout);
+        };
     };
     
     // If it was triggered by the checkbox, then we togle the special tags state.
     if ( inObject == owner.m_calculation_results_show_special_tags_checkbox ) {
         owner.m_keytag_special = !owner.m_keytag_special;
+        // Save the special tags preference to localStorage
+        if ( typeof(Storage) !== 'undefined' ) {
+            localStorage.setItem('nacc_keytag_special', owner.m_keytag_special.toString());
+        };
     };
 
 	// Save the clean date to localStorage when calculate button is clicked
