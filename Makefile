@@ -35,7 +35,7 @@ docs:  ## Generate Docs
 
 .PHONY: dev
 dev: ## Start dev compose
-	docker-compose up
+	docker compose up
 
 .PHONY: mysql
 mysql:  ## Runs mysql cli in mysql container
