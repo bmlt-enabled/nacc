@@ -1,0 +1,12 @@
+{
+  "name": "nacc2",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^8.0.8"
+  }
+}

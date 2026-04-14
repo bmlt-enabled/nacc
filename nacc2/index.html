@@ -8,7 +8,7 @@
             This is an example of an entirely browser-based NA Cleantime Calculator (NACC).
             You need to include the "nacc.js" and "nacc.css" files, as well as the "images"
             directory, into the same directory as this file.
-            
+
             NACC is free software: you can redistribute it and/or modify
             it under the terms of the GNU General Public License as published by
             the Free Software Foundation, either version 3 of the License, or
@@ -57,10 +57,10 @@
             This will be the element that will contain the NACC. It is populated by JavaScript.
             The element will have its class changed to ".NACC-Instance". If a "theme" has been
             chosen, then an additional class will be added to indicate the theme.
-            
+
             For example, for the default (gray) theme, the classname will be "NACC-Instance".
             for the BT theme (Blue and white), the class will be "NACC-Instance NACC-BT".
-            
+
             If you have already specified a class name, then that will be honored.
         -->
         <div class="nacc-controls">
@@ -73,7 +73,7 @@
                 <option value="zh-Hans">Chinese Simplified (简体中文)</option>
                 <option value="zh-Hant">Chinese Traditional (繁體中文)</option>
             </select>
-            
+
             <label for="theme-select">Theme:</label>
             <select id="theme-select" onchange="updateNACC()">
                 <option value="" selected>Default (Gray)</option>
@@ -85,11 +85,11 @@
                 <option value="NACC-SEZF">SEZF</option>
             </select>
         </div>
-        
+
         <div id="nacc-container" class="NACC-Linear"><noscript style="font-size: x-large; font-weight:bold; text-align:center">THIS WILL NOT WORK WITHOUT JAVASCRIPT ENABLED!</noscript></div>
         <!--
             This is where the JavaScript implementation is called.
-            
+
             Here are the parameters that you can use (This example only passes in the first one):
                 new NACC
                     (
@@ -106,7 +106,7 @@
         -->
         <script type="text/javascript">
             let naccInstance = null;
-            
+
             function updateNACC() {
                 const language = document.getElementById('language-select').value;
                 const theme = document.getElementById('theme-select').value;
