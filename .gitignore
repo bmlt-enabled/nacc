@@ -9,3 +9,4 @@ build/
 *.zip
 .phpdoc/
 docs/
+nacc2/node_modules/

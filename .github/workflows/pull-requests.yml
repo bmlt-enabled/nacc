@@ -12,6 +12,17 @@ jobs:
         uses: actions/checkout@v6
         id: code-checkout
 
+      - name: Setup Node.js 📦
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Build nacc2 JavaScript 🔨
+        working-directory: nacc2
+        run: |
+          npm ci
+          npm run build
+
       - name: Validate composer.json and composer.lock 🎼
         id: composer-validate
         run: composer validate
