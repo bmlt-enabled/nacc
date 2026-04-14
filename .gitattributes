@@ -8,6 +8,7 @@ docker-compose.yml export-ignore
 Dockerfile export-ignore
 Makefile export-ignore
 CONTRIBUTING.md export-ignore
+README.md export-ignore
 /.github export-ignore
 nacc2/src/ export-ignore
 nacc2/package.json export-ignore
