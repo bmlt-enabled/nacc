@@ -78,7 +78,51 @@
     display: inline-block;
     float: none;
     vertical-align: middle;
-    margin: 0 0.125em;
+    margin: 0.25em 0.125em;
+    box-sizing: border-box;
+}
+
+/** Mobile-friendly tap targets and accessibility. */
+.NACC-Instance .NACC-Date {
+    /** 16px prevents iOS Safari from auto-zooming on focus. */
+    font-size: 16px;
+    min-height: 44px;
+    padding: 0.4em 0.6em;
+    background: #fff;
+    color: #222;
+    border: 1px solid currentColor;
+    border-radius: 0.3em;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+}
+.NACC-Instance .NACC-Date::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.7;
+    margin-left: 0.4em;
+}
+.NACC-Instance .NACC-Date::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+.NACC-Instance .NACC-Calculate-Button,
+.NACC-Instance .NACC-Change-Layout-Button {
+    min-height: 44px;
+    padding: 0.5em 1em;
+}
+.NACC-Instance .NACC-Show-Special-Tags-Checkbox-Label {
+    cursor: pointer;
+    padding: 0.5em 0.25em;
+    line-height: 1.2;
+}
+.NACC-Instance .NACC-Show-Special-Tags-Checkbox {
+    cursor: pointer;
+    width: 1.1em;
+    height: 1.1em;
+    margin-top: 0.6em;
+}
+.NACC-Instance :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+    border-radius: 0.25em;
 }
 
 /** This is the main result container div. */

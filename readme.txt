@@ -32,6 +32,7 @@ That text will be replaced with this cleantime calculator.
 
 = 5.2.0 =
 
+* Replaced the three month/day/year dropdowns with a native HTML5 date picker for a friendlier mobile and desktop experience.
 * Migrated JS to ES6.
 
 = 5.1.1 =

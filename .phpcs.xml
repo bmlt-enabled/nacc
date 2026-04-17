@@ -36,6 +36,7 @@
    patterns on the command line.
     -->
     <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>node_modules/*</exclude-pattern>
 
     <!--
     You can add specific global ignores to different

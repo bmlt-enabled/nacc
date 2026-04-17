@@ -2,7 +2,7 @@ DESCRIPTION
 ===========
 The NA Cleantime Calculator (NACC) is a browser-based calculator for Narcotics Anonymous cleantime. It requires no server — just include the built `nacc.js` and `nacc.css` files.
 
-The visitor uses three dropdown menus to select a clean date and clicks "Calculate." They are shown a summary of their cleantime (total days, and years/months/days), along with the keytags they would have earned. Tags can be displayed in two layouts:
+The visitor picks a clean date with a native date input and clicks "Calculate." They are shown a summary of their cleantime (total days, and years/months/days), along with the keytags they would have earned. Tags can be displayed in two layouts:
 
 - **Linear** — tag fronts shown in a row (usually the NA logo).
 - **Tabular** — all tags side-by-side showing the rear (with text).
@@ -48,7 +48,7 @@ See `index.html` for a working example with language and theme selectors.
 
 CONSTRUCTOR PARAMETERS
 ======================
-`new NACC(containerId, style, lang, tagLayout, showSpecialTags, directoryRoot, year, month, day)`
+`new NACC(containerId, style, lang, tagLayout, showSpecialTags, directoryRoot)`
 
 1. **containerId** *(required)* — DOM ID of the container element.
 2. **style** — Theme class name (e.g. `'NACC-BT'`). Leave null/empty for default gray.
@@ -56,9 +56,8 @@ CONSTRUCTOR PARAMETERS
 4. **tagLayout** — `'linear'` (default) or `'tabular'`.
 5. **showSpecialTags** — Boolean. Show specialty long-term tags. Default `false`.
 6. **directoryRoot** — Path to the `nacc2/` directory. Leave null/empty for standard use.
-7. **year**, **month**, **day** — Initial date for an immediate calculation. All three must be provided together.
 
-Later parameters can be omitted, but intermediate ones must be passed as `null` or `''`.
+Later parameters can be omitted, but intermediate ones must be passed as `null` or `''`. To pre-fill an initial date, use the `NACC-year` / `NACC-month` / `NACC-day` URL parameters below, or set `instance.dateInput.value = 'YYYY-MM-DD'` after construction.
 
 GET PARAMETERS
 ==============
@@ -79,6 +78,13 @@ Please read the **IMPORTANT NOTE** above regarding [NA trademarks](http://na.org
 
 CHANGELIST
 ==========
+***Version 2.2.0***
+
+- Replaced the three month/day/year dropdowns with a native HTML5 date picker
+- Removed `year`, `month`, `day` constructor arguments (use URL params or set `dateInput.value` directly)
+- localStorage clean-date now stored as a `YYYY-MM-DD` string instead of a JSON object
+- Mobile-friendly tap targets, iOS auto-zoom prevention, and visible focus rings
+
 ***Version 2.1.0***
 
 - Migrated to ES6 modules, built with Vite

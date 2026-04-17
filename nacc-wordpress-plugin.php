@@ -268,9 +268,9 @@ class NACC {
 	 * @return void
 	 */
 	public function assets(): void {
-		// Enqueue plugin styles and scripts
-		wp_enqueue_style( 'nacc-css', $this->plugin_dir . 'nacc2/nacc.css', false, filemtime( plugin_dir_path( __FILE__ ) . 'nacc2/nacc.css' ), false );
-		wp_enqueue_script( 'nacc-js', $this->plugin_dir . 'nacc2/nacc.js', [], '4.0', true );
+		$plugin_path = plugin_dir_path( __FILE__ );
+		wp_enqueue_style( 'nacc-css', $this->plugin_dir . 'nacc2/nacc.css', false, filemtime( $plugin_path . 'nacc2/nacc.css' ), false );
+		wp_enqueue_script( 'nacc-js', $this->plugin_dir . 'nacc2/nacc.js', [], filemtime( $plugin_path . 'nacc2/nacc.js' ), true );
 	}
 
 	/**
