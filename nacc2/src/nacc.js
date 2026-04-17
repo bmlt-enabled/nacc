@@ -22,10 +22,7 @@ class NACC {
         lang = null,
         tagLayout = null,
         showSpecialTags = false,
-        directoryRoot = null,
-        year = null,
-        month = null,
-        day = null
+        directoryRoot = null
     ) {
         const container = document.getElementById(containerId);
         if (!container) {
@@ -65,96 +62,76 @@ class NACC {
             this.showSpecialTags = localStorage.getItem('nacc_keytag_special') === 'true';
         }
 
-        // Set up container classes
-        if (this.container.className) {
-            this.container.className += ' NACC-Instance';
-        } else {
-            this.container.className = 'NACC-Instance';
-        }
-        if (this.styleSelector) {
-            this.container.className += ' ' + this.styleSelector;
-        }
+        this.container.classList.add('NACC-Instance');
+        if (this.styleSelector) this.container.classList.add(this.styleSelector);
         this.container.innerHTML = '';
 
         // Build UI
         this.createHeader();
         this.createForm();
-        this.evaluateMonthDays();
 
-        // Check for initial date (GET params > constructor args > localStorage)
-        let initYear = parseInt(params['NACC-year']) || (year ? Number(year) : 0);
-        let initMonth = parseInt(params['NACC-month']) || (month ? Number(month) : 0);
-        let initDay = parseInt(params['NACC-day']) || (day ? Number(day) : 0);
+        // Check for initial date (GET params > localStorage)
+        const initYear = parseInt(params['NACC-year']) || 0;
+        const initMonth = parseInt(params['NACC-month']) || 0;
+        const initDay = parseInt(params['NACC-day']) || 0;
 
-        if (!initYear && !initMonth && !initDay) {
+        let initDate = '';
+        if (initYear && initMonth && initDay) {
+            initDate = NACC.formatDate(initYear, initMonth, initDay);
+        } else {
             const saved = localStorage.getItem('nacc_clean_date');
-            if (saved) {
-                try {
-                    const obj = JSON.parse(saved);
-                    initYear = parseInt(obj.year) || 0;
-                    initMonth = parseInt(obj.month) || 0;
-                    initDay = parseInt(obj.day) || 0;
-                } catch {
-                    // invalid saved data
-                }
+            if (saved && /^\d{4}-\d{2}-\d{2}$/.test(saved)) {
+                initDate = saved;
             }
         }
 
-        if (initYear && initMonth && initDay) {
-            this.monthPopup.selectedIndex = initMonth - 1;
-            for (let i = 0; i < this.yearPopup.options.length; i++) {
-                if (parseInt(this.yearPopup.options[i].value) === initYear) {
-                    this.yearPopup.selectedIndex = i;
-                    break;
-                }
-            }
-            this.dayPopup.selectedIndex = initDay - 1;
-            this.evaluateMonthDays();
+        if (initDate) {
+            this.dateInput.value = initDate;
             this.doCalculation();
         }
+    }
+
+    static formatDate(year, month, day) {
+        const mm = String(month).padStart(2, '0');
+        const dd = String(day).padStart(2, '0');
+        return `${year}-${mm}-${dd}`;
     }
 
     // ── GET Parameters ──────────────────────────────────────────────
 
     static getParameters() {
-        const search = window.location.search.substring(1);
-        if (!search) return {};
-        const params = {};
-        for (const pair of search.split('&')) {
-            const [key, val] = pair.split('=');
-            params[decodeURIComponent(key)] = decodeURIComponent(val ?? '');
-        }
-        return params;
+        return Object.fromEntries(new URLSearchParams(window.location.search));
     }
 
     // ── Calculation ─────────────────────────────────────────────────
 
     doCalculation() {
-        const year = parseInt(this.yearPopup.value);
-        const month = parseInt(this.monthPopup.value) - 1;
-        const day = parseInt(this.dayPopup.value);
-        const result = dateSpan(new Date(year, month, day));
+        const value = this.dateInput.value;
+        if (!value) {
+            this.displayCalculationResults({ totalDays: 0, years: 0, months: 0, days: 0 });
+            return;
+        }
+        const [y, m, d] = value.split('-').map((n) => parseInt(n, 10));
+        const result = dateSpan(new Date(y, m - 1, d));
         this.displayCalculationResults(result);
     }
 
-    onCalculate(source) {
-        if (source === 'layout') {
-            this.tagLayout = this.tagLayout === 'linear' ? 'tabular' : 'linear';
-            localStorage.setItem('nacc_keytag_layout', this.tagLayout);
+    onSubmit() {
+        if (this.dateInput.value) {
+            localStorage.setItem('nacc_clean_date', this.dateInput.value);
         }
+        this.doCalculation();
+    }
 
-        if (source === 'specialTags') {
-            this.showSpecialTags = !this.showSpecialTags;
-            localStorage.setItem('nacc_keytag_special', String(this.showSpecialTags));
-        }
+    onToggleLayout() {
+        this.tagLayout = this.tagLayout === 'linear' ? 'tabular' : 'linear';
+        localStorage.setItem('nacc_keytag_layout', this.tagLayout);
+        this.doCalculation();
+    }
 
-        if (source === 'button') {
-            const year = parseInt(this.yearPopup.value);
-            const month = parseInt(this.monthPopup.value);
-            const day = parseInt(this.dayPopup.value);
-            localStorage.setItem('nacc_clean_date', JSON.stringify({ year, month, day }));
-        }
-
+    onToggleSpecial() {
+        this.showSpecialTags = !this.showSpecialTags;
+        localStorage.setItem('nacc_keytag_special', String(this.showSpecialTags));
         this.doCalculation();
     }
 
@@ -221,26 +198,17 @@ class NACC {
         return '';
     }
 
-    // ── Month Days Validation ───────────────────────────────────────
-
-    evaluateMonthDays() {
-        const numDays = new Date(parseInt(this.yearPopup.value), parseInt(this.monthPopup.value), 0).getDate();
-
-        this.dayPopup.selectedIndex = Math.min(this.dayPopup.selectedIndex + 1, numDays) - 1;
-
-        for (let i = 0; i < this.dayPopup.options.length; i++) {
-            this.dayPopup.options[i].disabled = i >= numDays;
-        }
-    }
-
     // ── DOM Construction Helpers ────────────────────────────────────
 
     el(tag, className, parent) {
         const elem = document.createElement(tag);
         if (className) elem.className = className;
-        elem.id = className.replace(/\s+/g, '-') + '-' + Math.random().toString(36).substring(2, 12);
         if (parent) parent.appendChild(elem);
         return elem;
+    }
+
+    static uniqueId(prefix) {
+        return `${prefix}-${Math.random().toString(36).slice(2, 12)}`;
     }
 
     // ── Header ──────────────────────────────────────────────────────
@@ -263,57 +231,28 @@ class NACC {
 
         this.popupContainer = this.el('div', 'NACC-Popups', legendDiv);
 
-        this.createMonthPopup();
-        this.createDayPopup();
-        this.createYearPopup();
+        this.createDateInput();
         this.createCalculateButton();
         this.el('div', 'breaker', this.popupContainer);
     }
 
-    createMonthPopup() {
-        this.monthPopup = this.el('select', 'NACC-Month', this.popupContainer);
-        this.promptLabel.setAttribute('for', this.monthPopup.id);
-
-        const nowMonth = new Date().getMonth();
-        for (let i = 1; i <= 12; i++) {
-            const opt = this.el('option', 'NACC-Option', this.monthPopup);
-            opt.value = String(i);
-            opt.innerHTML = this.lang.months[i];
-        }
-        this.monthPopup.selectedIndex = nowMonth;
-        this.monthPopup.onchange = () => this.evaluateMonthDays();
-    }
-
-    createDayPopup() {
-        this.dayPopup = this.el('select', 'NACC-Day', this.popupContainer);
-
-        const nowDay = new Date().getDate();
-        for (let d = 1; d <= 31; d++) {
-            const opt = this.el('option', 'NACC-Option', this.dayPopup);
-            opt.value = String(d);
-            opt.innerHTML = String(d);
-        }
-        this.dayPopup.selectedIndex = nowDay - 1;
-    }
-
-    createYearPopup() {
-        this.yearPopup = this.el('select', 'NACC-Year', this.popupContainer);
-
-        const nowYear = new Date().getFullYear();
-        for (let y = 1953; y <= nowYear; y++) {
-            const opt = this.el('option', 'NACC-Option', this.yearPopup);
-            opt.value = String(y);
-            opt.innerHTML = String(y);
-        }
-        this.yearPopup.selectedIndex = this.yearPopup.options.length - 1;
-        this.yearPopup.onchange = () => this.evaluateMonthDays();
+    createDateInput() {
+        this.dateInput = this.el('input', 'NACC-Date', this.popupContainer);
+        this.dateInput.id = NACC.uniqueId('NACC-Date');
+        this.dateInput.type = 'date';
+        const today = new Date();
+        const todayStr = NACC.formatDate(today.getFullYear(), today.getMonth() + 1, today.getDate());
+        this.dateInput.min = '1953-01-01';
+        this.dateInput.max = todayStr;
+        this.dateInput.value = todayStr;
+        this.promptLabel.setAttribute('for', this.dateInput.id);
     }
 
     createCalculateButton() {
         this.calculateButton = this.el('input', 'NACC-Calculate-Button', this.popupContainer);
         this.calculateButton.type = 'button';
         this.calculateButton.value = this.lang.calculate_button_text;
-        this.calculateButton.onclick = () => this.onCalculate('button');
+        this.calculateButton.onclick = () => this.onSubmit();
     }
 
     // ── Results ─────────────────────────────────────────────────────
@@ -343,6 +282,7 @@ class NACC {
             const tabularClass = this.tagLayout !== 'linear' ? ' NACC-Keytag-Tabular' : '';
             this.keytagsDiv = this.el('div', 'NACC-Keytags' + tabularClass, this.resultsDiv);
             this.createTagsArray(numDays, totalMonths);
+            this.ensureLayoutToggle();
         }
     }
 
@@ -413,25 +353,22 @@ class NACC {
                 }
             }
         }
-
-        this.createLayoutToggle();
     }
 
-    createLayoutToggle() {
-        this.layoutToggleButton?.parentNode?.removeChild(this.layoutToggleButton);
-        this.specialTagsCheckbox?.parentNode?.removeChild(this.specialTagsCheckbox);
-        this.specialTagsLabel?.parentNode?.removeChild(this.specialTagsLabel);
+    ensureLayoutToggle() {
+        if (this.layoutToggleButton) return;
 
         this.layoutToggleButton = this.el('input', 'NACC-Change-Layout-Button', this.popupContainer);
         this.layoutToggleButton.type = 'button';
         this.layoutToggleButton.value = this.lang.change_layout_button_text;
-        this.layoutToggleButton.onclick = () => this.onCalculate('layout');
+        this.layoutToggleButton.onclick = () => this.onToggleLayout();
 
         this.specialTagsCheckbox = this.el('input', 'NACC-Show-Special-Tags-Checkbox', this.popupContainer);
+        this.specialTagsCheckbox.id = NACC.uniqueId('NACC-Show-Special-Tags-Checkbox');
         this.specialTagsCheckbox.type = 'checkbox';
         this.specialTagsCheckbox.checked = this.showSpecialTags;
         this.specialTagsCheckbox.value = '1';
-        this.specialTagsCheckbox.onclick = () => this.onCalculate('specialTags');
+        this.specialTagsCheckbox.onclick = () => this.onToggleSpecial();
 
         this.specialTagsLabel = this.el('label', 'NACC-Show-Special-Tags-Checkbox-Label', this.popupContainer);
         this.specialTagsLabel.setAttribute('for', this.specialTagsCheckbox.id);

@@ -69,6 +69,18 @@
     margin-left: 0.125em;
 }
 
+/** Date input and Calculate button align inline so vertical-align works. */
+.NACC-Instance .NACC-Legend-div .NACC-Popups {
+    text-align: center;
+}
+.NACC-Instance .NACC-Legend-div .NACC-Date,
+.NACC-Instance .NACC-Legend-div .NACC-Calculate-Button {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+    margin: 0 0.125em;
+}
+
 /** This is the main result container div. */
 .NACC-Instance .NACC-Results {
     padding: 0.25em;
@@ -284,10 +296,6 @@
     padding-top: 0.5em;
 }
 
-.NACC-Instance.NACC-GNYR2 .NACC-Calculate-Button {
-    margin-top: -0.25em;
-}
-
 .NACC-Instance.NACC-GNYR2 .NACC-Calculate-Button,
 .NACC-Instance.NACC-GNYR2 .NACC-Change-Layout-Button
 {
@@ -361,10 +369,6 @@
     padding-top: 0.5em;
 }
 
-.NACC-Instance.NACC-HOLI .NACC-Calculate-Button {
-    margin: -0.5em 0.25em 0.25em;
-}
-
 .NACC-Instance.NACC-HOLI .NACC-Calculate-Button,
 .NACC-Instance.NACC-HOLI .NACC-Change-Layout-Button
 {
@@ -433,10 +437,6 @@
     padding-top: 0.5em;
 }
 
-.NACC-Instance.NACC-NERNA .NACC-Calculate-Button {
-    margin-top: -0.25em;
-}
-
 .NACC-Instance.NACC-NERNA .NACC-Calculate-Button,
 .NACC-Instance.NACC-NERNA .NACC-Change-Layout-Button
 {
@@ -503,10 +503,6 @@
     padding-top: 0.5em;
 }
 
-.NACC-Instance.NACC-CRNA .NACC-Calculate-Button {
-    margin-top: 0.45em;
-}
-
 .NACC-Instance.NACC-CRNA .NACC-Calculate-Button,
 .NACC-Instance.NACC-CRNA .NACC-Change-Layout-Button
 {
@@ -570,9 +566,6 @@
 }
 .NACC-Instance.NACC-SEZF div.NACC-Popups {
     padding-top: 0.5em;
-}
-.NACC-Instance.NACC-SEZF .NACC-Calculate-Button {
-    margin: -0.5em 0.25em 0.25em;
 }
 .NACC-Instance.NACC-SEZF .NACC-Calculate-Button,
 .NACC-Instance.NACC-SEZF .NACC-Change-Layout-Button

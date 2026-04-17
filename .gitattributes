@@ -18,3 +18,4 @@ nacc2/vite.config.js export-ignore
 nacc2/LICENSE.txt export-ignore
 nacc2/README.md export-ignore
 nacc2/index.html export-ignore
+nacc2/eslint.config.js export-ignore
