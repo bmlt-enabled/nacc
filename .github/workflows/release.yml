@@ -60,6 +60,6 @@ jobs:
           PLUGIN: nacc-wordpress-plugin
           MAINFILE: nacc-wordpress-plugin.php
         run: |
-          curl -LO https://raw.githubusercontent.com/bmlt-enabled/bmlt-wordpress-deploy/master/deploy-wordpress.sh
+          curl -LO https://raw.githubusercontent.com/bmlt-enabled/bmlt-wordpress-deploy/main/deploy-wordpress.sh
           chmod +x deploy-wordpress.sh
           ./deploy-wordpress.sh
