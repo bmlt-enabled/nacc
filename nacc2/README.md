@@ -78,6 +78,10 @@ Please read the **IMPORTANT NOTE** above regarding [NA trademarks](http://na.org
 
 CHANGELIST
 ==========
+***Version 3.0.1***
+
+- Added a "Lantern" theme (`NACC-Lantern`) matching the [Lantern WordPress theme](https://github.com/bmlt-enabled/bmlt-wp-theme): warm parchment paper background, deep ink navy text, terracotta ember buttons, Fraunces display serif for the cleantime number.
+
 ***Version 2.2.0***
 
 - Replaced the three month/day/year dropdowns with a native HTML5 date picker

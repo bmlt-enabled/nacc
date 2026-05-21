@@ -33,6 +33,7 @@ Example: `[nacc theme="NACC-BT" language="es" layout="tabular" special="1"]`
 | `NACC-CRNA` | CRNA |
 | `NACC-GNYR2` | Light blue (Greater New York Region) |
 | `NACC-HOLI` | Black and red (Heart of Long Island) |
+| `NACC-Lantern` | Warm parchment + terracotta (matches the [Lantern WordPress theme](https://github.com/bmlt-enabled/bmlt-wp-theme)) |
 | `NACC-NERNA` | NERNA |
 | `NACC-SEZF` | SEZF |
 

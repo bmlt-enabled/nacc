@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugins/nacc-wordpress-plugin/
 Tags: na, cleantime calculator, nacc, recovery, addiction
 Requires PHP: 8.0
 Tested up to: 7.0
-Stable tag: 6.0.0
+Stable tag: 6.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,12 +23,16 @@ That text will be replaced with this cleantime calculator.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Add [nacc] shortcode to your WordPress page/post.
 4. You can change the plugin settings either in the the wordpress dashboard under Settings->NACC or using shortcode attributes as explained below.
-5. You can change how the plugin appears like so: `[nacc theme="NACC-BT"]`, where `theme` is currently `NACC-BT` (Dark blue and white), `NACC-GNYR2` (Light blue style customized for the Greater New York Region), or "NACC-HOLI" (Black and Red, customized for the Heart of Long Island ASC). Leave it out for default (gray).
+5. You can change how the plugin appears like so: `[nacc theme="NACC-BT"]`, where `theme` is currently `NACC-BT` (Dark blue and white), `NACC-GNYR2` (Light blue style customized for the Greater New York Region), `NACC-HOLI` (Black and Red, customized for the Heart of Long Island ASC), or `NACC-Lantern` (Warm parchment + terracotta, matches the Lantern WordPress theme). Leave it out for default (gray).
 6. You can change the language like so: `[nacc language="es"]`, where `language` is currently `en` (English -Default), `pt` (Portuguese), `es` (Spanish), `zh-Hans` (Simplified Chinese), `zh-Hant` (Traditional Chinese), or `it` (Italian).
 7. You can specify which layout (vertical or horizontal) you want the tags to appear in by default, like so: `[nacc layout="tabular"]`, where `layout` is `linear` (default, in a long line), or `tabular` (In a horizontal row).
 8. You can specify whether the "special" tags are shown, like so: `[nacc special="1"]`, where `special` is `1` for true or `0` for false.
 
 == Changelog ==
+
+= 6.0.1 =
+
+* Added a "Lantern" theme matching the Lantern WordPress theme (warm parchment paper, deep ink navy, terracotta ember accents, Fraunces display serif for the cleantime number). Selectable from Settings → NACC → Theme.
 
 = 6.0.0 =
 

@@ -6,7 +6,7 @@
  * Install:           Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "[NACC]" in the code section of a page or a post.
  * Contributors:      BMLTGuy, pjaudiomv, bmltenabled
  * Authors:           bmltenabled
- * Version:           6.0.0
+ * Version:           6.0.1
  * Requires PHP:      8.0
  * Requires at least: 5.3
  * License:           GPL v2 or later
@@ -404,6 +404,7 @@ class NACC {
 										'NACC-Instance' => 'Default',
 										'NACC-GNYR2' => 'GNYR2',
 										'NACC-HOLI' => 'HOLI',
+										'NACC-Lantern' => 'Lantern',
 										'NACC-NERNA' => 'NERNA',
 										'NACC-SEZF' => 'SEZF',
 									]
