@@ -139,7 +139,7 @@ class NACC {
 
     displayCalculationResults(r) {
         const L = this.lang;
-        let daysBlurb = '';
+        let daysBlurb;
         let mainBlurb = '';
 
         if (r.totalDays === 0) {
