@@ -27,6 +27,7 @@ That text will be replaced with this cleantime calculator.
 6. You can change the language like so: `[nacc language="es"]`, where `language` is currently `en` (English -Default), `pt` (Portuguese), `es` (Spanish), `zh-Hans` (Simplified Chinese), `zh-Hant` (Traditional Chinese), or `it` (Italian).
 7. You can specify which layout (vertical or horizontal) you want the tags to appear in by default, like so: `[nacc layout="tabular"]`, where `layout` is `linear` (default, in a long line), or `tabular` (In a horizontal row).
 8. You can specify whether the "special" tags are shown, like so: `[nacc special="1"]`, where `special` is `1` for true or `0` for false.
+9. You can control whether visitors may toggle the specialty keytags themselves, like so: `[nacc allow_special="0"]`, where `allow_special` is `1` (default) to show the visitor toggle, or `0` to hide the toggle entirely and fully disable specialty keytags (the saved visitor preference in localStorage is ignored).
 
 == Changelog ==
 
@@ -34,6 +35,7 @@ That text will be replaced with this cleantime calculator.
 
 * Fixed the "Show Special Keytags" default so that specialty (over 2 years) tags stay hidden until the setting is explicitly enabled, matching the unchecked checkbox and "Default is false." label.
 * Added a "How to Use" help section to the Settings → NACC admin page documenting the `[nacc]` shortcode, its attributes, and what each setting does.
+* Added an "Allow visitors to toggle specialty keytags" admin setting (Settings → NACC) and a matching `allow_special` shortcode attribute. When disabled, the in-widget specialty-keytags toggle is not rendered and the specialty tags are fully off (any saved visitor preference in localStorage is ignored).
 
 = 6.0.1 =
 
