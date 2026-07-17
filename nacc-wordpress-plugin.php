@@ -30,6 +30,7 @@ class NACC {
 	private const DEFAULT_LANGUAGE = 'en';
 	private const DEFAULT_LAYOUT = 'linear';
 	private const DEFAULT_SHOW_SPECIAL = false;
+	private const DEFAULT_ALLOW_SPECIAL = true;
 
 	private $plugin_dir;
 	/**
@@ -104,12 +105,14 @@ class NACC {
 			$language = ! empty( $attrs['language'] ) ? sanitize_text_field( strtolower( $attrs['language'] ) ) : sanitize_text_field( get_option( 'nacc_language', self::DEFAULT_LANGUAGE ) );
 			$layout = ! empty( $attrs['layout'] ) ? sanitize_text_field( strtolower( $attrs['layout'] ) ) : sanitize_text_field( get_option( 'nacc_layout', self::DEFAULT_LAYOUT ) );
 			$special = ! empty( $attrs['special'] ) ? sanitize_text_field( strtolower( $attrs['special'] ) ) : sanitize_text_field( get_option( 'nacc_special', self::DEFAULT_SHOW_SPECIAL ) );
+			$allow_special = isset( $attrs['allow_special'] ) ? wp_validate_boolean( $attrs['allow_special'] ) : (bool) get_option( 'nacc_allow_special', self::DEFAULT_ALLOW_SPECIAL );
 			$site_uri = plugins_url( 'nacc2', __FILE__ );
 			$shortcode_attrs = [
 				'theme' => $theme,
 				'language' => $language,
 				'layout' => $layout,
 				'special' => $special,
+				'allow_special' => $allow_special,
 				'siteURI' => $site_uri,
 			];
 			add_action(
@@ -136,12 +139,13 @@ class NACC {
 		wp_add_inline_script(
 			'nacc-js',
 			sprintf(
-				'var nacc = new NACC(\'nacc_container\', %s, %s, %s, %s, %s);',
+				'var nacc = new NACC(\'nacc_container\', %s, %s, %s, %s, %s, %s);',
 				wp_json_encode( esc_attr( $args['theme'] ) ),
 				wp_json_encode( esc_attr( $args['language'] ) ),
 				wp_json_encode( esc_attr( $args['layout'] ) ),
 				wp_json_encode( (bool) $args['special'] ),
-				wp_json_encode( esc_attr( $args['siteURI'] ) )
+				wp_json_encode( esc_attr( $args['siteURI'] ) ),
+				wp_json_encode( (bool) ( $args['allow_special'] ?? self::DEFAULT_ALLOW_SPECIAL ) )
 			)
 		);
 	}
@@ -170,6 +174,7 @@ class NACC {
 				'language' => $shortcode_obj[1] ?? self::DEFAULT_LANGUAGE,
 				'layout' => $shortcode_obj[2] ?? self::DEFAULT_LAYOUT,
 				'special' => $shortcode_obj[3] ?? self::DEFAULT_SHOW_SPECIAL,
+				'allow_special' => isset( $shortcode_obj[4] ) ? wp_validate_boolean( $shortcode_obj[4] ) : self::DEFAULT_ALLOW_SPECIAL,
 				'siteURI' => plugins_url( 'nacc2', __FILE__ ),
 			];
 
@@ -320,6 +325,15 @@ class NACC {
 				'sanitize_callback' => 'wp_validate_boolean',
 			]
 		);
+		register_setting(
+			self::SETTINGS_GROUP,
+			'nacc_allow_special',
+			[
+				'type' => 'boolean',
+				'default' => self::DEFAULT_ALLOW_SPECIAL,
+				'sanitize_callback' => 'wp_validate_boolean',
+			]
+		);
 	}
 
 	/**
@@ -372,6 +386,7 @@ class NACC {
 		// Display the plugin's settings page
 		$nacc_theme = esc_attr( get_option( 'nacc_theme' ) );
 		$nacc_special = esc_attr( get_option( 'nacc_special' ) );
+		$nacc_allow_special = (bool) get_option( 'nacc_allow_special', self::DEFAULT_ALLOW_SPECIAL );
 		$nacc_language = esc_attr( get_option( 'nacc_language' ) );
 		$nacc_layout = esc_attr( get_option( 'nacc_layout' ) );
 		$allowed_html = [
@@ -460,6 +475,13 @@ class NACC {
 						<td>
 							<input type="checkbox" name="nacc_special" value="1" <?php checked( 1, $nacc_special ); ?> />
 							<label for="nacc_special">If true, then the "specialty" (over 2 years) tags are displayed. Default is false.</label>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">Allow Visitors To Toggle Specialty Keytags</th>
+						<td>
+							<input type="checkbox" name="nacc_allow_special" value="1" <?php checked( true, $nacc_allow_special ); ?> />
+							<label for="nacc_allow_special">If checked, visitors see a checkbox that lets them show/hide the specialty keytags themselves. Uncheck to hide the toggle entirely and fully disable specialty keytags (localStorage is ignored). Default is checked.</label>
 						</td>
 					</tr>
 				</table>

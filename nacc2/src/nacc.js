@@ -22,7 +22,8 @@ class NACC {
         lang = null,
         tagLayout = null,
         showSpecialTags = false,
-        directoryRoot = null
+        directoryRoot = null,
+        allowSpecialTags = true
     ) {
         const container = document.getElementById(containerId);
         if (!container) {
@@ -56,7 +57,13 @@ class NACC {
         }
 
         // Special tags
-        if (params['NACC-special-tags'] || showSpecialTags) {
+        this.allowSpecialTags = allowSpecialTags !== false;
+        if (!this.allowSpecialTags) {
+            // Specialty keytags are fully disabled by the admin: force them off
+            // and ignore any prior visitor toggle stored in localStorage so a URL
+            // param or saved preference can't re-enable them.
+            this.showSpecialTags = false;
+        } else if (params['NACC-special-tags'] || showSpecialTags) {
             this.showSpecialTags = true;
         } else {
             this.showSpecialTags = localStorage.getItem('nacc_keytag_special') === 'true';
@@ -363,16 +370,18 @@ class NACC {
         this.layoutToggleButton.value = this.lang.change_layout_button_text;
         this.layoutToggleButton.onclick = () => this.onToggleLayout();
 
-        this.specialTagsCheckbox = this.el('input', 'NACC-Show-Special-Tags-Checkbox', this.popupContainer);
-        this.specialTagsCheckbox.id = NACC.uniqueId('NACC-Show-Special-Tags-Checkbox');
-        this.specialTagsCheckbox.type = 'checkbox';
-        this.specialTagsCheckbox.checked = this.showSpecialTags;
-        this.specialTagsCheckbox.value = '1';
-        this.specialTagsCheckbox.onclick = () => this.onToggleSpecial();
+        if (this.allowSpecialTags) {
+            this.specialTagsCheckbox = this.el('input', 'NACC-Show-Special-Tags-Checkbox', this.popupContainer);
+            this.specialTagsCheckbox.id = NACC.uniqueId('NACC-Show-Special-Tags-Checkbox');
+            this.specialTagsCheckbox.type = 'checkbox';
+            this.specialTagsCheckbox.checked = this.showSpecialTags;
+            this.specialTagsCheckbox.value = '1';
+            this.specialTagsCheckbox.onclick = () => this.onToggleSpecial();
 
-        this.specialTagsLabel = this.el('label', 'NACC-Show-Special-Tags-Checkbox-Label', this.popupContainer);
-        this.specialTagsLabel.setAttribute('for', this.specialTagsCheckbox.id);
-        this.specialTagsLabel.innerHTML = this.lang.change_use_special_tags_label;
+            this.specialTagsLabel = this.el('label', 'NACC-Show-Special-Tags-Checkbox-Label', this.popupContainer);
+            this.specialTagsLabel.setAttribute('for', this.specialTagsCheckbox.id);
+            this.specialTagsLabel.innerHTML = this.lang.change_use_special_tags_label;
+        }
 
         this.el('div', 'breaker', this.popupContainer);
     }
