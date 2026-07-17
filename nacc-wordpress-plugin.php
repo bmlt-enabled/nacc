@@ -6,7 +6,7 @@
  * Install:           Drop this directory in the "wp-content/plugins/" directory and activate it. You need to specify "[NACC]" in the code section of a page or a post.
  * Contributors:      BMLTGuy, pjaudiomv, bmltenabled
  * Authors:           bmltenabled
- * Version:           6.0.1
+ * Version:           6.0.2
  * Requires PHP:      8.0
  * Requires at least: 5.3
  * License:           GPL v2 or later
@@ -29,7 +29,7 @@ class NACC {
 	private const DEFAULT_THEME = 'NACC-Instance';
 	private const DEFAULT_LANGUAGE = 'en';
 	private const DEFAULT_LAYOUT = 'linear';
-	private const DEFAULT_SHOW_SPECIAL = 'true';
+	private const DEFAULT_SHOW_SPECIAL = false;
 
 	private $plugin_dir;
 	/**
@@ -140,7 +140,7 @@ class NACC {
 				wp_json_encode( esc_attr( $args['theme'] ) ),
 				wp_json_encode( esc_attr( $args['language'] ) ),
 				wp_json_encode( esc_attr( $args['layout'] ) ),
-				wp_json_encode( esc_attr( $args['special'] ) ),
+				wp_json_encode( (bool) $args['special'] ),
 				wp_json_encode( esc_attr( $args['siteURI'] ) )
 			)
 		);
@@ -316,6 +316,7 @@ class NACC {
 			'nacc_special',
 			[
 				'type' => 'boolean',
+				'default' => self::DEFAULT_SHOW_SPECIAL,
 				'sanitize_callback' => 'wp_validate_boolean',
 			]
 		);
