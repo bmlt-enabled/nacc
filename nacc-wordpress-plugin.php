@@ -465,6 +465,71 @@ class NACC {
 				</table>
 				<?php submit_button(); ?>
 			</form>
+
+			<hr />
+
+			<h2>How to Use</h2>
+			<p>
+				Add the <code>[nacc]</code> shortcode to any page or post to embed the cleantime
+				calculator. The settings above are the site-wide defaults used whenever the
+				shortcode is placed without attributes.
+			</p>
+
+			<h3>Shortcode Attributes</h3>
+			<p>
+				All attributes are optional. Any attribute you set on the shortcode overrides the
+				saved default above for that instance only, so you can display the calculator
+				differently on different pages.
+			</p>
+			<table class="widefat striped" style="max-width: 40em;">
+				<thead>
+					<tr>
+						<th scope="col">Attribute</th>
+						<th scope="col">Values</th>
+						<th scope="col">Default</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><code>theme</code></td>
+						<td>See the Theme dropdown above</td>
+						<td>Default (gray)</td>
+					</tr>
+					<tr>
+						<td><code>language</code></td>
+						<td>See the Language dropdown above</td>
+						<td><code>en</code></td>
+					</tr>
+					<tr>
+						<td><code>layout</code></td>
+						<td><code>linear</code>, <code>tabular</code></td>
+						<td><code>linear</code></td>
+					</tr>
+					<tr>
+						<td><code>special</code></td>
+						<td><code>1</code>, <code>0</code></td>
+						<td><code>0</code></td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				Example:
+				<code>[nacc theme="NACC-BT" language="es" layout="tabular" special="1"]</code>
+			</p>
+
+			<h3>What Each Setting Does</h3>
+			<ul class="ul-disc">
+				<li><strong>Theme</strong> &mdash; the visual style (color scheme) of the keytags.</li>
+				<li><strong>Language</strong> &mdash; the language of the keytag labels and cleantime summary.</li>
+				<li><strong>Layout</strong> &mdash; <code>linear</code> shows tag fronts in a single row; <code>tabular</code> shows the tags side-by-side with their rear text.</li>
+				<li><strong>Show Special Keytags</strong> &mdash; whether the "specialty" long-term tags (over 2 years, e.g. the Decades tag) are displayed.</li>
+			</ul>
+
+			<p>
+				For standalone (non-WordPress) usage, see the
+				<a href="<?php echo esc_url( plugins_url( 'nacc2/README.md', __FILE__ ) ); ?>">nacc2/README.md</a>
+				documentation included with this plugin.
+			</p>
 		</div>
 		<?php
 	}
