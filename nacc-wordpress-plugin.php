@@ -29,7 +29,7 @@ class NACC {
 	private const DEFAULT_THEME = 'NACC-Instance';
 	private const DEFAULT_LANGUAGE = 'en';
 	private const DEFAULT_LAYOUT = 'linear';
-	private const DEFAULT_SHOW_SPECIAL = 'true';
+	private const DEFAULT_SHOW_SPECIAL = false;
 
 	private $plugin_dir;
 	/**
@@ -140,7 +140,7 @@ class NACC {
 				wp_json_encode( esc_attr( $args['theme'] ) ),
 				wp_json_encode( esc_attr( $args['language'] ) ),
 				wp_json_encode( esc_attr( $args['layout'] ) ),
-				wp_json_encode( esc_attr( $args['special'] ) ),
+				wp_json_encode( (bool) $args['special'] ),
 				wp_json_encode( esc_attr( $args['siteURI'] ) )
 			)
 		);
@@ -316,6 +316,7 @@ class NACC {
 			'nacc_special',
 			[
 				'type' => 'boolean',
+				'default' => self::DEFAULT_SHOW_SPECIAL,
 				'sanitize_callback' => 'wp_validate_boolean',
 			]
 		);

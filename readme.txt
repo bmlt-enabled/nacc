@@ -32,6 +32,7 @@ That text will be replaced with this cleantime calculator.
 
 = 6.0.2 =
 
+* Fixed the "Show Special Keytags" default so that specialty (over 2 years) tags stay hidden until the setting is explicitly enabled, matching the unchecked checkbox and "Default is false." label.
 * Added a "How to Use" help section to the Settings → NACC admin page documenting the `[nacc]` shortcode, its attributes, and what each setting does.
 
 = 6.0.1 =
