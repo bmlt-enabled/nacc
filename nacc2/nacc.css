@@ -56,13 +56,19 @@
 }
 
 .NACC-Instance .NACC-Legend-div {
-    display: table;
-    margin: auto;
+    display: block;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .NACC-Instance .NACC-Legend {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     text-align: center;
-    margin: auto;
+    box-sizing: border-box;
 }
 
 /** These apply to the selects and the Calculate button. */
@@ -83,6 +89,24 @@
     float: none;
     vertical-align: middle;
     margin: 0.25em 0.125em;
+    box-sizing: border-box;
+}
+
+/** The date input fills the panel width so it cannot overflow on narrow
+    screens. -webkit-appearance:none is required because mobile Safari renders
+    the native <input type="date"> at a fixed intrinsic width and ignores
+    width/max-width entirely; opting out of the native control lets it honour
+    width:100% (the date picker still opens on tap). The field keeps its custom
+    look from the .NACC-Date rule below. */
+.NACC-Instance .NACC-Legend-div .NACC-Date {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     box-sizing: border-box;
 }
 
@@ -241,29 +265,27 @@
 }
 
 /** This is the main form fieldset.
-    It only wraps the legend (which holds the whole form), so it is sized to its
-    content and centered rather than stretched full-width. Stretching it left the
-    legend floating in the middle with empty bordered "boxes" on either side,
-    which was especially bad on narrow/mobile screens. The redundant border and
-    padding are dropped here — the legend panel (.NACC-Legend-div) already frames
+    It only wraps the legend (which holds the whole form). Its redundant border
+    and padding are dropped — the legend panel (.NACC-Legend-div) already frames
     the controls, and the overall .NACC-Instance provides the outer box.
-    min-width:0 lets the fieldset shrink below its intrinsic min-content on
-    narrow screens (fieldsets default to min-width:min-content). */
+    min-width:0 lets it shrink below its intrinsic min-content on narrow screens
+    (fieldsets default to min-width:min-content). The legend/legend-div fill the
+    full width (see below) rather than floating centered, which previously left
+    empty "boxes" on either side — especially on mobile Safari, where a fieldset
+    does not honour width:fit-content. */
 .NACC-Instance .NACC-Fieldset {
     border: 0;
     padding: 0;
     min-width: 0;
-    width: -moz-fit-content;
-    width: fit-content;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
     box-sizing: border-box;
 }
 
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
 .NACC-Instance .NACC-Legend-div {
-    margin: auto;
+    display: block;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
     text-align: center;
     border-radius: 0.25em;
     border: solid 1px gray;
