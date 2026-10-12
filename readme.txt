@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugins/nacc-wordpress-plugin/
 Tags: na, cleantime calculator, nacc, recovery, addiction
 Requires PHP: 8.0
 Tested up to: 7.0
-Stable tag: 6.0.2
+Stable tag: 6.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,10 @@ That text will be replaced with this cleantime calculator.
 9. You can control whether visitors may toggle the specialty keytags themselves, like so: `[nacc allow_special="0"]`, where `allow_special` is `1` (default) to show the visitor toggle, or `0` to hide the toggle entirely and fully disable specialty keytags (the saved visitor preference in localStorage is ignored).
 
 == Changelog ==
+
+= 6.0.3 =
+
+* Fixed stray "boxes" appearing beside the calculator on narrow/mobile screens.
 
 = 6.0.2 =
 

@@ -26,6 +26,10 @@
 /** This is the overall container */
 .NACC-Instance {
     width: 100%;
+    max-width: 30em;        /** Keep the widget a sensible size and centered, not full page width. */
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
 }
 
 /** This is the overall container */
@@ -236,11 +240,25 @@
     font-weight: bold;
 }
 
-/** This is the main form fieldset. */
+/** This is the main form fieldset.
+    It only wraps the legend (which holds the whole form), so it is sized to its
+    content and centered rather than stretched full-width. Stretching it left the
+    legend floating in the middle with empty bordered "boxes" on either side,
+    which was especially bad on narrow/mobile screens. The redundant border and
+    padding are dropped here — the legend panel (.NACC-Legend-div) already frames
+    the controls, and the overall .NACC-Instance provides the outer box.
+    min-width:0 lets the fieldset shrink below its intrinsic min-content on
+    narrow screens (fieldsets default to min-width:min-content). */
 .NACC-Instance .NACC-Fieldset {
-    border-radius: 0.3em;
-    border: solid 1px gray;
-    padding: 0.25em;
+    border: 0;
+    padding: 0;
+    min-width: 0;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
 }
 
 /** This is the legend for the fieldset, which contains the selects and calculate button. */
