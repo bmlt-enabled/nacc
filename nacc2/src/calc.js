@@ -45,7 +45,12 @@ export function dateSpan(fromDate, now = new Date()) {
     diff.days = now.getDate() - fromDate.getDate();
 
     if (diff.days < 0) {
-        const numDays = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1, 0).getDate();
+        // Borrow the length of the month we are borrowing *into* — the one
+        // before `now`'s month, in `now`'s year (day 0 of `now`'s month is the
+        // last day of the previous month). Using `fromDate`'s month/year here
+        // grabs the wrong length when the two months differ (e.g. a leap
+        // February), skewing the calendar breakdown by a day or two.
+        const numDays = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
         diff.months -= 1;
         diff.days += numDays;
     }
