@@ -299,8 +299,11 @@ class NACC {
         const closed = isClosed ?? !isFace;
         const className = 'NACC-Keytag' + (closed || this.tagLayout !== 'linear' ? ' NACC-Keytag-Ringtop' : '');
         const img = this.el('img', className, this.keytagsDiv);
-        const suffix = isFace ? '_Front' : '';
-        img.src = `${this.directoryRoot}images/${this.langCode}/${tagNum}${suffix}.png`;
+        // Tag fronts are identical across languages, so they live once at the images root.
+        // Tag backs carry translated text, so they stay under each language directory.
+        img.src = isFace
+            ? `${this.directoryRoot}images/${tagNum}_Front.png`
+            : `${this.directoryRoot}images/${this.langCode}/${tagNum}.png`;
         return img;
     }
 

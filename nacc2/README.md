@@ -13,7 +13,7 @@ IMPORTANT NOTE
 ==============
 The name "Narcotics Anonymous" and the stylized NA symbol (displayed on the front of the tags) are registered trademarks of [Narcotics Anonymous World Services, Inc. (NAWS)](http://na.org), and cannot be used without [permission from NAWS](https://na.org/service-material/fipt/fipt-faq/). If you are using this web app as part of a registered Service body site, then this permission is implicit.
 
-If you are not a Registered NA Service Body, replace each `XX_Front.png` file with a copy of the corresponding `XX.png` file to avoid displaying the trademarked NA symbol on tag fronts.
+The tag fronts are identical for every language, so they live once in `images/` (e.g. `images/01_Front.png`) rather than under each language directory. If you are not a Registered NA Service Body, replace each `images/XX_Front.png` file with a copy of the corresponding `images/en/XX.png` file to avoid displaying the trademarked NA symbol on tag fronts.
 
 NACC is not an official NA Service, but is designed specifically to be implemented by NA Service bodies.
 
