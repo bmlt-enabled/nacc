@@ -42,9 +42,21 @@ Example: `[nacc theme="NACC-BT" language="es" layout="tabular" special="1"]`
 | Code | Language |
 |------|----------|
 | `en` | English (default) |
+| `da` | Danish |
+| `de` | German |
+| `el` | Greek |
 | `es` | Spanish |
-| `pt` | Portuguese |
+| `fa` | Persian |
+| `fi` | Finnish |
+| `fr` | French |
+| `hi` | Hindi |
 | `it` | Italian |
+| `ja` | Japanese |
+| `ne` | Nepali |
+| `pl` | Polish |
+| `pt` | Portuguese |
+| `ru` | Russian |
+| `sv` | Swedish |
 | `zh-Hans` | Simplified Chinese |
 | `zh-Hant` | Traditional Chinese |
 
